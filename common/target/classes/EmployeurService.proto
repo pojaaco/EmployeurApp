@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "vn.elca.common";
+
+import "google/protobuf/wrappers.proto";
+
+service EmployeurService {
+  rpc search (EmployeurSearchRequest) returns (EmployeurSearchResponse);
+}
+
+message EmployeurSearchRequest {
+  Caisse caisse = 1;
+
+  google.protobuf.StringValue number = 2;
+
+  google.protobuf.StringValue name = 3;
+
+  google.protobuf.StringValue numberIDE = 4;
+
+  google.protobuf.StringValue startingDate = 5;
+
+  google.protobuf.StringValue endDate = 6;
+}
+
+message EmployeurSearchResponse {
+  repeated EmployeurProto employeurs = 1;
+}
+
+message EmployeurProto {
+  int64 id = 1;
+
+  Caisse caisse = 2;
+
+  string number = 3;
+
+  string name = 4;
+
+  string numberIDE = 5;
+
+  string startingDate = 6;
+
+  string endDate = 7;
+
+  repeated EmployeeProto employees = 8;
+}
+
+enum Caisse {
+  CAISSE_UNKNOWN = 0;
+
+  CAISSE_CANTONALE = 1;
+
+  CAISSE_PROFESSIONNELLE = 2;
+}
+
+message EmployeeProto {
+  int64 id = 1;
+
+  string numberAVS = 2;
+
+  string lastName = 3;
+
+  string firstName = 4;
+
+  string startingDate = 5;
+
+  string endDate = 6;
+
+  double amountOfAssuranceAVS = 7;
+
+  double amountOfAssuranceAC = 8;
+
+  double amountOfAssuranceAF = 9;
+
+  int64 employeurId = 10;
+}
+
