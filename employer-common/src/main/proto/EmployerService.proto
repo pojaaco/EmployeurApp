@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "vn.elca.employer.common";
+
+import "google/protobuf/wrappers.proto";
+
+service EmployerService {
+  rpc getEmployer (EmployerGetRequest) returns (EmployerGetResponse);
+
+  rpc setEmployer (EmployerSetRequest) returns (EmployerSetResponse);
+
+  rpc delEmployer (EmployerDelRequest) returns (EmployerDelResponse);
+}
+
+message EmployerGetRequest {
+  Caisse caisse = 1;
+
+  google.protobuf.StringValue number = 2;
+
+  google.protobuf.StringValue name = 3;
+
+  google.protobuf.StringValue numberIDE = 4;
+
+  google.protobuf.StringValue startingDate = 5;
+
+  google.protobuf.StringValue endDate = 6;
+}
+
+message EmployerGetResponse {
+  repeated EmployerProto employers = 1;
+}
+
+message EmployerSetRequest {
+  EmployerProto employer = 1;
+}
+
+message EmployerSetResponse {
+  bool isOK = 1;
+
+  string message = 2;
+}
+
+message EmployerDelRequest {
+  int64 id = 1;
+}
+
+message EmployerDelResponse {
+  bool isOK = 1;
+
+  string message = 2;
+}
+
+enum Caisse {
+  CAISSE_CANTONALE = 0;
+
+  CAISSE_PROFESSIONNELLE = 1;
+}
+
+message EmployerProto {
+  google.protobuf.Int64Value id = 1;
+
+  Caisse caisse = 2;
+
+  google.protobuf.StringValue number = 3;
+
+  string name = 4;
+
+  string numberIDE = 5;
+
+  string startingDate = 6;
+
+  google.protobuf.StringValue endDate = 7;
+
+  repeated EmployeeProto employees = 8;
+}
+
+message EmployeeProto {
+  google.protobuf.Int64Value id = 1;
+
+  string numberAVS = 2;
+
+  string lastName = 3;
+
+  string firstName = 4;
+
+  string startingDate = 5;
+
+  string endDate = 6;
+
+  double amountOfAssuranceAVS = 7;
+
+  double amountOfAssuranceAC = 8;
+
+  double amountOfAssuranceAF = 9;
+
+  google.protobuf.Int64Value employerId = 10;
+}
+

@@ -1,0 +1,28 @@
+package vn.elca.employer.server.model.dto;
+
+import lombok.*;
+import vn.elca.employer.common.Caisse;
+
+import java.util.Set;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class EmployerDto {
+    private Long id;
+
+    private Caisse caisse;
+
+    private String number;
+
+    private String name;
+
+    private String numberIDE;
+
+    private String startingDate;
+
+    private String endDate;
+
+    private Set<EmployeeDto> employees;
+}
