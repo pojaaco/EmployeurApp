@@ -52,16 +52,16 @@ public final class EmployerServiceGrpc {
               vn.elca.employer.common.EmployerSetResponse.getDefaultInstance()))
           .build();
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  public static final io.grpc.MethodDescriptor<vn.elca.employer.common.EmployerDelRequest,
-      vn.elca.employer.common.EmployerDelResponse> METHOD_DEL_EMPLOYER =
-      io.grpc.MethodDescriptor.<vn.elca.employer.common.EmployerDelRequest, vn.elca.employer.common.EmployerDelResponse>newBuilder()
+  public static final io.grpc.MethodDescriptor<vn.elca.employer.common.EmployerDeleteRequest,
+      vn.elca.employer.common.EmployerDeleteResponse> METHOD_DELETE_EMPLOYER =
+      io.grpc.MethodDescriptor.<vn.elca.employer.common.EmployerDeleteRequest, vn.elca.employer.common.EmployerDeleteResponse>newBuilder()
           .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
-              "EmployerService", "delEmployer"))
+              "EmployerService", "deleteEmployer"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              vn.elca.employer.common.EmployerDelRequest.getDefaultInstance()))
+              vn.elca.employer.common.EmployerDeleteRequest.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              vn.elca.employer.common.EmployerDelResponse.getDefaultInstance()))
+              vn.elca.employer.common.EmployerDeleteResponse.getDefaultInstance()))
           .build();
 
   /**
@@ -107,9 +107,9 @@ public final class EmployerServiceGrpc {
 
     /**
      */
-    public void delEmployer(vn.elca.employer.common.EmployerDelRequest request,
-        io.grpc.stub.StreamObserver<vn.elca.employer.common.EmployerDelResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(METHOD_DEL_EMPLOYER, responseObserver);
+    public void deleteEmployer(vn.elca.employer.common.EmployerDeleteRequest request,
+        io.grpc.stub.StreamObserver<vn.elca.employer.common.EmployerDeleteResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_DELETE_EMPLOYER, responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -129,12 +129,12 @@ public final class EmployerServiceGrpc {
                 vn.elca.employer.common.EmployerSetResponse>(
                   this, METHODID_SET_EMPLOYER)))
           .addMethod(
-            METHOD_DEL_EMPLOYER,
+            METHOD_DELETE_EMPLOYER,
             asyncUnaryCall(
               new MethodHandlers<
-                vn.elca.employer.common.EmployerDelRequest,
-                vn.elca.employer.common.EmployerDelResponse>(
-                  this, METHODID_DEL_EMPLOYER)))
+                vn.elca.employer.common.EmployerDeleteRequest,
+                vn.elca.employer.common.EmployerDeleteResponse>(
+                  this, METHODID_DELETE_EMPLOYER)))
           .build();
     }
   }
@@ -175,10 +175,10 @@ public final class EmployerServiceGrpc {
 
     /**
      */
-    public void delEmployer(vn.elca.employer.common.EmployerDelRequest request,
-        io.grpc.stub.StreamObserver<vn.elca.employer.common.EmployerDelResponse> responseObserver) {
+    public void deleteEmployer(vn.elca.employer.common.EmployerDeleteRequest request,
+        io.grpc.stub.StreamObserver<vn.elca.employer.common.EmployerDeleteResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(METHOD_DEL_EMPLOYER, getCallOptions()), request, responseObserver);
+          getChannel().newCall(METHOD_DELETE_EMPLOYER, getCallOptions()), request, responseObserver);
     }
   }
 
@@ -216,9 +216,9 @@ public final class EmployerServiceGrpc {
 
     /**
      */
-    public vn.elca.employer.common.EmployerDelResponse delEmployer(vn.elca.employer.common.EmployerDelRequest request) {
+    public vn.elca.employer.common.EmployerDeleteResponse deleteEmployer(vn.elca.employer.common.EmployerDeleteRequest request) {
       return blockingUnaryCall(
-          getChannel(), METHOD_DEL_EMPLOYER, getCallOptions(), request);
+          getChannel(), METHOD_DELETE_EMPLOYER, getCallOptions(), request);
     }
   }
 
@@ -258,16 +258,16 @@ public final class EmployerServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<vn.elca.employer.common.EmployerDelResponse> delEmployer(
-        vn.elca.employer.common.EmployerDelRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<vn.elca.employer.common.EmployerDeleteResponse> deleteEmployer(
+        vn.elca.employer.common.EmployerDeleteRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(METHOD_DEL_EMPLOYER, getCallOptions()), request);
+          getChannel().newCall(METHOD_DELETE_EMPLOYER, getCallOptions()), request);
     }
   }
 
   private static final int METHODID_GET_EMPLOYER = 0;
   private static final int METHODID_SET_EMPLOYER = 1;
-  private static final int METHODID_DEL_EMPLOYER = 2;
+  private static final int METHODID_DELETE_EMPLOYER = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -294,9 +294,9 @@ public final class EmployerServiceGrpc {
           serviceImpl.setEmployer((vn.elca.employer.common.EmployerSetRequest) request,
               (io.grpc.stub.StreamObserver<vn.elca.employer.common.EmployerSetResponse>) responseObserver);
           break;
-        case METHODID_DEL_EMPLOYER:
-          serviceImpl.delEmployer((vn.elca.employer.common.EmployerDelRequest) request,
-              (io.grpc.stub.StreamObserver<vn.elca.employer.common.EmployerDelResponse>) responseObserver);
+        case METHODID_DELETE_EMPLOYER:
+          serviceImpl.deleteEmployer((vn.elca.employer.common.EmployerDeleteRequest) request,
+              (io.grpc.stub.StreamObserver<vn.elca.employer.common.EmployerDeleteResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -333,7 +333,7 @@ public final class EmployerServiceGrpc {
               .setSchemaDescriptor(new EmployerServiceDescriptorSupplier())
               .addMethod(METHOD_GET_EMPLOYER)
               .addMethod(METHOD_SET_EMPLOYER)
-              .addMethod(METHOD_DEL_EMPLOYER)
+              .addMethod(METHOD_DELETE_EMPLOYER)
               .build();
         }
       }

@@ -22,11 +22,11 @@ public class QEmployee extends EntityPathBase<Employee> {
 
     public static final QEmployee employee = new QEmployee("employee");
 
-    public final NumberPath<Double> amountOfAssuranceAC = createNumber("amountOfAssuranceAC", Double.class);
+    public final NumberPath<java.math.BigDecimal> ac = createNumber("ac", java.math.BigDecimal.class);
 
-    public final NumberPath<Double> amountOfAssuranceAF = createNumber("amountOfAssuranceAF", Double.class);
+    public final NumberPath<java.math.BigDecimal> af = createNumber("af", java.math.BigDecimal.class);
 
-    public final NumberPath<Double> amountOfAssuranceAVS = createNumber("amountOfAssuranceAVS", Double.class);
+    public final NumberPath<java.math.BigDecimal> avsAiApg = createNumber("avsAiApg", java.math.BigDecimal.class);
 
     public final QEmployer employer;
 
@@ -38,9 +38,9 @@ public class QEmployee extends EntityPathBase<Employee> {
 
     public final StringPath lastName = createString("lastName");
 
-    public final StringPath numberAVS = createString("numberAVS");
+    public final StringPath numberAvs = createString("numberAvs");
 
-    public final DatePath<java.time.LocalDate> startingDate = createDate("startingDate", java.time.LocalDate.class);
+    public final DatePath<java.time.LocalDate> startDate = createDate("startDate", java.time.LocalDate.class);
 
     public QEmployee(String variable) {
         this(Employee.class, forVariable(variable), INITS);

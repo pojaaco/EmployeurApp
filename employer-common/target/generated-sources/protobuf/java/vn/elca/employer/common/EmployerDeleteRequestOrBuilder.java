@@ -3,8 +3,8 @@
 
 package vn.elca.employer.common;
 
-public interface EmployerDelRequestOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:EmployerDelRequest)
+public interface EmployerDeleteRequestOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:EmployerDeleteRequest)
     com.google.protobuf.MessageOrBuilder {
 
   /**

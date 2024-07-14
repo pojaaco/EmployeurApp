@@ -22,18 +22,18 @@ public class EmployerRepositoryCustomImpl implements EmployerRepositoryCustom {
         QEmployer qEmployer = QEmployer.employer;
         BooleanExpression predicate = qEmployer.isNotNull();
 
-        predicate = predicate.and(qEmployer.caisse.eq(criteria.getCaisse()));
+        predicate = predicate.and(qEmployer.fund.eq(criteria.getFund()));
         if (criteria.getNumber() != null) {
             predicate = predicate.and(qEmployer.number.containsIgnoreCase(criteria.getNumber()));
         }
         if (criteria.getName() != null) {
             predicate = predicate.and(qEmployer.name.containsIgnoreCase(criteria.getName()));
         }
-        if (criteria.getNumberIDE() != null) {
-            predicate = predicate.and(qEmployer.numberIDE.containsIgnoreCase(criteria.getNumberIDE()));
+        if (criteria.getNumberIde() != null) {
+            predicate = predicate.and(qEmployer.numberIde.containsIgnoreCase(criteria.getNumberIde()));
         }
-        if (criteria.getStartingDate() != null) {
-            predicate = predicate.and(qEmployer.startingDate.goe(criteria.getStartingDate()));
+        if (criteria.getStartDate() != null) {
+            predicate = predicate.and(qEmployer.startDate.goe(criteria.getStartDate()));
         }
         if (criteria.getEndDate() != null) {
             predicate = predicate.and(qEmployer.endDate.loe(criteria.getEndDate()));
@@ -45,7 +45,7 @@ public class EmployerRepositoryCustomImpl implements EmployerRepositoryCustom {
     }
 
     @Override
-    public void saveEmployer(Employer employer) {
-        em.merge(employer);
+    public Employer saveEmployer(Employer employer) {
+        return em.merge(employer);
     }
 }

@@ -125,6 +125,7 @@ public class EmployeeInfoComponent implements FXComponent {
         GridPane gridPane = new GridPane();
         configureGridPane(gridPane);
 
+        // TODO: Add date picker
         createRowToGrid(gridPane, 0, "label.number", new Label());
         createRowToGrid(gridPane, 1, "label.name", new TextField());
         createRowToGrid(gridPane, 2, "label.caisse", createCaisseComboBox());

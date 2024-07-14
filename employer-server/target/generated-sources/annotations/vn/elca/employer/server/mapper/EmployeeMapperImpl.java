@@ -1,5 +1,6 @@
 package vn.elca.employer.server.mapper;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.annotation.Generated;
@@ -11,7 +12,7 @@ import vn.elca.employer.server.model.entity.Employee;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-07-14T12:18:52+0700",
+    date = "2024-07-14T17:35:39+0700",
     comments = "version: 1.6.0.Beta1, compiler: javac, environment: Java 1.8.0_411 (Oracle Corporation)"
 )
 @Component
@@ -31,20 +32,36 @@ public class EmployeeMapperImpl extends EmployeeMapper {
 
         Employee employee = new Employee();
 
-        if ( dto.getStartingDate() != null ) {
-            employee.setStartingDate( LocalDate.parse( dto.getStartingDate(), dateTimeFormatter_dd_MM_yyyy_11900521056 ) );
+        if ( dto.getStartDate() != null ) {
+            employee.setStartDate( LocalDate.parse( dto.getStartDate(), dateTimeFormatter_dd_MM_yyyy_11900521056 ) );
         }
         if ( dto.getEndDate() != null ) {
             employee.setEndDate( LocalDate.parse( dto.getEndDate(), dateTimeFormatter_dd_MM_yyyy_11900521056 ) );
         }
-        employee.setEmployer( employerMapper.getEntityFromId( dto.getEmployerId() ) );
-        employee.setId( dto.getId() );
-        employee.setNumberAVS( dto.getNumberAVS() );
-        employee.setLastName( dto.getLastName() );
-        employee.setFirstName( dto.getFirstName() );
-        employee.setAmountOfAssuranceAVS( dto.getAmountOfAssuranceAVS() );
-        employee.setAmountOfAssuranceAC( dto.getAmountOfAssuranceAC() );
-        employee.setAmountOfAssuranceAF( dto.getAmountOfAssuranceAF() );
+        if ( dto.getEmployerId() != null ) {
+            employee.setEmployer( employerMapper.getEntityFromId( dto.getEmployerId() ) );
+        }
+        if ( dto.getId() != null ) {
+            employee.setId( dto.getId() );
+        }
+        if ( dto.getNumberAvs() != null ) {
+            employee.setNumberAvs( dto.getNumberAvs() );
+        }
+        if ( dto.getLastName() != null ) {
+            employee.setLastName( dto.getLastName() );
+        }
+        if ( dto.getFirstName() != null ) {
+            employee.setFirstName( dto.getFirstName() );
+        }
+        if ( dto.getAvsAiApg() != null ) {
+            employee.setAvsAiApg( dto.getAvsAiApg() );
+        }
+        if ( dto.getAc() != null ) {
+            employee.setAc( dto.getAc() );
+        }
+        if ( dto.getAf() != null ) {
+            employee.setAf( dto.getAf() );
+        }
 
         return employee;
     }
@@ -57,20 +74,36 @@ public class EmployeeMapperImpl extends EmployeeMapper {
 
         EmployeeDto employeeDto = new EmployeeDto();
 
-        if ( entity.getStartingDate() != null ) {
-            employeeDto.setStartingDate( dateTimeFormatter_dd_MM_yyyy_11900521056.format( entity.getStartingDate() ) );
+        if ( entity.getStartDate() != null ) {
+            employeeDto.setStartDate( dateTimeFormatter_dd_MM_yyyy_11900521056.format( entity.getStartDate() ) );
         }
         if ( entity.getEndDate() != null ) {
             employeeDto.setEndDate( dateTimeFormatter_dd_MM_yyyy_11900521056.format( entity.getEndDate() ) );
         }
-        employeeDto.setEmployerId( employerMapper.getIdFromEntity( entity.getEmployer() ) );
-        employeeDto.setId( entity.getId() );
-        employeeDto.setNumberAVS( entity.getNumberAVS() );
-        employeeDto.setLastName( entity.getLastName() );
-        employeeDto.setFirstName( entity.getFirstName() );
-        employeeDto.setAmountOfAssuranceAVS( entity.getAmountOfAssuranceAVS() );
-        employeeDto.setAmountOfAssuranceAC( entity.getAmountOfAssuranceAC() );
-        employeeDto.setAmountOfAssuranceAF( entity.getAmountOfAssuranceAF() );
+        if ( entity.getEmployer() != null ) {
+            employeeDto.setEmployerId( employerMapper.getIdFromEntity( entity.getEmployer() ) );
+        }
+        if ( entity.getId() != null ) {
+            employeeDto.setId( entity.getId() );
+        }
+        if ( entity.getNumberAvs() != null ) {
+            employeeDto.setNumberAvs( entity.getNumberAvs() );
+        }
+        if ( entity.getLastName() != null ) {
+            employeeDto.setLastName( entity.getLastName() );
+        }
+        if ( entity.getFirstName() != null ) {
+            employeeDto.setFirstName( entity.getFirstName() );
+        }
+        if ( entity.getAvsAiApg() != null ) {
+            employeeDto.setAvsAiApg( entity.getAvsAiApg() );
+        }
+        if ( entity.getAc() != null ) {
+            employeeDto.setAc( entity.getAc() );
+        }
+        if ( entity.getAf() != null ) {
+            employeeDto.setAf( entity.getAf() );
+        }
 
         return employeeDto;
     }
@@ -86,14 +119,24 @@ public class EmployeeMapperImpl extends EmployeeMapper {
         if ( proto.hasId() ) {
             employeeDto.setId( basicMapper.toLong( proto.getId() ) );
         }
-        employeeDto.setNumberAVS( proto.getNumberAVS() );
-        employeeDto.setLastName( proto.getLastName() );
-        employeeDto.setFirstName( proto.getFirstName() );
-        employeeDto.setStartingDate( proto.getStartingDate() );
-        employeeDto.setEndDate( proto.getEndDate() );
-        employeeDto.setAmountOfAssuranceAVS( proto.getAmountOfAssuranceAVS() );
-        employeeDto.setAmountOfAssuranceAC( proto.getAmountOfAssuranceAC() );
-        employeeDto.setAmountOfAssuranceAF( proto.getAmountOfAssuranceAF() );
+        if ( proto.getNumberAvs() != null ) {
+            employeeDto.setNumberAvs( proto.getNumberAvs() );
+        }
+        if ( proto.getLastName() != null ) {
+            employeeDto.setLastName( proto.getLastName() );
+        }
+        if ( proto.getFirstName() != null ) {
+            employeeDto.setFirstName( proto.getFirstName() );
+        }
+        if ( proto.getStartDate() != null ) {
+            employeeDto.setStartDate( proto.getStartDate() );
+        }
+        if ( proto.getEndDate() != null ) {
+            employeeDto.setEndDate( proto.getEndDate() );
+        }
+        employeeDto.setAvsAiApg( BigDecimal.valueOf( proto.getAvsAiApg() ) );
+        employeeDto.setAc( BigDecimal.valueOf( proto.getAc() ) );
+        employeeDto.setAf( BigDecimal.valueOf( proto.getAf() ) );
         if ( proto.hasEmployerId() ) {
             employeeDto.setEmployerId( basicMapper.toLong( proto.getEmployerId() ) );
         }
@@ -109,16 +152,36 @@ public class EmployeeMapperImpl extends EmployeeMapper {
 
         EmployeeProto.Builder employeeProto = EmployeeProto.newBuilder();
 
-        employeeProto.setId( basicMapper.toInt64( dto.getId() ) );
-        employeeProto.setNumberAVS( dto.getNumberAVS() );
-        employeeProto.setLastName( dto.getLastName() );
-        employeeProto.setFirstName( dto.getFirstName() );
-        employeeProto.setStartingDate( dto.getStartingDate() );
-        employeeProto.setEndDate( dto.getEndDate() );
-        employeeProto.setAmountOfAssuranceAVS( dto.getAmountOfAssuranceAVS() );
-        employeeProto.setAmountOfAssuranceAC( dto.getAmountOfAssuranceAC() );
-        employeeProto.setAmountOfAssuranceAF( dto.getAmountOfAssuranceAF() );
-        employeeProto.setEmployerId( basicMapper.toInt64( dto.getEmployerId() ) );
+        if ( dto.getId() != null ) {
+            employeeProto.setId( basicMapper.toInt64( dto.getId() ) );
+        }
+        if ( dto.getNumberAvs() != null ) {
+            employeeProto.setNumberAvs( dto.getNumberAvs() );
+        }
+        if ( dto.getLastName() != null ) {
+            employeeProto.setLastName( dto.getLastName() );
+        }
+        if ( dto.getFirstName() != null ) {
+            employeeProto.setFirstName( dto.getFirstName() );
+        }
+        if ( dto.getStartDate() != null ) {
+            employeeProto.setStartDate( dto.getStartDate() );
+        }
+        if ( dto.getEndDate() != null ) {
+            employeeProto.setEndDate( dto.getEndDate() );
+        }
+        if ( dto.getAvsAiApg() != null ) {
+            employeeProto.setAvsAiApg( dto.getAvsAiApg().doubleValue() );
+        }
+        if ( dto.getAc() != null ) {
+            employeeProto.setAc( dto.getAc().doubleValue() );
+        }
+        if ( dto.getAf() != null ) {
+            employeeProto.setAf( dto.getAf().doubleValue() );
+        }
+        if ( dto.getEmployerId() != null ) {
+            employeeProto.setEmployerId( basicMapper.toInt64( dto.getEmployerId() ) );
+        }
 
         return employeeProto.build();
     }

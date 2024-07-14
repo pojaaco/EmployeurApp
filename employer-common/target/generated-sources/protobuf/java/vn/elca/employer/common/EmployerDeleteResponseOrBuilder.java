@@ -3,8 +3,8 @@
 
 package vn.elca.employer.common;
 
-public interface EmployerDelResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:EmployerDelResponse)
+public interface EmployerDeleteResponseOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:EmployerDeleteResponse)
     com.google.protobuf.MessageOrBuilder {
 
   /**

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.elca.employer.server.exception.CrudException;
-import vn.elca.employer.server.model.criteria.EmployerDelCriteria;
+import vn.elca.employer.server.model.criteria.EmployerDeleteCriteria;
 import vn.elca.employer.server.model.criteria.EmployerGetCriteria;
 import vn.elca.employer.server.model.dto.EmployerDto;
 import vn.elca.employer.server.repository.EmployerRepository;
@@ -31,19 +31,19 @@ public class EmployerServiceImpl implements EmployerService {
     }
 
     @Override
-    public void saveEmployer(EmployerDto employerDto) {
+    public EmployerDto saveEmployer(EmployerDto employerDto) {
         try {
             if (employerDto.getNumber() == null) {
                 employerDto.setNumber(String.format("%06d", employerRepository.getNextSeqValue()));
             }
-            employerRepository.saveEmployer(employerMapper.toEntity(employerDto));
+            return employerMapper.toDto(employerRepository.saveEmployer(employerMapper.toEntity(employerDto)));
         } catch (Exception e) {
             throw new CrudException(e.getMessage());
         }
     }
 
     @Override
-    public void delByCriteria(EmployerDelCriteria criteria) {
+    public void deleteByCriteria(EmployerDeleteCriteria criteria) {
         try {
             employerRepository.deleteById(criteria.getId());
         } catch (Exception e) {

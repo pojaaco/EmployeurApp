@@ -15,10 +15,10 @@ public  final class EmployerProto extends
     super(builder);
   }
   private EmployerProto() {
-    caisse_ = 0;
+    fund_ = 0;
     name_ = "";
-    numberIDE_ = "";
-    startingDate_ = "";
+    numberIde_ = "";
+    startDate_ = "";
     employees_ = java.util.Collections.emptyList();
   }
 
@@ -63,7 +63,7 @@ public  final class EmployerProto extends
           case 16: {
             int rawValue = input.readEnum();
 
-            caisse_ = rawValue;
+            fund_ = rawValue;
             break;
           }
           case 26: {
@@ -88,13 +88,13 @@ public  final class EmployerProto extends
           case 42: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            numberIDE_ = s;
+            numberIde_ = s;
             break;
           }
           case 50: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            startingDate_ = s;
+            startDate_ = s;
             break;
           }
           case 58: {
@@ -167,20 +167,20 @@ public  final class EmployerProto extends
     return getId();
   }
 
-  public static final int CAISSE_FIELD_NUMBER = 2;
-  private int caisse_;
+  public static final int FUND_FIELD_NUMBER = 2;
+  private int fund_;
   /**
-   * <code>.Caisse caisse = 2;</code>
+   * <code>.Fund fund = 2;</code>
    */
-  public int getCaisseValue() {
-    return caisse_;
+  public int getFundValue() {
+    return fund_;
   }
   /**
-   * <code>.Caisse caisse = 2;</code>
+   * <code>.Fund fund = 2;</code>
    */
-  public vn.elca.employer.common.Caisse getCaisse() {
-    vn.elca.employer.common.Caisse result = vn.elca.employer.common.Caisse.valueOf(caisse_);
-    return result == null ? vn.elca.employer.common.Caisse.UNRECOGNIZED : result;
+  public vn.elca.employer.common.Fund getFund() {
+    vn.elca.employer.common.Fund result = vn.elca.employer.common.Fund.valueOf(fund_);
+    return result == null ? vn.elca.employer.common.Fund.UNRECOGNIZED : result;
   }
 
   public static final int NUMBER_FIELD_NUMBER = 3;
@@ -239,67 +239,67 @@ public  final class EmployerProto extends
   }
 
   public static final int NUMBERIDE_FIELD_NUMBER = 5;
-  private volatile java.lang.Object numberIDE_;
+  private volatile java.lang.Object numberIde_;
   /**
-   * <code>string numberIDE = 5;</code>
+   * <code>string numberIde = 5;</code>
    */
-  public java.lang.String getNumberIDE() {
-    java.lang.Object ref = numberIDE_;
+  public java.lang.String getNumberIde() {
+    java.lang.Object ref = numberIde_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      numberIDE_ = s;
+      numberIde_ = s;
       return s;
     }
   }
   /**
-   * <code>string numberIDE = 5;</code>
+   * <code>string numberIde = 5;</code>
    */
   public com.google.protobuf.ByteString
-      getNumberIDEBytes() {
-    java.lang.Object ref = numberIDE_;
+      getNumberIdeBytes() {
+    java.lang.Object ref = numberIde_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      numberIDE_ = b;
+      numberIde_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
   }
 
-  public static final int STARTINGDATE_FIELD_NUMBER = 6;
-  private volatile java.lang.Object startingDate_;
+  public static final int STARTDATE_FIELD_NUMBER = 6;
+  private volatile java.lang.Object startDate_;
   /**
-   * <code>string startingDate = 6;</code>
+   * <code>string startDate = 6;</code>
    */
-  public java.lang.String getStartingDate() {
-    java.lang.Object ref = startingDate_;
+  public java.lang.String getStartDate() {
+    java.lang.Object ref = startDate_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      startingDate_ = s;
+      startDate_ = s;
       return s;
     }
   }
   /**
-   * <code>string startingDate = 6;</code>
+   * <code>string startDate = 6;</code>
    */
   public com.google.protobuf.ByteString
-      getStartingDateBytes() {
-    java.lang.Object ref = startingDate_;
+      getStartDateBytes() {
+    java.lang.Object ref = startDate_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      startingDate_ = b;
+      startDate_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -377,8 +377,8 @@ public  final class EmployerProto extends
     if (id_ != null) {
       output.writeMessage(1, getId());
     }
-    if (caisse_ != vn.elca.employer.common.Caisse.CAISSE_CANTONALE.getNumber()) {
-      output.writeEnum(2, caisse_);
+    if (fund_ != vn.elca.employer.common.Fund.FUND_CANTONAL.getNumber()) {
+      output.writeEnum(2, fund_);
     }
     if (number_ != null) {
       output.writeMessage(3, getNumber());
@@ -386,11 +386,11 @@ public  final class EmployerProto extends
     if (!getNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, name_);
     }
-    if (!getNumberIDEBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, numberIDE_);
+    if (!getNumberIdeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, numberIde_);
     }
-    if (!getStartingDateBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, startingDate_);
+    if (!getStartDateBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, startDate_);
     }
     if (endDate_ != null) {
       output.writeMessage(7, getEndDate());
@@ -409,9 +409,9 @@ public  final class EmployerProto extends
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getId());
     }
-    if (caisse_ != vn.elca.employer.common.Caisse.CAISSE_CANTONALE.getNumber()) {
+    if (fund_ != vn.elca.employer.common.Fund.FUND_CANTONAL.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(2, caisse_);
+        .computeEnumSize(2, fund_);
     }
     if (number_ != null) {
       size += com.google.protobuf.CodedOutputStream
@@ -420,11 +420,11 @@ public  final class EmployerProto extends
     if (!getNameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, name_);
     }
-    if (!getNumberIDEBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, numberIDE_);
+    if (!getNumberIdeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, numberIde_);
     }
-    if (!getStartingDateBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, startingDate_);
+    if (!getStartDateBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, startDate_);
     }
     if (endDate_ != null) {
       size += com.google.protobuf.CodedOutputStream
@@ -455,7 +455,7 @@ public  final class EmployerProto extends
       result = result && getId()
           .equals(other.getId());
     }
-    result = result && caisse_ == other.caisse_;
+    result = result && fund_ == other.fund_;
     result = result && (hasNumber() == other.hasNumber());
     if (hasNumber()) {
       result = result && getNumber()
@@ -463,10 +463,10 @@ public  final class EmployerProto extends
     }
     result = result && getName()
         .equals(other.getName());
-    result = result && getNumberIDE()
-        .equals(other.getNumberIDE());
-    result = result && getStartingDate()
-        .equals(other.getStartingDate());
+    result = result && getNumberIde()
+        .equals(other.getNumberIde());
+    result = result && getStartDate()
+        .equals(other.getStartDate());
     result = result && (hasEndDate() == other.hasEndDate());
     if (hasEndDate()) {
       result = result && getEndDate()
@@ -488,8 +488,8 @@ public  final class EmployerProto extends
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + getId().hashCode();
     }
-    hash = (37 * hash) + CAISSE_FIELD_NUMBER;
-    hash = (53 * hash) + caisse_;
+    hash = (37 * hash) + FUND_FIELD_NUMBER;
+    hash = (53 * hash) + fund_;
     if (hasNumber()) {
       hash = (37 * hash) + NUMBER_FIELD_NUMBER;
       hash = (53 * hash) + getNumber().hashCode();
@@ -497,9 +497,9 @@ public  final class EmployerProto extends
     hash = (37 * hash) + NAME_FIELD_NUMBER;
     hash = (53 * hash) + getName().hashCode();
     hash = (37 * hash) + NUMBERIDE_FIELD_NUMBER;
-    hash = (53 * hash) + getNumberIDE().hashCode();
-    hash = (37 * hash) + STARTINGDATE_FIELD_NUMBER;
-    hash = (53 * hash) + getStartingDate().hashCode();
+    hash = (53 * hash) + getNumberIde().hashCode();
+    hash = (37 * hash) + STARTDATE_FIELD_NUMBER;
+    hash = (53 * hash) + getStartDate().hashCode();
     if (hasEndDate()) {
       hash = (37 * hash) + ENDDATE_FIELD_NUMBER;
       hash = (53 * hash) + getEndDate().hashCode();
@@ -644,7 +644,7 @@ public  final class EmployerProto extends
         id_ = null;
         idBuilder_ = null;
       }
-      caisse_ = 0;
+      fund_ = 0;
 
       if (numberBuilder_ == null) {
         number_ = null;
@@ -654,9 +654,9 @@ public  final class EmployerProto extends
       }
       name_ = "";
 
-      numberIDE_ = "";
+      numberIde_ = "";
 
-      startingDate_ = "";
+      startDate_ = "";
 
       if (endDateBuilder_ == null) {
         endDate_ = null;
@@ -699,15 +699,15 @@ public  final class EmployerProto extends
       } else {
         result.id_ = idBuilder_.build();
       }
-      result.caisse_ = caisse_;
+      result.fund_ = fund_;
       if (numberBuilder_ == null) {
         result.number_ = number_;
       } else {
         result.number_ = numberBuilder_.build();
       }
       result.name_ = name_;
-      result.numberIDE_ = numberIDE_;
-      result.startingDate_ = startingDate_;
+      result.numberIde_ = numberIde_;
+      result.startDate_ = startDate_;
       if (endDateBuilder_ == null) {
         result.endDate_ = endDate_;
       } else {
@@ -767,8 +767,8 @@ public  final class EmployerProto extends
       if (other.hasId()) {
         mergeId(other.getId());
       }
-      if (other.caisse_ != 0) {
-        setCaisseValue(other.getCaisseValue());
+      if (other.fund_ != 0) {
+        setFundValue(other.getFundValue());
       }
       if (other.hasNumber()) {
         mergeNumber(other.getNumber());
@@ -777,12 +777,12 @@ public  final class EmployerProto extends
         name_ = other.name_;
         onChanged();
       }
-      if (!other.getNumberIDE().isEmpty()) {
-        numberIDE_ = other.numberIDE_;
+      if (!other.getNumberIde().isEmpty()) {
+        numberIde_ = other.numberIde_;
         onChanged();
       }
-      if (!other.getStartingDate().isEmpty()) {
-        startingDate_ = other.startingDate_;
+      if (!other.getStartDate().isEmpty()) {
+        startDate_ = other.startDate_;
         onChanged();
       }
       if (other.hasEndDate()) {
@@ -958,46 +958,46 @@ public  final class EmployerProto extends
       return idBuilder_;
     }
 
-    private int caisse_ = 0;
+    private int fund_ = 0;
     /**
-     * <code>.Caisse caisse = 2;</code>
+     * <code>.Fund fund = 2;</code>
      */
-    public int getCaisseValue() {
-      return caisse_;
+    public int getFundValue() {
+      return fund_;
     }
     /**
-     * <code>.Caisse caisse = 2;</code>
+     * <code>.Fund fund = 2;</code>
      */
-    public Builder setCaisseValue(int value) {
-      caisse_ = value;
+    public Builder setFundValue(int value) {
+      fund_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>.Caisse caisse = 2;</code>
+     * <code>.Fund fund = 2;</code>
      */
-    public vn.elca.employer.common.Caisse getCaisse() {
-      vn.elca.employer.common.Caisse result = vn.elca.employer.common.Caisse.valueOf(caisse_);
-      return result == null ? vn.elca.employer.common.Caisse.UNRECOGNIZED : result;
+    public vn.elca.employer.common.Fund getFund() {
+      vn.elca.employer.common.Fund result = vn.elca.employer.common.Fund.valueOf(fund_);
+      return result == null ? vn.elca.employer.common.Fund.UNRECOGNIZED : result;
     }
     /**
-     * <code>.Caisse caisse = 2;</code>
+     * <code>.Fund fund = 2;</code>
      */
-    public Builder setCaisse(vn.elca.employer.common.Caisse value) {
+    public Builder setFund(vn.elca.employer.common.Fund value) {
       if (value == null) {
         throw new NullPointerException();
       }
       
-      caisse_ = value.getNumber();
+      fund_ = value.getNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>.Caisse caisse = 2;</code>
+     * <code>.Fund fund = 2;</code>
      */
-    public Builder clearCaisse() {
+    public Builder clearFund() {
       
-      caisse_ = 0;
+      fund_ = 0;
       onChanged();
       return this;
     }
@@ -1188,140 +1188,140 @@ public  final class EmployerProto extends
       return this;
     }
 
-    private java.lang.Object numberIDE_ = "";
+    private java.lang.Object numberIde_ = "";
     /**
-     * <code>string numberIDE = 5;</code>
+     * <code>string numberIde = 5;</code>
      */
-    public java.lang.String getNumberIDE() {
-      java.lang.Object ref = numberIDE_;
+    public java.lang.String getNumberIde() {
+      java.lang.Object ref = numberIde_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        numberIDE_ = s;
+        numberIde_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string numberIDE = 5;</code>
+     * <code>string numberIde = 5;</code>
      */
     public com.google.protobuf.ByteString
-        getNumberIDEBytes() {
-      java.lang.Object ref = numberIDE_;
+        getNumberIdeBytes() {
+      java.lang.Object ref = numberIde_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        numberIDE_ = b;
+        numberIde_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string numberIDE = 5;</code>
+     * <code>string numberIde = 5;</code>
      */
-    public Builder setNumberIDE(
+    public Builder setNumberIde(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      numberIDE_ = value;
+      numberIde_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string numberIDE = 5;</code>
+     * <code>string numberIde = 5;</code>
      */
-    public Builder clearNumberIDE() {
+    public Builder clearNumberIde() {
       
-      numberIDE_ = getDefaultInstance().getNumberIDE();
+      numberIde_ = getDefaultInstance().getNumberIde();
       onChanged();
       return this;
     }
     /**
-     * <code>string numberIDE = 5;</code>
+     * <code>string numberIde = 5;</code>
      */
-    public Builder setNumberIDEBytes(
+    public Builder setNumberIdeBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      numberIDE_ = value;
+      numberIde_ = value;
       onChanged();
       return this;
     }
 
-    private java.lang.Object startingDate_ = "";
+    private java.lang.Object startDate_ = "";
     /**
-     * <code>string startingDate = 6;</code>
+     * <code>string startDate = 6;</code>
      */
-    public java.lang.String getStartingDate() {
-      java.lang.Object ref = startingDate_;
+    public java.lang.String getStartDate() {
+      java.lang.Object ref = startDate_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        startingDate_ = s;
+        startDate_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string startingDate = 6;</code>
+     * <code>string startDate = 6;</code>
      */
     public com.google.protobuf.ByteString
-        getStartingDateBytes() {
-      java.lang.Object ref = startingDate_;
+        getStartDateBytes() {
+      java.lang.Object ref = startDate_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        startingDate_ = b;
+        startDate_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string startingDate = 6;</code>
+     * <code>string startDate = 6;</code>
      */
-    public Builder setStartingDate(
+    public Builder setStartDate(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      startingDate_ = value;
+      startDate_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string startingDate = 6;</code>
+     * <code>string startDate = 6;</code>
      */
-    public Builder clearStartingDate() {
+    public Builder clearStartDate() {
       
-      startingDate_ = getDefaultInstance().getStartingDate();
+      startDate_ = getDefaultInstance().getStartDate();
       onChanged();
       return this;
     }
     /**
-     * <code>string startingDate = 6;</code>
+     * <code>string startDate = 6;</code>
      */
-    public Builder setStartingDateBytes(
+    public Builder setStartDateBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      startingDate_ = value;
+      startDate_ = value;
       onChanged();
       return this;
     }

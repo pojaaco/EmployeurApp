@@ -9,10 +9,10 @@ import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import vn.elca.employer.common.EmployeeProto;
-import vn.elca.employer.common.EmployerDelRequest;
+import vn.elca.employer.common.EmployerDeleteRequest;
 import vn.elca.employer.common.EmployerGetRequest;
 import vn.elca.employer.common.EmployerProto;
-import vn.elca.employer.server.model.criteria.EmployerDelCriteria;
+import vn.elca.employer.server.model.criteria.EmployerDeleteCriteria;
 import vn.elca.employer.server.model.criteria.EmployerGetCriteria;
 import vn.elca.employer.server.model.dto.EmployeeDto;
 import vn.elca.employer.server.model.dto.EmployerDto;
@@ -21,7 +21,7 @@ import vn.elca.employer.server.model.entity.Employer;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-07-14T12:18:52+0700",
+    date = "2024-07-14T17:35:39+0700",
     comments = "version: 1.6.0.Beta1, compiler: javac, environment: Java 1.8.0_411 (Oracle Corporation)"
 )
 @Component
@@ -41,17 +41,27 @@ public class EmployerMapperImpl extends EmployerMapper {
 
         Employer employer = new Employer();
 
-        if ( dto.getStartingDate() != null ) {
-            employer.setStartingDate( LocalDate.parse( dto.getStartingDate(), dateTimeFormatter_dd_MM_yyyy_11900521056 ) );
+        if ( dto.getStartDate() != null ) {
+            employer.setStartDate( LocalDate.parse( dto.getStartDate(), dateTimeFormatter_dd_MM_yyyy_11900521056 ) );
         }
         if ( dto.getEndDate() != null ) {
             employer.setEndDate( LocalDate.parse( dto.getEndDate(), dateTimeFormatter_dd_MM_yyyy_11900521056 ) );
         }
-        employer.setId( dto.getId() );
-        employer.setCaisse( dto.getCaisse() );
-        employer.setNumber( dto.getNumber() );
-        employer.setName( dto.getName() );
-        employer.setNumberIDE( dto.getNumberIDE() );
+        if ( dto.getId() != null ) {
+            employer.setId( dto.getId() );
+        }
+        if ( dto.getFund() != null ) {
+            employer.setFund( dto.getFund() );
+        }
+        if ( dto.getNumber() != null ) {
+            employer.setNumber( dto.getNumber() );
+        }
+        if ( dto.getName() != null ) {
+            employer.setName( dto.getName() );
+        }
+        if ( dto.getNumberIde() != null ) {
+            employer.setNumberIde( dto.getNumberIde() );
+        }
         if ( dto.getEmployees() != null ) {
             for ( EmployeeDto employee : dto.getEmployees() ) {
                 employer.addEmployee( employeeMapper.toEntity( employee ) );
@@ -69,18 +79,31 @@ public class EmployerMapperImpl extends EmployerMapper {
 
         EmployerDto employerDto = new EmployerDto();
 
-        if ( entity.getStartingDate() != null ) {
-            employerDto.setStartingDate( dateTimeFormatter_dd_MM_yyyy_11900521056.format( entity.getStartingDate() ) );
+        if ( entity.getStartDate() != null ) {
+            employerDto.setStartDate( dateTimeFormatter_dd_MM_yyyy_11900521056.format( entity.getStartDate() ) );
         }
         if ( entity.getEndDate() != null ) {
             employerDto.setEndDate( dateTimeFormatter_dd_MM_yyyy_11900521056.format( entity.getEndDate() ) );
         }
-        employerDto.setId( entity.getId() );
-        employerDto.setCaisse( entity.getCaisse() );
-        employerDto.setNumber( entity.getNumber() );
-        employerDto.setName( entity.getName() );
-        employerDto.setNumberIDE( entity.getNumberIDE() );
-        employerDto.setEmployees( employeeSetToEmployeeDtoSet( entity.getEmployees() ) );
+        if ( entity.getId() != null ) {
+            employerDto.setId( entity.getId() );
+        }
+        if ( entity.getFund() != null ) {
+            employerDto.setFund( entity.getFund() );
+        }
+        if ( entity.getNumber() != null ) {
+            employerDto.setNumber( entity.getNumber() );
+        }
+        if ( entity.getName() != null ) {
+            employerDto.setName( entity.getName() );
+        }
+        if ( entity.getNumberIde() != null ) {
+            employerDto.setNumberIde( entity.getNumberIde() );
+        }
+        Set<EmployeeDto> set = employeeSetToEmployeeDtoSet( entity.getEmployees() );
+        if ( set != null ) {
+            employerDto.setEmployees( set );
+        }
 
         return employerDto;
     }
@@ -93,17 +116,28 @@ public class EmployerMapperImpl extends EmployerMapper {
 
         EmployerDto employerDto = new EmployerDto();
 
-        employerDto.setEmployees( employeeProtoListToEmployeeDtoSet( proto.getEmployeesList() ) );
+        Set<EmployeeDto> set = employeeProtoListToEmployeeDtoSet( proto.getEmployeesList() );
+        if ( set != null ) {
+            employerDto.setEmployees( set );
+        }
         if ( proto.hasId() ) {
             employerDto.setId( basicMapper.toLong( proto.getId() ) );
         }
-        employerDto.setCaisse( proto.getCaisse() );
+        if ( proto.getFund() != null ) {
+            employerDto.setFund( proto.getFund() );
+        }
         if ( proto.hasNumber() ) {
             employerDto.setNumber( basicMapper.toString( proto.getNumber() ) );
         }
-        employerDto.setName( proto.getName() );
-        employerDto.setNumberIDE( proto.getNumberIDE() );
-        employerDto.setStartingDate( proto.getStartingDate() );
+        if ( proto.getName() != null ) {
+            employerDto.setName( proto.getName() );
+        }
+        if ( proto.getNumberIde() != null ) {
+            employerDto.setNumberIde( proto.getNumberIde() );
+        }
+        if ( proto.getStartDate() != null ) {
+            employerDto.setStartDate( proto.getStartDate() );
+        }
         if ( proto.hasEndDate() ) {
             employerDto.setEndDate( basicMapper.toString( proto.getEndDate() ) );
         }
@@ -124,13 +158,27 @@ public class EmployerMapperImpl extends EmployerMapper {
                 employerProto.addEmployees( employeeMapper.toProto( employee ) );
             }
         }
-        employerProto.setId( basicMapper.toInt64( dto.getId() ) );
-        employerProto.setCaisse( dto.getCaisse() );
-        employerProto.setNumber( basicMapper.toStringValue( dto.getNumber() ) );
-        employerProto.setName( dto.getName() );
-        employerProto.setNumberIDE( dto.getNumberIDE() );
-        employerProto.setStartingDate( dto.getStartingDate() );
-        employerProto.setEndDate( basicMapper.toStringValue( dto.getEndDate() ) );
+        if ( dto.getId() != null ) {
+            employerProto.setId( basicMapper.toInt64( dto.getId() ) );
+        }
+        if ( dto.getFund() != null ) {
+            employerProto.setFund( dto.getFund() );
+        }
+        if ( dto.getNumber() != null ) {
+            employerProto.setNumber( basicMapper.toStringValue( dto.getNumber() ) );
+        }
+        if ( dto.getName() != null ) {
+            employerProto.setName( dto.getName() );
+        }
+        if ( dto.getNumberIde() != null ) {
+            employerProto.setNumberIde( dto.getNumberIde() );
+        }
+        if ( dto.getStartDate() != null ) {
+            employerProto.setStartDate( dto.getStartDate() );
+        }
+        if ( dto.getEndDate() != null ) {
+            employerProto.setEndDate( basicMapper.toStringValue( dto.getEndDate() ) );
+        }
 
         return employerProto.build();
     }
@@ -143,18 +191,20 @@ public class EmployerMapperImpl extends EmployerMapper {
 
         EmployerGetCriteria employerGetCriteria = new EmployerGetCriteria();
 
-        employerGetCriteria.setCaisse( request.getCaisse() );
+        if ( request.getFund() != null ) {
+            employerGetCriteria.setFund( request.getFund() );
+        }
         if ( request.hasNumber() ) {
             employerGetCriteria.setNumber( basicMapper.toString( request.getNumber() ) );
         }
         if ( request.hasName() ) {
             employerGetCriteria.setName( basicMapper.toString( request.getName() ) );
         }
-        if ( request.hasNumberIDE() ) {
-            employerGetCriteria.setNumberIDE( basicMapper.toString( request.getNumberIDE() ) );
+        if ( request.hasNumberIde() ) {
+            employerGetCriteria.setNumberIde( basicMapper.toString( request.getNumberIde() ) );
         }
-        if ( request.hasStartingDate() ) {
-            employerGetCriteria.setStartingDate( basicMapper.toDate( request.getStartingDate() ) );
+        if ( request.hasStartDate() ) {
+            employerGetCriteria.setStartDate( basicMapper.toDate( request.getStartDate() ) );
         }
         if ( request.hasEndDate() ) {
             employerGetCriteria.setEndDate( basicMapper.toDate( request.getEndDate() ) );
@@ -164,16 +214,16 @@ public class EmployerMapperImpl extends EmployerMapper {
     }
 
     @Override
-    public EmployerDelCriteria toCriteria(EmployerDelRequest request) {
+    public EmployerDeleteCriteria toCriteria(EmployerDeleteRequest request) {
         if ( request == null ) {
             return null;
         }
 
-        EmployerDelCriteria employerDelCriteria = new EmployerDelCriteria();
+        EmployerDeleteCriteria employerDeleteCriteria = new EmployerDeleteCriteria();
 
-        employerDelCriteria.setId( request.getId() );
+        employerDeleteCriteria.setId( request.getId() );
 
-        return employerDelCriteria;
+        return employerDeleteCriteria;
     }
 
     protected Set<EmployeeDto> employeeSetToEmployeeDtoSet(Set<Employee> set) {

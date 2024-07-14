@@ -4,17 +4,17 @@
 package vn.elca.employer.common;
 
 /**
- * Protobuf type {@code EmployerDelRequest}
+ * Protobuf type {@code EmployerDeleteRequest}
  */
-public  final class EmployerDelRequest extends
+public  final class EmployerDeleteRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:EmployerDelRequest)
-    EmployerDelRequestOrBuilder {
-  // Use EmployerDelRequest.newBuilder() to construct.
-  private EmployerDelRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // @@protoc_insertion_point(message_implements:EmployerDeleteRequest)
+    EmployerDeleteRequestOrBuilder {
+  // Use EmployerDeleteRequest.newBuilder() to construct.
+  private EmployerDeleteRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private EmployerDelRequest() {
+  private EmployerDeleteRequest() {
     id_ = 0L;
   }
 
@@ -23,7 +23,7 @@ public  final class EmployerDelRequest extends
   getUnknownFields() {
     return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
   }
-  private EmployerDelRequest(
+  private EmployerDeleteRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -61,14 +61,14 @@ public  final class EmployerDelRequest extends
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return vn.elca.employer.common.EmployerServiceOuterClass.internal_static_EmployerDelRequest_descriptor;
+    return vn.elca.employer.common.EmployerServiceOuterClass.internal_static_EmployerDeleteRequest_descriptor;
   }
 
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return vn.elca.employer.common.EmployerServiceOuterClass.internal_static_EmployerDelRequest_fieldAccessorTable
+    return vn.elca.employer.common.EmployerServiceOuterClass.internal_static_EmployerDeleteRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            vn.elca.employer.common.EmployerDelRequest.class, vn.elca.employer.common.EmployerDelRequest.Builder.class);
+            vn.elca.employer.common.EmployerDeleteRequest.class, vn.elca.employer.common.EmployerDeleteRequest.Builder.class);
   }
 
   public static final int ID_FIELD_NUMBER = 1;
@@ -116,10 +116,10 @@ public  final class EmployerDelRequest extends
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof vn.elca.employer.common.EmployerDelRequest)) {
+    if (!(obj instanceof vn.elca.employer.common.EmployerDeleteRequest)) {
       return super.equals(obj);
     }
-    vn.elca.employer.common.EmployerDelRequest other = (vn.elca.employer.common.EmployerDelRequest) obj;
+    vn.elca.employer.common.EmployerDeleteRequest other = (vn.elca.employer.common.EmployerDeleteRequest) obj;
 
     boolean result = true;
     result = result && (getId()
@@ -142,69 +142,69 @@ public  final class EmployerDelRequest extends
     return hash;
   }
 
-  public static vn.elca.employer.common.EmployerDelRequest parseFrom(
+  public static vn.elca.employer.common.EmployerDeleteRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static vn.elca.employer.common.EmployerDelRequest parseFrom(
+  public static vn.elca.employer.common.EmployerDeleteRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static vn.elca.employer.common.EmployerDelRequest parseFrom(
+  public static vn.elca.employer.common.EmployerDeleteRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static vn.elca.employer.common.EmployerDelRequest parseFrom(
+  public static vn.elca.employer.common.EmployerDeleteRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static vn.elca.employer.common.EmployerDelRequest parseFrom(byte[] data)
+  public static vn.elca.employer.common.EmployerDeleteRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static vn.elca.employer.common.EmployerDelRequest parseFrom(
+  public static vn.elca.employer.common.EmployerDeleteRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static vn.elca.employer.common.EmployerDelRequest parseFrom(java.io.InputStream input)
+  public static vn.elca.employer.common.EmployerDeleteRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static vn.elca.employer.common.EmployerDelRequest parseFrom(
+  public static vn.elca.employer.common.EmployerDeleteRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static vn.elca.employer.common.EmployerDelRequest parseDelimitedFrom(java.io.InputStream input)
+  public static vn.elca.employer.common.EmployerDeleteRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static vn.elca.employer.common.EmployerDelRequest parseDelimitedFrom(
+  public static vn.elca.employer.common.EmployerDeleteRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static vn.elca.employer.common.EmployerDelRequest parseFrom(
+  public static vn.elca.employer.common.EmployerDeleteRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static vn.elca.employer.common.EmployerDelRequest parseFrom(
+  public static vn.elca.employer.common.EmployerDeleteRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -216,7 +216,7 @@ public  final class EmployerDelRequest extends
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(vn.elca.employer.common.EmployerDelRequest prototype) {
+  public static Builder newBuilder(vn.elca.employer.common.EmployerDeleteRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -231,25 +231,25 @@ public  final class EmployerDelRequest extends
     return builder;
   }
   /**
-   * Protobuf type {@code EmployerDelRequest}
+   * Protobuf type {@code EmployerDeleteRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:EmployerDelRequest)
-      vn.elca.employer.common.EmployerDelRequestOrBuilder {
+      // @@protoc_insertion_point(builder_implements:EmployerDeleteRequest)
+      vn.elca.employer.common.EmployerDeleteRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return vn.elca.employer.common.EmployerServiceOuterClass.internal_static_EmployerDelRequest_descriptor;
+      return vn.elca.employer.common.EmployerServiceOuterClass.internal_static_EmployerDeleteRequest_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return vn.elca.employer.common.EmployerServiceOuterClass.internal_static_EmployerDelRequest_fieldAccessorTable
+      return vn.elca.employer.common.EmployerServiceOuterClass.internal_static_EmployerDeleteRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              vn.elca.employer.common.EmployerDelRequest.class, vn.elca.employer.common.EmployerDelRequest.Builder.class);
+              vn.elca.employer.common.EmployerDeleteRequest.class, vn.elca.employer.common.EmployerDeleteRequest.Builder.class);
     }
 
-    // Construct using vn.elca.employer.common.EmployerDelRequest.newBuilder()
+    // Construct using vn.elca.employer.common.EmployerDeleteRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -273,23 +273,23 @@ public  final class EmployerDelRequest extends
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return vn.elca.employer.common.EmployerServiceOuterClass.internal_static_EmployerDelRequest_descriptor;
+      return vn.elca.employer.common.EmployerServiceOuterClass.internal_static_EmployerDeleteRequest_descriptor;
     }
 
-    public vn.elca.employer.common.EmployerDelRequest getDefaultInstanceForType() {
-      return vn.elca.employer.common.EmployerDelRequest.getDefaultInstance();
+    public vn.elca.employer.common.EmployerDeleteRequest getDefaultInstanceForType() {
+      return vn.elca.employer.common.EmployerDeleteRequest.getDefaultInstance();
     }
 
-    public vn.elca.employer.common.EmployerDelRequest build() {
-      vn.elca.employer.common.EmployerDelRequest result = buildPartial();
+    public vn.elca.employer.common.EmployerDeleteRequest build() {
+      vn.elca.employer.common.EmployerDeleteRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public vn.elca.employer.common.EmployerDelRequest buildPartial() {
-      vn.elca.employer.common.EmployerDelRequest result = new vn.elca.employer.common.EmployerDelRequest(this);
+    public vn.elca.employer.common.EmployerDeleteRequest buildPartial() {
+      vn.elca.employer.common.EmployerDeleteRequest result = new vn.elca.employer.common.EmployerDeleteRequest(this);
       result.id_ = id_;
       onBuilt();
       return result;
@@ -322,16 +322,16 @@ public  final class EmployerDelRequest extends
       return (Builder) super.addRepeatedField(field, value);
     }
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof vn.elca.employer.common.EmployerDelRequest) {
-        return mergeFrom((vn.elca.employer.common.EmployerDelRequest)other);
+      if (other instanceof vn.elca.employer.common.EmployerDeleteRequest) {
+        return mergeFrom((vn.elca.employer.common.EmployerDeleteRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(vn.elca.employer.common.EmployerDelRequest other) {
-      if (other == vn.elca.employer.common.EmployerDelRequest.getDefaultInstance()) return this;
+    public Builder mergeFrom(vn.elca.employer.common.EmployerDeleteRequest other) {
+      if (other == vn.elca.employer.common.EmployerDeleteRequest.getDefaultInstance()) return this;
       if (other.getId() != 0L) {
         setId(other.getId());
       }
@@ -347,11 +347,11 @@ public  final class EmployerDelRequest extends
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      vn.elca.employer.common.EmployerDelRequest parsedMessage = null;
+      vn.elca.employer.common.EmployerDeleteRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (vn.elca.employer.common.EmployerDelRequest) e.getUnfinishedMessage();
+        parsedMessage = (vn.elca.employer.common.EmployerDeleteRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -397,39 +397,39 @@ public  final class EmployerDelRequest extends
     }
 
 
-    // @@protoc_insertion_point(builder_scope:EmployerDelRequest)
+    // @@protoc_insertion_point(builder_scope:EmployerDeleteRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:EmployerDelRequest)
-  private static final vn.elca.employer.common.EmployerDelRequest DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:EmployerDeleteRequest)
+  private static final vn.elca.employer.common.EmployerDeleteRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new vn.elca.employer.common.EmployerDelRequest();
+    DEFAULT_INSTANCE = new vn.elca.employer.common.EmployerDeleteRequest();
   }
 
-  public static vn.elca.employer.common.EmployerDelRequest getDefaultInstance() {
+  public static vn.elca.employer.common.EmployerDeleteRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<EmployerDelRequest>
-      PARSER = new com.google.protobuf.AbstractParser<EmployerDelRequest>() {
-    public EmployerDelRequest parsePartialFrom(
+  private static final com.google.protobuf.Parser<EmployerDeleteRequest>
+      PARSER = new com.google.protobuf.AbstractParser<EmployerDeleteRequest>() {
+    public EmployerDeleteRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-        return new EmployerDelRequest(input, extensionRegistry);
+        return new EmployerDeleteRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<EmployerDelRequest> parser() {
+  public static com.google.protobuf.Parser<EmployerDeleteRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<EmployerDelRequest> getParserForType() {
+  public com.google.protobuf.Parser<EmployerDeleteRequest> getParserForType() {
     return PARSER;
   }
 
-  public vn.elca.employer.common.EmployerDelRequest getDefaultInstanceForType() {
+  public vn.elca.employer.common.EmployerDeleteRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

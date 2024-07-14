@@ -4,29 +4,29 @@
 package vn.elca.employer.common;
 
 /**
- * Protobuf enum {@code Caisse}
+ * Protobuf enum {@code Fund}
  */
-public enum Caisse
+public enum Fund
     implements com.google.protobuf.ProtocolMessageEnum {
   /**
-   * <code>CAISSE_CANTONALE = 0;</code>
+   * <code>FUND_CANTONAL = 0;</code>
    */
-  CAISSE_CANTONALE(0),
+  FUND_CANTONAL(0),
   /**
-   * <code>CAISSE_PROFESSIONNELLE = 1;</code>
+   * <code>FUND_PROFESSIONAL = 1;</code>
    */
-  CAISSE_PROFESSIONNELLE(1),
+  FUND_PROFESSIONAL(1),
   UNRECOGNIZED(-1),
   ;
 
   /**
-   * <code>CAISSE_CANTONALE = 0;</code>
+   * <code>FUND_CANTONAL = 0;</code>
    */
-  public static final int CAISSE_CANTONALE_VALUE = 0;
+  public static final int FUND_CANTONAL_VALUE = 0;
   /**
-   * <code>CAISSE_PROFESSIONNELLE = 1;</code>
+   * <code>FUND_PROFESSIONAL = 1;</code>
    */
-  public static final int CAISSE_PROFESSIONNELLE_VALUE = 1;
+  public static final int FUND_PROFESSIONAL_VALUE = 1;
 
 
   public final int getNumber() {
@@ -41,27 +41,27 @@ public enum Caisse
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
-  public static Caisse valueOf(int value) {
+  public static Fund valueOf(int value) {
     return forNumber(value);
   }
 
-  public static Caisse forNumber(int value) {
+  public static Fund forNumber(int value) {
     switch (value) {
-      case 0: return CAISSE_CANTONALE;
-      case 1: return CAISSE_PROFESSIONNELLE;
+      case 0: return FUND_CANTONAL;
+      case 1: return FUND_PROFESSIONAL;
       default: return null;
     }
   }
 
-  public static com.google.protobuf.Internal.EnumLiteMap<Caisse>
+  public static com.google.protobuf.Internal.EnumLiteMap<Fund>
       internalGetValueMap() {
     return internalValueMap;
   }
   private static final com.google.protobuf.Internal.EnumLiteMap<
-      Caisse> internalValueMap =
-        new com.google.protobuf.Internal.EnumLiteMap<Caisse>() {
-          public Caisse findValueByNumber(int number) {
-            return Caisse.forNumber(number);
+      Fund> internalValueMap =
+        new com.google.protobuf.Internal.EnumLiteMap<Fund>() {
+          public Fund findValueByNumber(int number) {
+            return Fund.forNumber(number);
           }
         };
 
@@ -78,9 +78,9 @@ public enum Caisse
     return vn.elca.employer.common.EmployerServiceOuterClass.getDescriptor().getEnumTypes().get(0);
   }
 
-  private static final Caisse[] VALUES = values();
+  private static final Fund[] VALUES = values();
 
-  public static Caisse valueOf(
+  public static Fund valueOf(
       com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
     if (desc.getType() != getDescriptor()) {
       throw new java.lang.IllegalArgumentException(
@@ -94,10 +94,10 @@ public enum Caisse
 
   private final int value;
 
-  private Caisse(int value) {
+  private Fund(int value) {
     this.value = value;
   }
 
-  // @@protoc_insertion_point(enum_scope:Caisse)
+  // @@protoc_insertion_point(enum_scope:Fund)
 }
 

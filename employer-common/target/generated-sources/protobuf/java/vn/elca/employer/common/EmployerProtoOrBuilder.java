@@ -21,13 +21,13 @@ public interface EmployerProtoOrBuilder extends
   com.google.protobuf.Int64ValueOrBuilder getIdOrBuilder();
 
   /**
-   * <code>.Caisse caisse = 2;</code>
+   * <code>.Fund fund = 2;</code>
    */
-  int getCaisseValue();
+  int getFundValue();
   /**
-   * <code>.Caisse caisse = 2;</code>
+   * <code>.Fund fund = 2;</code>
    */
-  vn.elca.employer.common.Caisse getCaisse();
+  vn.elca.employer.common.Fund getFund();
 
   /**
    * <code>.google.protobuf.StringValue number = 3;</code>
@@ -53,24 +53,24 @@ public interface EmployerProtoOrBuilder extends
       getNameBytes();
 
   /**
-   * <code>string numberIDE = 5;</code>
+   * <code>string numberIde = 5;</code>
    */
-  java.lang.String getNumberIDE();
+  java.lang.String getNumberIde();
   /**
-   * <code>string numberIDE = 5;</code>
+   * <code>string numberIde = 5;</code>
    */
   com.google.protobuf.ByteString
-      getNumberIDEBytes();
+      getNumberIdeBytes();
 
   /**
-   * <code>string startingDate = 6;</code>
+   * <code>string startDate = 6;</code>
    */
-  java.lang.String getStartingDate();
+  java.lang.String getStartDate();
   /**
-   * <code>string startingDate = 6;</code>
+   * <code>string startDate = 6;</code>
    */
   com.google.protobuf.ByteString
-      getStartingDateBytes();
+      getStartDateBytes();
 
   /**
    * <code>.google.protobuf.StringValue endDate = 7;</code>

@@ -8,5 +8,5 @@ import java.util.List;
 public interface EmployerRepositoryCustom {
     List<Employer> getByCriteria(EmployerGetCriteria criteria);
 
-    void saveEmployer(Employer employer);
+    Employer saveEmployer(Employer employer);
 }

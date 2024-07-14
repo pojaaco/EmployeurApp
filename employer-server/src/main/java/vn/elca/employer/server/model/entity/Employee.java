@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -12,46 +13,47 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@ToString
 @Table(name = "Employee")
 public class Employee {
     @Id
-    @Column(name = "id")
+    @Column(name = "EmployeeID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "number_avs", length = 36)
+    @Column(name = "NumberAvs", length = 36)
     @NotNull
-    private String numberAVS;
+    private String numberAvs;
 
-    @Column(name = "last_name")
+    @Column(name = "LastName")
     @NotNull
     private String lastName;
 
-    @Column(name = "first_name")
+    @Column(name = "FirstName")
     @NotNull
     private String firstName;
 
-    @Column(name = "starting_date")
+    @Column(name = "StartDate")
     @NotNull
-    private LocalDate startingDate;
+    private LocalDate startDate;
 
-    @Column(name = "end_date")
+    @Column(name = "EndDate")
     @NotNull
     private LocalDate endDate;
 
-    @Column(name = "amount_of_assurance_avs_ai_apg")
+    @Column(name = "AvsAiApg", precision = 17, scale = 2)
     @NotNull
-    private double amountOfAssuranceAVS;
+    private BigDecimal avsAiApg;
 
-    @Column(name = "amount_of_assurance_ac")
+    @Column(name = "Ac", precision = 17, scale = 2)
     @NotNull
-    private double amountOfAssuranceAC;
+    private BigDecimal ac;
 
-    @Column(name = "amount_of_assurance_af")
+    @Column(name = "Af", precision = 17, scale = 2)
     @NotNull
-    private double amountOfAssuranceAF;
+    private BigDecimal af;
 
     @ManyToOne
-    @JoinColumn(name = "employer_id")
+    @JoinColumn(name = "EmployerID")
     private Employer employer;
 }

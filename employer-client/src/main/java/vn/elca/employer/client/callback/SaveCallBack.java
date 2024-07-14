@@ -56,10 +56,13 @@ public class SaveCallBack implements CallbackComponent {
                 employer = message.getTypedMessageBody(EmployerView.class);
             } else if (message.getSourceId().equals(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID))) {
                 employees = (List<EmployeeView>) message.getMessageBody();
+                LOGGER.debug(String.valueOf(employees.size()));
             }
 
             if (employer != null && employees != null) {
                 employees.forEach(e -> employer.getEmployees().add(e));
+                LOGGER.debug(String.valueOf(employer.getEmployees().size()));
+                LOGGER.debug(String.valueOf(employer.getId()));
                 EmployerSetRequest request = EmployerSetRequest.newBuilder()
                         .setEmployer(employerMapper.toProto(employer))
                         .build();
@@ -69,6 +72,8 @@ public class SaveCallBack implements CallbackComponent {
                 } else {
                     LOGGER.debug(response.getMessage());
                 }
+                employer = null;
+                employees = null;
             }
         }
         return null;

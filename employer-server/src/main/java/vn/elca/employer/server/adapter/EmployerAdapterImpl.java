@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import vn.elca.employer.common.*;
 import vn.elca.employer.server.exception.CrudException;
+import vn.elca.employer.server.model.dto.EmployerDto;
 import vn.elca.employer.server.service.EmployerService;
 import vn.elca.employer.server.mapper.EmployerMapper;
 
@@ -33,10 +34,11 @@ public class EmployerAdapterImpl implements EmployerAdapter {
     public EmployerSetResponse setByRequest(EmployerSetRequest request) {
         EmployerSetResponse response;
         try {
-            employerService.saveEmployer(employerMapper.toDto(request.getEmployer()));
+            EmployerDto employer = employerService.saveEmployer(employerMapper.toDto(request.getEmployer()));
             response = EmployerSetResponse.newBuilder()
                     .setIsOK(true)
                     .setMessage("OK")
+                    .setEmployer(employerMapper.toProto(employer))
                     .build();
         } catch (CrudException e) {
             response = EmployerSetResponse.newBuilder()
@@ -48,16 +50,16 @@ public class EmployerAdapterImpl implements EmployerAdapter {
     }
 
     @Override
-    public EmployerDelResponse delByRequest(EmployerDelRequest request) {
-        EmployerDelResponse response;
+    public EmployerDeleteResponse deleteByRequest(EmployerDeleteRequest request) {
+        EmployerDeleteResponse response;
         try {
-            employerService.delByCriteria(employerMapper.toCriteria(request));
-            response = EmployerDelResponse.newBuilder()
+            employerService.deleteByCriteria(employerMapper.toCriteria(request));
+            response = EmployerDeleteResponse.newBuilder()
                     .setIsOK(true)
                     .setMessage("OK")
                     .build();
         } catch (CrudException e) {
-            response = EmployerDelResponse.newBuilder()
+            response = EmployerDeleteResponse.newBuilder()
                     .setIsOK(false)
                     .setMessage(e.getMessage())
                     .build();

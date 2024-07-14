@@ -21,4 +21,17 @@ public interface EmployerSetResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getMessageBytes();
+
+  /**
+   * <code>.EmployerProto employer = 3;</code>
+   */
+  boolean hasEmployer();
+  /**
+   * <code>.EmployerProto employer = 3;</code>
+   */
+  vn.elca.employer.common.EmployerProto getEmployer();
+  /**
+   * <code>.EmployerProto employer = 3;</code>
+   */
+  vn.elca.employer.common.EmployerProtoOrBuilder getEmployerOrBuilder();
 }

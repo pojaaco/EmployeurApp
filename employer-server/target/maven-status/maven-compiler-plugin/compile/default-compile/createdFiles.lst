@@ -1,7 +1,6 @@
 vn\elca\employer\server\model\entity\Employer.class
 vn\elca\employer\server\model\dto\EmployerDto.class
 vn\elca\employer\server\EmployerServerLauncher.class
-vn\elca\employer\server\model\criteria\EmployerDelCriteria.class
 vn\elca\employer\server\adapter\EmployerAdapter.class
 vn\elca\employer\server\mapper\EmployeeMapperImpl.class
 vn\elca\employer\server\repository\EmployerRepositoryCustom.class
@@ -10,6 +9,7 @@ vn\elca\employer\server\repository\EmployeeRepository.class
 vn\elca\employer\server\model\dto\EmployeeDto.class
 vn\elca\employer\server\service\EmployerService.class
 vn\elca\employer\server\service\EmployerServiceImpl.class
+vn\elca\employer\server\model\criteria\EmployerDeleteCriteria.class
 vn\elca\employer\server\repository\EmployerRepository.class
 vn\elca\employer\server\mapper\BasicMapper.class
 vn\elca\employer\server\mapper\EmployerMapper.class

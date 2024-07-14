@@ -7,5 +7,5 @@ public interface EmployerAdapter {
 
     EmployerSetResponse setByRequest(EmployerSetRequest request);
 
-    EmployerDelResponse delByRequest(EmployerDelRequest request);
+    EmployerDeleteResponse deleteByRequest(EmployerDeleteRequest request);
 }

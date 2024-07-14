@@ -15,14 +15,14 @@ public  final class EmployeeProto extends
     super(builder);
   }
   private EmployeeProto() {
-    numberAVS_ = "";
+    numberAvs_ = "";
     lastName_ = "";
     firstName_ = "";
-    startingDate_ = "";
+    startDate_ = "";
     endDate_ = "";
-    amountOfAssuranceAVS_ = 0D;
-    amountOfAssuranceAC_ = 0D;
-    amountOfAssuranceAF_ = 0D;
+    avsAiApg_ = 0D;
+    ac_ = 0D;
+    af_ = 0D;
   }
 
   @java.lang.Override
@@ -66,7 +66,7 @@ public  final class EmployeeProto extends
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            numberAVS_ = s;
+            numberAvs_ = s;
             break;
           }
           case 26: {
@@ -84,7 +84,7 @@ public  final class EmployeeProto extends
           case 42: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            startingDate_ = s;
+            startDate_ = s;
             break;
           }
           case 50: {
@@ -95,17 +95,17 @@ public  final class EmployeeProto extends
           }
           case 57: {
 
-            amountOfAssuranceAVS_ = input.readDouble();
+            avsAiApg_ = input.readDouble();
             break;
           }
           case 65: {
 
-            amountOfAssuranceAC_ = input.readDouble();
+            ac_ = input.readDouble();
             break;
           }
           case 73: {
 
-            amountOfAssuranceAF_ = input.readDouble();
+            af_ = input.readDouble();
             break;
           }
           case 82: {
@@ -166,33 +166,33 @@ public  final class EmployeeProto extends
   }
 
   public static final int NUMBERAVS_FIELD_NUMBER = 2;
-  private volatile java.lang.Object numberAVS_;
+  private volatile java.lang.Object numberAvs_;
   /**
-   * <code>string numberAVS = 2;</code>
+   * <code>string numberAvs = 2;</code>
    */
-  public java.lang.String getNumberAVS() {
-    java.lang.Object ref = numberAVS_;
+  public java.lang.String getNumberAvs() {
+    java.lang.Object ref = numberAvs_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      numberAVS_ = s;
+      numberAvs_ = s;
       return s;
     }
   }
   /**
-   * <code>string numberAVS = 2;</code>
+   * <code>string numberAvs = 2;</code>
    */
   public com.google.protobuf.ByteString
-      getNumberAVSBytes() {
-    java.lang.Object ref = numberAVS_;
+      getNumberAvsBytes() {
+    java.lang.Object ref = numberAvs_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      numberAVS_ = b;
+      numberAvs_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -267,34 +267,34 @@ public  final class EmployeeProto extends
     }
   }
 
-  public static final int STARTINGDATE_FIELD_NUMBER = 5;
-  private volatile java.lang.Object startingDate_;
+  public static final int STARTDATE_FIELD_NUMBER = 5;
+  private volatile java.lang.Object startDate_;
   /**
-   * <code>string startingDate = 5;</code>
+   * <code>string startDate = 5;</code>
    */
-  public java.lang.String getStartingDate() {
-    java.lang.Object ref = startingDate_;
+  public java.lang.String getStartDate() {
+    java.lang.Object ref = startDate_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      startingDate_ = s;
+      startDate_ = s;
       return s;
     }
   }
   /**
-   * <code>string startingDate = 5;</code>
+   * <code>string startDate = 5;</code>
    */
   public com.google.protobuf.ByteString
-      getStartingDateBytes() {
-    java.lang.Object ref = startingDate_;
+      getStartDateBytes() {
+    java.lang.Object ref = startDate_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      startingDate_ = b;
+      startDate_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -335,31 +335,31 @@ public  final class EmployeeProto extends
     }
   }
 
-  public static final int AMOUNTOFASSURANCEAVS_FIELD_NUMBER = 7;
-  private double amountOfAssuranceAVS_;
+  public static final int AVSAIAPG_FIELD_NUMBER = 7;
+  private double avsAiApg_;
   /**
-   * <code>double amountOfAssuranceAVS = 7;</code>
+   * <code>double avsAiApg = 7;</code>
    */
-  public double getAmountOfAssuranceAVS() {
-    return amountOfAssuranceAVS_;
+  public double getAvsAiApg() {
+    return avsAiApg_;
   }
 
-  public static final int AMOUNTOFASSURANCEAC_FIELD_NUMBER = 8;
-  private double amountOfAssuranceAC_;
+  public static final int AC_FIELD_NUMBER = 8;
+  private double ac_;
   /**
-   * <code>double amountOfAssuranceAC = 8;</code>
+   * <code>double ac = 8;</code>
    */
-  public double getAmountOfAssuranceAC() {
-    return amountOfAssuranceAC_;
+  public double getAc() {
+    return ac_;
   }
 
-  public static final int AMOUNTOFASSURANCEAF_FIELD_NUMBER = 9;
-  private double amountOfAssuranceAF_;
+  public static final int AF_FIELD_NUMBER = 9;
+  private double af_;
   /**
-   * <code>double amountOfAssuranceAF = 9;</code>
+   * <code>double af = 9;</code>
    */
-  public double getAmountOfAssuranceAF() {
-    return amountOfAssuranceAF_;
+  public double getAf() {
+    return af_;
   }
 
   public static final int EMPLOYERID_FIELD_NUMBER = 10;
@@ -398,8 +398,8 @@ public  final class EmployeeProto extends
     if (id_ != null) {
       output.writeMessage(1, getId());
     }
-    if (!getNumberAVSBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, numberAVS_);
+    if (!getNumberAvsBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, numberAvs_);
     }
     if (!getLastNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, lastName_);
@@ -407,20 +407,20 @@ public  final class EmployeeProto extends
     if (!getFirstNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, firstName_);
     }
-    if (!getStartingDateBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, startingDate_);
+    if (!getStartDateBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, startDate_);
     }
     if (!getEndDateBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 6, endDate_);
     }
-    if (amountOfAssuranceAVS_ != 0D) {
-      output.writeDouble(7, amountOfAssuranceAVS_);
+    if (avsAiApg_ != 0D) {
+      output.writeDouble(7, avsAiApg_);
     }
-    if (amountOfAssuranceAC_ != 0D) {
-      output.writeDouble(8, amountOfAssuranceAC_);
+    if (ac_ != 0D) {
+      output.writeDouble(8, ac_);
     }
-    if (amountOfAssuranceAF_ != 0D) {
-      output.writeDouble(9, amountOfAssuranceAF_);
+    if (af_ != 0D) {
+      output.writeDouble(9, af_);
     }
     if (employerId_ != null) {
       output.writeMessage(10, getEmployerId());
@@ -436,8 +436,8 @@ public  final class EmployeeProto extends
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getId());
     }
-    if (!getNumberAVSBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, numberAVS_);
+    if (!getNumberAvsBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, numberAvs_);
     }
     if (!getLastNameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, lastName_);
@@ -445,23 +445,23 @@ public  final class EmployeeProto extends
     if (!getFirstNameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, firstName_);
     }
-    if (!getStartingDateBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, startingDate_);
+    if (!getStartDateBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, startDate_);
     }
     if (!getEndDateBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, endDate_);
     }
-    if (amountOfAssuranceAVS_ != 0D) {
+    if (avsAiApg_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeDoubleSize(7, amountOfAssuranceAVS_);
+        .computeDoubleSize(7, avsAiApg_);
     }
-    if (amountOfAssuranceAC_ != 0D) {
+    if (ac_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeDoubleSize(8, amountOfAssuranceAC_);
+        .computeDoubleSize(8, ac_);
     }
-    if (amountOfAssuranceAF_ != 0D) {
+    if (af_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeDoubleSize(9, amountOfAssuranceAF_);
+        .computeDoubleSize(9, af_);
     }
     if (employerId_ != null) {
       size += com.google.protobuf.CodedOutputStream
@@ -488,28 +488,28 @@ public  final class EmployeeProto extends
       result = result && getId()
           .equals(other.getId());
     }
-    result = result && getNumberAVS()
-        .equals(other.getNumberAVS());
+    result = result && getNumberAvs()
+        .equals(other.getNumberAvs());
     result = result && getLastName()
         .equals(other.getLastName());
     result = result && getFirstName()
         .equals(other.getFirstName());
-    result = result && getStartingDate()
-        .equals(other.getStartingDate());
+    result = result && getStartDate()
+        .equals(other.getStartDate());
     result = result && getEndDate()
         .equals(other.getEndDate());
     result = result && (
-        java.lang.Double.doubleToLongBits(getAmountOfAssuranceAVS())
+        java.lang.Double.doubleToLongBits(getAvsAiApg())
         == java.lang.Double.doubleToLongBits(
-            other.getAmountOfAssuranceAVS()));
+            other.getAvsAiApg()));
     result = result && (
-        java.lang.Double.doubleToLongBits(getAmountOfAssuranceAC())
+        java.lang.Double.doubleToLongBits(getAc())
         == java.lang.Double.doubleToLongBits(
-            other.getAmountOfAssuranceAC()));
+            other.getAc()));
     result = result && (
-        java.lang.Double.doubleToLongBits(getAmountOfAssuranceAF())
+        java.lang.Double.doubleToLongBits(getAf())
         == java.lang.Double.doubleToLongBits(
-            other.getAmountOfAssuranceAF()));
+            other.getAf()));
     result = result && (hasEmployerId() == other.hasEmployerId());
     if (hasEmployerId()) {
       result = result && getEmployerId()
@@ -530,24 +530,24 @@ public  final class EmployeeProto extends
       hash = (53 * hash) + getId().hashCode();
     }
     hash = (37 * hash) + NUMBERAVS_FIELD_NUMBER;
-    hash = (53 * hash) + getNumberAVS().hashCode();
+    hash = (53 * hash) + getNumberAvs().hashCode();
     hash = (37 * hash) + LASTNAME_FIELD_NUMBER;
     hash = (53 * hash) + getLastName().hashCode();
     hash = (37 * hash) + FIRSTNAME_FIELD_NUMBER;
     hash = (53 * hash) + getFirstName().hashCode();
-    hash = (37 * hash) + STARTINGDATE_FIELD_NUMBER;
-    hash = (53 * hash) + getStartingDate().hashCode();
+    hash = (37 * hash) + STARTDATE_FIELD_NUMBER;
+    hash = (53 * hash) + getStartDate().hashCode();
     hash = (37 * hash) + ENDDATE_FIELD_NUMBER;
     hash = (53 * hash) + getEndDate().hashCode();
-    hash = (37 * hash) + AMOUNTOFASSURANCEAVS_FIELD_NUMBER;
+    hash = (37 * hash) + AVSAIAPG_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        java.lang.Double.doubleToLongBits(getAmountOfAssuranceAVS()));
-    hash = (37 * hash) + AMOUNTOFASSURANCEAC_FIELD_NUMBER;
+        java.lang.Double.doubleToLongBits(getAvsAiApg()));
+    hash = (37 * hash) + AC_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        java.lang.Double.doubleToLongBits(getAmountOfAssuranceAC()));
-    hash = (37 * hash) + AMOUNTOFASSURANCEAF_FIELD_NUMBER;
+        java.lang.Double.doubleToLongBits(getAc()));
+    hash = (37 * hash) + AF_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        java.lang.Double.doubleToLongBits(getAmountOfAssuranceAF()));
+        java.lang.Double.doubleToLongBits(getAf()));
     if (hasEmployerId()) {
       hash = (37 * hash) + EMPLOYERID_FIELD_NUMBER;
       hash = (53 * hash) + getEmployerId().hashCode();
@@ -687,21 +687,21 @@ public  final class EmployeeProto extends
         id_ = null;
         idBuilder_ = null;
       }
-      numberAVS_ = "";
+      numberAvs_ = "";
 
       lastName_ = "";
 
       firstName_ = "";
 
-      startingDate_ = "";
+      startDate_ = "";
 
       endDate_ = "";
 
-      amountOfAssuranceAVS_ = 0D;
+      avsAiApg_ = 0D;
 
-      amountOfAssuranceAC_ = 0D;
+      ac_ = 0D;
 
-      amountOfAssuranceAF_ = 0D;
+      af_ = 0D;
 
       if (employerIdBuilder_ == null) {
         employerId_ = null;
@@ -736,14 +736,14 @@ public  final class EmployeeProto extends
       } else {
         result.id_ = idBuilder_.build();
       }
-      result.numberAVS_ = numberAVS_;
+      result.numberAvs_ = numberAvs_;
       result.lastName_ = lastName_;
       result.firstName_ = firstName_;
-      result.startingDate_ = startingDate_;
+      result.startDate_ = startDate_;
       result.endDate_ = endDate_;
-      result.amountOfAssuranceAVS_ = amountOfAssuranceAVS_;
-      result.amountOfAssuranceAC_ = amountOfAssuranceAC_;
-      result.amountOfAssuranceAF_ = amountOfAssuranceAF_;
+      result.avsAiApg_ = avsAiApg_;
+      result.ac_ = ac_;
+      result.af_ = af_;
       if (employerIdBuilder_ == null) {
         result.employerId_ = employerId_;
       } else {
@@ -793,8 +793,8 @@ public  final class EmployeeProto extends
       if (other.hasId()) {
         mergeId(other.getId());
       }
-      if (!other.getNumberAVS().isEmpty()) {
-        numberAVS_ = other.numberAVS_;
+      if (!other.getNumberAvs().isEmpty()) {
+        numberAvs_ = other.numberAvs_;
         onChanged();
       }
       if (!other.getLastName().isEmpty()) {
@@ -805,22 +805,22 @@ public  final class EmployeeProto extends
         firstName_ = other.firstName_;
         onChanged();
       }
-      if (!other.getStartingDate().isEmpty()) {
-        startingDate_ = other.startingDate_;
+      if (!other.getStartDate().isEmpty()) {
+        startDate_ = other.startDate_;
         onChanged();
       }
       if (!other.getEndDate().isEmpty()) {
         endDate_ = other.endDate_;
         onChanged();
       }
-      if (other.getAmountOfAssuranceAVS() != 0D) {
-        setAmountOfAssuranceAVS(other.getAmountOfAssuranceAVS());
+      if (other.getAvsAiApg() != 0D) {
+        setAvsAiApg(other.getAvsAiApg());
       }
-      if (other.getAmountOfAssuranceAC() != 0D) {
-        setAmountOfAssuranceAC(other.getAmountOfAssuranceAC());
+      if (other.getAc() != 0D) {
+        setAc(other.getAc());
       }
-      if (other.getAmountOfAssuranceAF() != 0D) {
-        setAmountOfAssuranceAF(other.getAmountOfAssuranceAF());
+      if (other.getAf() != 0D) {
+        setAf(other.getAf());
       }
       if (other.hasEmployerId()) {
         mergeEmployerId(other.getEmployerId());
@@ -968,71 +968,71 @@ public  final class EmployeeProto extends
       return idBuilder_;
     }
 
-    private java.lang.Object numberAVS_ = "";
+    private java.lang.Object numberAvs_ = "";
     /**
-     * <code>string numberAVS = 2;</code>
+     * <code>string numberAvs = 2;</code>
      */
-    public java.lang.String getNumberAVS() {
-      java.lang.Object ref = numberAVS_;
+    public java.lang.String getNumberAvs() {
+      java.lang.Object ref = numberAvs_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        numberAVS_ = s;
+        numberAvs_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string numberAVS = 2;</code>
+     * <code>string numberAvs = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getNumberAVSBytes() {
-      java.lang.Object ref = numberAVS_;
+        getNumberAvsBytes() {
+      java.lang.Object ref = numberAvs_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        numberAVS_ = b;
+        numberAvs_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string numberAVS = 2;</code>
+     * <code>string numberAvs = 2;</code>
      */
-    public Builder setNumberAVS(
+    public Builder setNumberAvs(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      numberAVS_ = value;
+      numberAvs_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string numberAVS = 2;</code>
+     * <code>string numberAvs = 2;</code>
      */
-    public Builder clearNumberAVS() {
+    public Builder clearNumberAvs() {
       
-      numberAVS_ = getDefaultInstance().getNumberAVS();
+      numberAvs_ = getDefaultInstance().getNumberAvs();
       onChanged();
       return this;
     }
     /**
-     * <code>string numberAVS = 2;</code>
+     * <code>string numberAvs = 2;</code>
      */
-    public Builder setNumberAVSBytes(
+    public Builder setNumberAvsBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      numberAVS_ = value;
+      numberAvs_ = value;
       onChanged();
       return this;
     }
@@ -1175,71 +1175,71 @@ public  final class EmployeeProto extends
       return this;
     }
 
-    private java.lang.Object startingDate_ = "";
+    private java.lang.Object startDate_ = "";
     /**
-     * <code>string startingDate = 5;</code>
+     * <code>string startDate = 5;</code>
      */
-    public java.lang.String getStartingDate() {
-      java.lang.Object ref = startingDate_;
+    public java.lang.String getStartDate() {
+      java.lang.Object ref = startDate_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        startingDate_ = s;
+        startDate_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string startingDate = 5;</code>
+     * <code>string startDate = 5;</code>
      */
     public com.google.protobuf.ByteString
-        getStartingDateBytes() {
-      java.lang.Object ref = startingDate_;
+        getStartDateBytes() {
+      java.lang.Object ref = startDate_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        startingDate_ = b;
+        startDate_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string startingDate = 5;</code>
+     * <code>string startDate = 5;</code>
      */
-    public Builder setStartingDate(
+    public Builder setStartDate(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      startingDate_ = value;
+      startDate_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string startingDate = 5;</code>
+     * <code>string startDate = 5;</code>
      */
-    public Builder clearStartingDate() {
+    public Builder clearStartDate() {
       
-      startingDate_ = getDefaultInstance().getStartingDate();
+      startDate_ = getDefaultInstance().getStartDate();
       onChanged();
       return this;
     }
     /**
-     * <code>string startingDate = 5;</code>
+     * <code>string startDate = 5;</code>
      */
-    public Builder setStartingDateBytes(
+    public Builder setStartDateBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      startingDate_ = value;
+      startDate_ = value;
       onChanged();
       return this;
     }
@@ -1313,80 +1313,80 @@ public  final class EmployeeProto extends
       return this;
     }
 
-    private double amountOfAssuranceAVS_ ;
+    private double avsAiApg_ ;
     /**
-     * <code>double amountOfAssuranceAVS = 7;</code>
+     * <code>double avsAiApg = 7;</code>
      */
-    public double getAmountOfAssuranceAVS() {
-      return amountOfAssuranceAVS_;
+    public double getAvsAiApg() {
+      return avsAiApg_;
     }
     /**
-     * <code>double amountOfAssuranceAVS = 7;</code>
+     * <code>double avsAiApg = 7;</code>
      */
-    public Builder setAmountOfAssuranceAVS(double value) {
+    public Builder setAvsAiApg(double value) {
       
-      amountOfAssuranceAVS_ = value;
+      avsAiApg_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>double amountOfAssuranceAVS = 7;</code>
+     * <code>double avsAiApg = 7;</code>
      */
-    public Builder clearAmountOfAssuranceAVS() {
+    public Builder clearAvsAiApg() {
       
-      amountOfAssuranceAVS_ = 0D;
-      onChanged();
-      return this;
-    }
-
-    private double amountOfAssuranceAC_ ;
-    /**
-     * <code>double amountOfAssuranceAC = 8;</code>
-     */
-    public double getAmountOfAssuranceAC() {
-      return amountOfAssuranceAC_;
-    }
-    /**
-     * <code>double amountOfAssuranceAC = 8;</code>
-     */
-    public Builder setAmountOfAssuranceAC(double value) {
-      
-      amountOfAssuranceAC_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>double amountOfAssuranceAC = 8;</code>
-     */
-    public Builder clearAmountOfAssuranceAC() {
-      
-      amountOfAssuranceAC_ = 0D;
+      avsAiApg_ = 0D;
       onChanged();
       return this;
     }
 
-    private double amountOfAssuranceAF_ ;
+    private double ac_ ;
     /**
-     * <code>double amountOfAssuranceAF = 9;</code>
+     * <code>double ac = 8;</code>
      */
-    public double getAmountOfAssuranceAF() {
-      return amountOfAssuranceAF_;
+    public double getAc() {
+      return ac_;
     }
     /**
-     * <code>double amountOfAssuranceAF = 9;</code>
+     * <code>double ac = 8;</code>
      */
-    public Builder setAmountOfAssuranceAF(double value) {
+    public Builder setAc(double value) {
       
-      amountOfAssuranceAF_ = value;
+      ac_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>double amountOfAssuranceAF = 9;</code>
+     * <code>double ac = 8;</code>
      */
-    public Builder clearAmountOfAssuranceAF() {
+    public Builder clearAc() {
       
-      amountOfAssuranceAF_ = 0D;
+      ac_ = 0D;
+      onChanged();
+      return this;
+    }
+
+    private double af_ ;
+    /**
+     * <code>double af = 9;</code>
+     */
+    public double getAf() {
+      return af_;
+    }
+    /**
+     * <code>double af = 9;</code>
+     */
+    public Builder setAf(double value) {
+      
+      af_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>double af = 9;</code>
+     */
+    public Builder clearAf() {
+      
+      af_ = 0D;
       onChanged();
       return this;
     }

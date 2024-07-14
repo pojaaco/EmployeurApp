@@ -8,13 +8,13 @@ public interface EmployerGetRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>.Caisse caisse = 1;</code>
+   * <code>.Fund fund = 1;</code>
    */
-  int getCaisseValue();
+  int getFundValue();
   /**
-   * <code>.Caisse caisse = 1;</code>
+   * <code>.Fund fund = 1;</code>
    */
-  vn.elca.employer.common.Caisse getCaisse();
+  vn.elca.employer.common.Fund getFund();
 
   /**
    * <code>.google.protobuf.StringValue number = 2;</code>
@@ -43,30 +43,30 @@ public interface EmployerGetRequestOrBuilder extends
   com.google.protobuf.StringValueOrBuilder getNameOrBuilder();
 
   /**
-   * <code>.google.protobuf.StringValue numberIDE = 4;</code>
+   * <code>.google.protobuf.StringValue numberIde = 4;</code>
    */
-  boolean hasNumberIDE();
+  boolean hasNumberIde();
   /**
-   * <code>.google.protobuf.StringValue numberIDE = 4;</code>
+   * <code>.google.protobuf.StringValue numberIde = 4;</code>
    */
-  com.google.protobuf.StringValue getNumberIDE();
+  com.google.protobuf.StringValue getNumberIde();
   /**
-   * <code>.google.protobuf.StringValue numberIDE = 4;</code>
+   * <code>.google.protobuf.StringValue numberIde = 4;</code>
    */
-  com.google.protobuf.StringValueOrBuilder getNumberIDEOrBuilder();
+  com.google.protobuf.StringValueOrBuilder getNumberIdeOrBuilder();
 
   /**
-   * <code>.google.protobuf.StringValue startingDate = 5;</code>
+   * <code>.google.protobuf.StringValue startDate = 5;</code>
    */
-  boolean hasStartingDate();
+  boolean hasStartDate();
   /**
-   * <code>.google.protobuf.StringValue startingDate = 5;</code>
+   * <code>.google.protobuf.StringValue startDate = 5;</code>
    */
-  com.google.protobuf.StringValue getStartingDate();
+  com.google.protobuf.StringValue getStartDate();
   /**
-   * <code>.google.protobuf.StringValue startingDate = 5;</code>
+   * <code>.google.protobuf.StringValue startDate = 5;</code>
    */
-  com.google.protobuf.StringValueOrBuilder getStartingDateOrBuilder();
+  com.google.protobuf.StringValueOrBuilder getStartDateOrBuilder();
 
   /**
    * <code>.google.protobuf.StringValue endDate = 6;</code>

@@ -21,14 +21,14 @@ public interface EmployeeProtoOrBuilder extends
   com.google.protobuf.Int64ValueOrBuilder getIdOrBuilder();
 
   /**
-   * <code>string numberAVS = 2;</code>
+   * <code>string numberAvs = 2;</code>
    */
-  java.lang.String getNumberAVS();
+  java.lang.String getNumberAvs();
   /**
-   * <code>string numberAVS = 2;</code>
+   * <code>string numberAvs = 2;</code>
    */
   com.google.protobuf.ByteString
-      getNumberAVSBytes();
+      getNumberAvsBytes();
 
   /**
    * <code>string lastName = 3;</code>
@@ -51,14 +51,14 @@ public interface EmployeeProtoOrBuilder extends
       getFirstNameBytes();
 
   /**
-   * <code>string startingDate = 5;</code>
+   * <code>string startDate = 5;</code>
    */
-  java.lang.String getStartingDate();
+  java.lang.String getStartDate();
   /**
-   * <code>string startingDate = 5;</code>
+   * <code>string startDate = 5;</code>
    */
   com.google.protobuf.ByteString
-      getStartingDateBytes();
+      getStartDateBytes();
 
   /**
    * <code>string endDate = 6;</code>
@@ -71,19 +71,19 @@ public interface EmployeeProtoOrBuilder extends
       getEndDateBytes();
 
   /**
-   * <code>double amountOfAssuranceAVS = 7;</code>
+   * <code>double avsAiApg = 7;</code>
    */
-  double getAmountOfAssuranceAVS();
+  double getAvsAiApg();
 
   /**
-   * <code>double amountOfAssuranceAC = 8;</code>
+   * <code>double ac = 8;</code>
    */
-  double getAmountOfAssuranceAC();
+  double getAc();
 
   /**
-   * <code>double amountOfAssuranceAF = 9;</code>
+   * <code>double af = 9;</code>
    */
-  double getAmountOfAssuranceAF();
+  double getAf();
 
   /**
    * <code>.google.protobuf.Int64Value employerId = 10;</code>

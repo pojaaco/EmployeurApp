@@ -1,4 +1,5 @@
 C:\Users\tanb\Miracle\EmployeurApp\employer-server\src\main\java\vn\elca\employer\server\repository\impl\EmployerRepositoryCustomImpl.java
+C:\Users\tanb\Miracle\EmployeurApp\employer-server\src\main\java\vn\elca\employer\server\model\criteria\EmployerDeleteCriteria.java
 C:\Users\tanb\Miracle\EmployeurApp\employer-server\target\generated-sources\vn\elca\employer\server\model\entity\QEmployer.java
 C:\Users\tanb\Miracle\EmployeurApp\employer-server\src\main\java\vn\elca\employer\server\adapter\EmployerAdapterImpl.java
 C:\Users\tanb\Miracle\EmployeurApp\employer-server\src\main\java\vn\elca\employer\server\model\dto\EmployeeDto.java
@@ -9,7 +10,6 @@ C:\Users\tanb\Miracle\EmployeurApp\employer-server\target\generated-sources\vn\e
 C:\Users\tanb\Miracle\EmployeurApp\employer-server\src\main\java\vn\elca\employer\server\service\EmployerServiceImpl.java
 C:\Users\tanb\Miracle\EmployeurApp\employer-server\src\main\java\vn\elca\employer\server\controller\EmployerGrpcServiceImpl.java
 C:\Users\tanb\Miracle\EmployeurApp\employer-server\src\main\java\vn\elca\employer\server\exception\CrudException.java
-C:\Users\tanb\Miracle\EmployeurApp\employer-server\src\main\java\vn\elca\employer\server\model\criteria\EmployerDelCriteria.java
 C:\Users\tanb\Miracle\EmployeurApp\employer-server\src\main\java\vn\elca\employer\server\mapper\BasicMapper.java
 C:\Users\tanb\Miracle\EmployeurApp\employer-server\src\main\java\vn\elca\employer\server\model\dto\EmployerDto.java
 C:\Users\tanb\Miracle\EmployeurApp\employer-server\src\main\java\vn\elca\employer\server\repository\EmployeeRepository.java

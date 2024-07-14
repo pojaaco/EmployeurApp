@@ -1,7 +1,7 @@
 package vn.elca.employer.server.model.dto;
 
 import lombok.*;
-import vn.elca.employer.common.Caisse;
+import vn.elca.employer.common.Fund;
 
 import java.util.Set;
 
@@ -9,18 +9,19 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class EmployerDto {
     private Long id;
 
-    private Caisse caisse;
+    private Fund fund;
 
     private String number;
 
     private String name;
 
-    private String numberIDE;
+    private String numberIde;
 
-    private String startingDate;
+    private String startDate;
 
     private String endDate;
 

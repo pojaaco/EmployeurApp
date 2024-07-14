@@ -24,8 +24,8 @@ public class EmployerGrpcServiceImpl extends EmployerServiceGrpc.EmployerService
     }
 
     @Override
-    public void delEmployer(EmployerDelRequest request, StreamObserver<EmployerDelResponse> responseObserver) {
-        responseObserver.onNext(employerAdapter.delByRequest(request));
+    public void deleteEmployer(EmployerDeleteRequest request, StreamObserver<EmployerDeleteResponse> responseObserver) {
+        responseObserver.onNext(employerAdapter.deleteByRequest(request));
         responseObserver.onCompleted();
     }
 }

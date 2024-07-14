@@ -1,7 +1,7 @@
 package vn.elca.employer.server.model.criteria;
 
 import lombok.*;
-import vn.elca.employer.common.Caisse;
+import vn.elca.employer.common.Fund;
 
 import java.time.LocalDate;
 
@@ -10,15 +10,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployerGetCriteria {
-    private Caisse caisse;
+    private Fund fund;
 
     private String number;
 
     private String name;
 
-    private String numberIDE;
+    private String numberIde;
 
-    private LocalDate startingDate;
+    private LocalDate startDate;
 
     private LocalDate endDate;
 }

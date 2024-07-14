@@ -20,11 +20,11 @@ public class QEmployer extends EntityPathBase<Employer> {
 
     public static final QEmployer employer = new QEmployer("employer");
 
-    public final EnumPath<vn.elca.employer.common.Caisse> caisse = createEnum("caisse", vn.elca.employer.common.Caisse.class);
-
     public final SetPath<Employee, QEmployee> employees = this.<Employee, QEmployee>createSet("employees", Employee.class, QEmployee.class, PathInits.DIRECT2);
 
     public final DatePath<java.time.LocalDate> endDate = createDate("endDate", java.time.LocalDate.class);
+
+    public final EnumPath<vn.elca.employer.common.Fund> fund = createEnum("fund", vn.elca.employer.common.Fund.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -32,9 +32,9 @@ public class QEmployer extends EntityPathBase<Employer> {
 
     public final StringPath number = createString("number");
 
-    public final StringPath numberIDE = createString("numberIDE");
+    public final StringPath numberIde = createString("numberIde");
 
-    public final DatePath<java.time.LocalDate> startingDate = createDate("startingDate", java.time.LocalDate.class);
+    public final DatePath<java.time.LocalDate> startDate = createDate("startDate", java.time.LocalDate.class);
 
     public QEmployer(String variable) {
         super(Employer.class, forVariable(variable));

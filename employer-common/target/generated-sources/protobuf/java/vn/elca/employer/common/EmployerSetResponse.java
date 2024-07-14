@@ -55,6 +55,19 @@ public  final class EmployerSetResponse extends
             message_ = s;
             break;
           }
+          case 26: {
+            vn.elca.employer.common.EmployerProto.Builder subBuilder = null;
+            if (employer_ != null) {
+              subBuilder = employer_.toBuilder();
+            }
+            employer_ = input.readMessage(vn.elca.employer.common.EmployerProto.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(employer_);
+              employer_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -121,6 +134,27 @@ public  final class EmployerSetResponse extends
     }
   }
 
+  public static final int EMPLOYER_FIELD_NUMBER = 3;
+  private vn.elca.employer.common.EmployerProto employer_;
+  /**
+   * <code>.EmployerProto employer = 3;</code>
+   */
+  public boolean hasEmployer() {
+    return employer_ != null;
+  }
+  /**
+   * <code>.EmployerProto employer = 3;</code>
+   */
+  public vn.elca.employer.common.EmployerProto getEmployer() {
+    return employer_ == null ? vn.elca.employer.common.EmployerProto.getDefaultInstance() : employer_;
+  }
+  /**
+   * <code>.EmployerProto employer = 3;</code>
+   */
+  public vn.elca.employer.common.EmployerProtoOrBuilder getEmployerOrBuilder() {
+    return getEmployer();
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -139,6 +173,9 @@ public  final class EmployerSetResponse extends
     if (!getMessageBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
     }
+    if (employer_ != null) {
+      output.writeMessage(3, getEmployer());
+    }
   }
 
   public int getSerializedSize() {
@@ -152,6 +189,10 @@ public  final class EmployerSetResponse extends
     }
     if (!getMessageBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
+    }
+    if (employer_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(3, getEmployer());
     }
     memoizedSize = size;
     return size;
@@ -173,6 +214,11 @@ public  final class EmployerSetResponse extends
         == other.getIsOK());
     result = result && getMessage()
         .equals(other.getMessage());
+    result = result && (hasEmployer() == other.hasEmployer());
+    if (hasEmployer()) {
+      result = result && getEmployer()
+          .equals(other.getEmployer());
+    }
     return result;
   }
 
@@ -188,6 +234,10 @@ public  final class EmployerSetResponse extends
         getIsOK());
     hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
     hash = (53 * hash) + getMessage().hashCode();
+    if (hasEmployer()) {
+      hash = (37 * hash) + EMPLOYER_FIELD_NUMBER;
+      hash = (53 * hash) + getEmployer().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -321,6 +371,12 @@ public  final class EmployerSetResponse extends
 
       message_ = "";
 
+      if (employerBuilder_ == null) {
+        employer_ = null;
+      } else {
+        employer_ = null;
+        employerBuilder_ = null;
+      }
       return this;
     }
 
@@ -345,6 +401,11 @@ public  final class EmployerSetResponse extends
       vn.elca.employer.common.EmployerSetResponse result = new vn.elca.employer.common.EmployerSetResponse(this);
       result.isOK_ = isOK_;
       result.message_ = message_;
+      if (employerBuilder_ == null) {
+        result.employer_ = employer_;
+      } else {
+        result.employer_ = employerBuilder_.build();
+      }
       onBuilt();
       return result;
     }
@@ -392,6 +453,9 @@ public  final class EmployerSetResponse extends
       if (!other.getMessage().isEmpty()) {
         message_ = other.message_;
         onChanged();
+      }
+      if (other.hasEmployer()) {
+        mergeEmployer(other.getEmployer());
       }
       onChanged();
       return this;
@@ -512,6 +576,123 @@ public  final class EmployerSetResponse extends
       message_ = value;
       onChanged();
       return this;
+    }
+
+    private vn.elca.employer.common.EmployerProto employer_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        vn.elca.employer.common.EmployerProto, vn.elca.employer.common.EmployerProto.Builder, vn.elca.employer.common.EmployerProtoOrBuilder> employerBuilder_;
+    /**
+     * <code>.EmployerProto employer = 3;</code>
+     */
+    public boolean hasEmployer() {
+      return employerBuilder_ != null || employer_ != null;
+    }
+    /**
+     * <code>.EmployerProto employer = 3;</code>
+     */
+    public vn.elca.employer.common.EmployerProto getEmployer() {
+      if (employerBuilder_ == null) {
+        return employer_ == null ? vn.elca.employer.common.EmployerProto.getDefaultInstance() : employer_;
+      } else {
+        return employerBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.EmployerProto employer = 3;</code>
+     */
+    public Builder setEmployer(vn.elca.employer.common.EmployerProto value) {
+      if (employerBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        employer_ = value;
+        onChanged();
+      } else {
+        employerBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.EmployerProto employer = 3;</code>
+     */
+    public Builder setEmployer(
+        vn.elca.employer.common.EmployerProto.Builder builderForValue) {
+      if (employerBuilder_ == null) {
+        employer_ = builderForValue.build();
+        onChanged();
+      } else {
+        employerBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.EmployerProto employer = 3;</code>
+     */
+    public Builder mergeEmployer(vn.elca.employer.common.EmployerProto value) {
+      if (employerBuilder_ == null) {
+        if (employer_ != null) {
+          employer_ =
+            vn.elca.employer.common.EmployerProto.newBuilder(employer_).mergeFrom(value).buildPartial();
+        } else {
+          employer_ = value;
+        }
+        onChanged();
+      } else {
+        employerBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.EmployerProto employer = 3;</code>
+     */
+    public Builder clearEmployer() {
+      if (employerBuilder_ == null) {
+        employer_ = null;
+        onChanged();
+      } else {
+        employer_ = null;
+        employerBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.EmployerProto employer = 3;</code>
+     */
+    public vn.elca.employer.common.EmployerProto.Builder getEmployerBuilder() {
+      
+      onChanged();
+      return getEmployerFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.EmployerProto employer = 3;</code>
+     */
+    public vn.elca.employer.common.EmployerProtoOrBuilder getEmployerOrBuilder() {
+      if (employerBuilder_ != null) {
+        return employerBuilder_.getMessageOrBuilder();
+      } else {
+        return employer_ == null ?
+            vn.elca.employer.common.EmployerProto.getDefaultInstance() : employer_;
+      }
+    }
+    /**
+     * <code>.EmployerProto employer = 3;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        vn.elca.employer.common.EmployerProto, vn.elca.employer.common.EmployerProto.Builder, vn.elca.employer.common.EmployerProtoOrBuilder> 
+        getEmployerFieldBuilder() {
+      if (employerBuilder_ == null) {
+        employerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            vn.elca.employer.common.EmployerProto, vn.elca.employer.common.EmployerProto.Builder, vn.elca.employer.common.EmployerProtoOrBuilder>(
+                getEmployer(),
+                getParentForChildren(),
+                isClean());
+        employer_ = null;
+      }
+      return employerBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

@@ -52,9 +52,9 @@ public class EmployeeImportComponent implements FXComponent {
 
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
-        ((TableView<EmployeeView>) pane.lookup("#importTable")).getItems().clear();
-        ((Label) pane.lookup("#chooserLabel")).setText("Choose File");
-        selectedFile[0] = null;
+//        ((TableView<EmployeeView>) pane.lookup("#importTable")).getItems().clear();
+//        ((Label) pane.lookup("#chooserLabel")).setText("Choose File");
+//        selectedFile[0] = null;
 
         if (!message.messageBodyEquals(FXUtil.MessageUtil.INIT)) {
             if (message.getSourceId().equals(EmployeePerspective.ID.concat(".").concat(ImportCallBack.ID))) {

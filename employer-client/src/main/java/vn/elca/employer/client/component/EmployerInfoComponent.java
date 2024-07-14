@@ -83,6 +83,7 @@ public class EmployerInfoComponent implements FXComponent {
         GridPane gridPane = new GridPane();
         configureGridPane(gridPane);
 
+        // TODO: Add Date Picker
         VBox column1Row1 = createColumn("label.caisse", createCaisseComboBox());
         VBox column2Row1 = createColumn("label.number", new TextField());
         VBox column3Row1 = createColumn("label.startingDate", new TextField());

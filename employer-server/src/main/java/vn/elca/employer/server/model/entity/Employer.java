@@ -1,7 +1,7 @@
 package vn.elca.employer.server.model.entity;
 
 import lombok.*;
-import vn.elca.employer.common.Caisse;
+import vn.elca.employer.common.Fund;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,35 +14,36 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Table(name = "Employer")
 public class Employer {
     @Id
-    @Column(name = "id")
+    @Column(name = "EmployerID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "caisse")
+    @Column(name = "Fund")
     @Enumerated(EnumType.STRING)
     @NotNull
-    private Caisse caisse;
+    private Fund fund;
 
-    @Column(name = "number", length = 50)
+    @Column(name = "Number", length = 50)
     @NotNull
     private String number;
 
-    @Column(name = "name")
+    @Column(name = "Name")
     @NotNull
     private String name;
 
-    @Column(name = "number_ide", length = 36)
+    @Column(name = "NumberIde", length = 36)
     @NotNull
-    private String numberIDE;
+    private String numberIde;
 
-    @Column(name = "starting_date")
+    @Column(name = "StartDate")
     @NotNull
-    private LocalDate startingDate;
+    private LocalDate startDate;
 
-    @Column(name = "end_date")
+    @Column(name = "EndDate")
     private LocalDate endDate;
 
     @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL)

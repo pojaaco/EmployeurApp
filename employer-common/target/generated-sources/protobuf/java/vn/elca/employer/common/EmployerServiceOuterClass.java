@@ -35,15 +35,15 @@ public final class EmployerServiceOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_EmployerSetResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_EmployerDelRequest_descriptor;
+    internal_static_EmployerDeleteRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_EmployerDelRequest_fieldAccessorTable;
+      internal_static_EmployerDeleteRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_EmployerDelResponse_descriptor;
+    internal_static_EmployerDeleteResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_EmployerDelResponse_fieldAccessorTable;
+      internal_static_EmployerDeleteResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_EmployerProto_descriptor;
   static final 
@@ -64,42 +64,41 @@ public final class EmployerServiceOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\025EmployerService.proto\032\036google/protobuf" +
-      "/wrappers.proto\"\233\002\n\022EmployerGetRequest\022\027" +
-      "\n\006caisse\030\001 \001(\0162\007.Caisse\022,\n\006number\030\002 \001(\0132" +
-      "\034.google.protobuf.StringValue\022*\n\004name\030\003 " +
-      "\001(\0132\034.google.protobuf.StringValue\022/\n\tnum" +
-      "berIDE\030\004 \001(\0132\034.google.protobuf.StringVal" +
-      "ue\0222\n\014startingDate\030\005 \001(\0132\034.google.protob" +
-      "uf.StringValue\022-\n\007endDate\030\006 \001(\0132\034.google" +
-      ".protobuf.StringValue\"8\n\023EmployerGetResp" +
-      "onse\022!\n\temployers\030\001 \003(\0132\016.EmployerProto\"",
-      "6\n\022EmployerSetRequest\022 \n\010employer\030\001 \001(\0132" +
-      "\016.EmployerProto\"4\n\023EmployerSetResponse\022\014" +
-      "\n\004isOK\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\" \n\022Employe" +
-      "rDelRequest\022\n\n\002id\030\001 \001(\003\"4\n\023EmployerDelRe" +
-      "sponse\022\014\n\004isOK\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"\210\002" +
-      "\n\rEmployerProto\022\'\n\002id\030\001 \001(\0132\033.google.pro" +
-      "tobuf.Int64Value\022\027\n\006caisse\030\002 \001(\0162\007.Caiss" +
-      "e\022,\n\006number\030\003 \001(\0132\034.google.protobuf.Stri" +
-      "ngValue\022\014\n\004name\030\004 \001(\t\022\021\n\tnumberIDE\030\005 \001(\t" +
-      "\022\024\n\014startingDate\030\006 \001(\t\022-\n\007endDate\030\007 \001(\0132",
-      "\034.google.protobuf.StringValue\022!\n\temploye" +
-      "es\030\010 \003(\0132\016.EmployeeProto\"\240\002\n\rEmployeePro" +
-      "to\022\'\n\002id\030\001 \001(\0132\033.google.protobuf.Int64Va" +
-      "lue\022\021\n\tnumberAVS\030\002 \001(\t\022\020\n\010lastName\030\003 \001(\t" +
-      "\022\021\n\tfirstName\030\004 \001(\t\022\024\n\014startingDate\030\005 \001(" +
-      "\t\022\017\n\007endDate\030\006 \001(\t\022\034\n\024amountOfAssuranceA" +
-      "VS\030\007 \001(\001\022\033\n\023amountOfAssuranceAC\030\010 \001(\001\022\033\n" +
-      "\023amountOfAssuranceAF\030\t \001(\001\022/\n\nemployerId" +
-      "\030\n \001(\0132\033.google.protobuf.Int64Value*:\n\006C" +
-      "aisse\022\024\n\020CAISSE_CANTONALE\020\000\022\032\n\026CAISSE_PR",
-      "OFESSIONNELLE\020\0012\277\001\n\017EmployerService\0228\n\013g" +
-      "etEmployer\022\023.EmployerGetRequest\032\024.Employ" +
-      "erGetResponse\0228\n\013setEmployer\022\023.EmployerS" +
-      "etRequest\032\024.EmployerSetResponse\0228\n\013delEm" +
-      "ployer\022\023.EmployerDelRequest\032\024.EmployerDe" +
-      "lResponseB\033\n\027vn.elca.employer.commonP\001b\006" +
-      "proto3"
+      "/wrappers.proto\"\224\002\n\022EmployerGetRequest\022\023" +
+      "\n\004fund\030\001 \001(\0162\005.Fund\022,\n\006number\030\002 \001(\0132\034.go" +
+      "ogle.protobuf.StringValue\022*\n\004name\030\003 \001(\0132" +
+      "\034.google.protobuf.StringValue\022/\n\tnumberI" +
+      "de\030\004 \001(\0132\034.google.protobuf.StringValue\022/" +
+      "\n\tstartDate\030\005 \001(\0132\034.google.protobuf.Stri" +
+      "ngValue\022-\n\007endDate\030\006 \001(\0132\034.google.protob" +
+      "uf.StringValue\"8\n\023EmployerGetResponse\022!\n" +
+      "\temployers\030\001 \003(\0132\016.EmployerProto\"6\n\022Empl",
+      "oyerSetRequest\022 \n\010employer\030\001 \001(\0132\016.Emplo" +
+      "yerProto\"V\n\023EmployerSetResponse\022\014\n\004isOK\030" +
+      "\001 \001(\010\022\017\n\007message\030\002 \001(\t\022 \n\010employer\030\003 \001(\013" +
+      "2\016.EmployerProto\"#\n\025EmployerDeleteReques" +
+      "t\022\n\n\002id\030\001 \001(\003\"7\n\026EmployerDeleteResponse\022" +
+      "\014\n\004isOK\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"\201\002\n\rEmplo" +
+      "yerProto\022\'\n\002id\030\001 \001(\0132\033.google.protobuf.I" +
+      "nt64Value\022\023\n\004fund\030\002 \001(\0162\005.Fund\022,\n\006number" +
+      "\030\003 \001(\0132\034.google.protobuf.StringValue\022\014\n\004" +
+      "name\030\004 \001(\t\022\021\n\tnumberIde\030\005 \001(\t\022\021\n\tstartDa",
+      "te\030\006 \001(\t\022-\n\007endDate\030\007 \001(\0132\034.google.proto" +
+      "buf.StringValue\022!\n\temployees\030\010 \003(\0132\016.Emp" +
+      "loyeeProto\"\357\001\n\rEmployeeProto\022\'\n\002id\030\001 \001(\013" +
+      "2\033.google.protobuf.Int64Value\022\021\n\tnumberA" +
+      "vs\030\002 \001(\t\022\020\n\010lastName\030\003 \001(\t\022\021\n\tfirstName\030" +
+      "\004 \001(\t\022\021\n\tstartDate\030\005 \001(\t\022\017\n\007endDate\030\006 \001(" +
+      "\t\022\020\n\010avsAiApg\030\007 \001(\001\022\n\n\002ac\030\010 \001(\001\022\n\n\002af\030\t " +
+      "\001(\001\022/\n\nemployerId\030\n \001(\0132\033.google.protobu" +
+      "f.Int64Value*0\n\004Fund\022\021\n\rFUND_CANTONAL\020\000\022" +
+      "\025\n\021FUND_PROFESSIONAL\020\0012\310\001\n\017EmployerServi",
+      "ce\0228\n\013getEmployer\022\023.EmployerGetRequest\032\024" +
+      ".EmployerGetResponse\0228\n\013setEmployer\022\023.Em" +
+      "ployerSetRequest\032\024.EmployerSetResponse\022A" +
+      "\n\016deleteEmployer\022\026.EmployerDeleteRequest" +
+      "\032\027.EmployerDeleteResponseB\033\n\027vn.elca.emp" +
+      "loyer.commonP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -119,7 +118,7 @@ public final class EmployerServiceOuterClass {
     internal_static_EmployerGetRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EmployerGetRequest_descriptor,
-        new java.lang.String[] { "Caisse", "Number", "Name", "NumberIDE", "StartingDate", "EndDate", });
+        new java.lang.String[] { "Fund", "Number", "Name", "NumberIde", "StartDate", "EndDate", });
     internal_static_EmployerGetResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_EmployerGetResponse_fieldAccessorTable = new
@@ -137,31 +136,31 @@ public final class EmployerServiceOuterClass {
     internal_static_EmployerSetResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EmployerSetResponse_descriptor,
-        new java.lang.String[] { "IsOK", "Message", });
-    internal_static_EmployerDelRequest_descriptor =
+        new java.lang.String[] { "IsOK", "Message", "Employer", });
+    internal_static_EmployerDeleteRequest_descriptor =
       getDescriptor().getMessageTypes().get(4);
-    internal_static_EmployerDelRequest_fieldAccessorTable = new
+    internal_static_EmployerDeleteRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_EmployerDelRequest_descriptor,
+        internal_static_EmployerDeleteRequest_descriptor,
         new java.lang.String[] { "Id", });
-    internal_static_EmployerDelResponse_descriptor =
+    internal_static_EmployerDeleteResponse_descriptor =
       getDescriptor().getMessageTypes().get(5);
-    internal_static_EmployerDelResponse_fieldAccessorTable = new
+    internal_static_EmployerDeleteResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_EmployerDelResponse_descriptor,
+        internal_static_EmployerDeleteResponse_descriptor,
         new java.lang.String[] { "IsOK", "Message", });
     internal_static_EmployerProto_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_EmployerProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EmployerProto_descriptor,
-        new java.lang.String[] { "Id", "Caisse", "Number", "Name", "NumberIDE", "StartingDate", "EndDate", "Employees", });
+        new java.lang.String[] { "Id", "Fund", "Number", "Name", "NumberIde", "StartDate", "EndDate", "Employees", });
     internal_static_EmployeeProto_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_EmployeeProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EmployeeProto_descriptor,
-        new java.lang.String[] { "Id", "NumberAVS", "LastName", "FirstName", "StartingDate", "EndDate", "AmountOfAssuranceAVS", "AmountOfAssuranceAC", "AmountOfAssuranceAF", "EmployerId", });
+        new java.lang.String[] { "Id", "NumberAvs", "LastName", "FirstName", "StartDate", "EndDate", "AvsAiApg", "Ac", "Af", "EmployerId", });
     com.google.protobuf.WrappersProto.getDescriptor();
   }
 
