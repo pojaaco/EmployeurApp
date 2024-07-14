@@ -16,10 +16,11 @@ import org.slf4j.LoggerFactory;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.client.perspective.EmployerPerspective;
 
-@Workbench(id = EmployerWorkbench.ID, name = EmployerWorkbench.ID,
+@Workbench(id = EmployerWorkbench.ID,
+        name = EmployerWorkbench.ID,
         perspectives = {
                 EmployeePerspective.ID,
-                EmployerPerspective.ID,
+                EmployerPerspective.ID
         })
 public class EmployerWorkbench implements FXWorkbench {
     public static final String ID = "EmployerWorkbench";

@@ -10,7 +10,7 @@ import org.jacpfx.rcp.componentLayout.FXComponentLayout;
 import org.jacpfx.rcp.componentLayout.PerspectiveLayout;
 import org.jacpfx.rcp.perspective.FXPerspective;
 import vn.elca.employer.client.callback.DeleteCallBack;
-import vn.elca.employer.client.callback.SearchCallBack;
+import vn.elca.employer.client.callback.GetCallBack;
 import vn.elca.employer.client.component.EmployerInfoComponent;
 import vn.elca.employer.client.component.EmployerResultComponent;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
@@ -22,8 +22,8 @@ import java.util.ResourceBundle;
         components = {
                 EmployerInfoComponent.ID,
                 EmployerResultComponent.ID,
-                SearchCallBack.ID,
-                DeleteCallBack.ID,
+                GetCallBack.ID,
+                DeleteCallBack.ID
         })
 public class EmployerPerspective implements FXPerspective {
     public static final String ID = "EmployerPerspective";

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import vn.elca.employer.client.converter.EnumStringConverter;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
-import vn.elca.employer.common.Caisse;
+import vn.elca.employer.common.Fund;
 
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -23,7 +23,7 @@ public class EmployerApplicationConfig {
     }
 
     @Bean
-    EnumStringConverter<Caisse> caisseEnumStringConverter() {
-        return new EnumStringConverter<>(Caisse.class, observableResourceFactory());
+    EnumStringConverter<Fund> fundEnumStringConverter() {
+        return new EnumStringConverter<>(Fund.class, observableResourceFactory());
     }
 }

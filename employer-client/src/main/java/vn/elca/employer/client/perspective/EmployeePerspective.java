@@ -13,10 +13,9 @@ import org.jacpfx.rcp.componentLayout.FXComponentLayout;
 import org.jacpfx.rcp.componentLayout.PerspectiveLayout;
 import org.jacpfx.rcp.context.Context;
 import org.jacpfx.rcp.perspective.FXPerspective;
-import org.jacpfx.rcp.util.FXUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.ImportCallBack;
-import vn.elca.employer.client.callback.SaveCallBack;
+import vn.elca.employer.client.callback.SetCallBack;
 import vn.elca.employer.client.component.EmployeeImportComponent;
 import vn.elca.employer.client.component.EmployeeInfoComponent;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
@@ -30,7 +29,7 @@ import java.util.ResourceBundle;
                 EmployeeInfoComponent.ID,
                 EmployeeImportComponent.ID,
                 ImportCallBack.ID,
-                SaveCallBack.ID
+                SetCallBack.ID
         })
 public class EmployeePerspective implements FXPerspective {
     public static final String ID = "EmployeePerspective";
@@ -45,7 +44,11 @@ public class EmployeePerspective implements FXPerspective {
 
     @Override
     public void handlePerspective(Message<Event, Object> message, PerspectiveLayout perspectiveLayout) {
-        context.send(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID), "show");
+        if (message.isMessageBodyTypeOf(String.class)) {
+            if (message.getTypedMessageBody(String.class).equals("show")) {
+                context.send(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID), "reset");
+            }
+        }
     }
 
     @PostConstruct
@@ -69,10 +72,10 @@ public class EmployeePerspective implements FXPerspective {
         HBox buttonContainer = new HBox();
         buttonContainer.setAlignment(Pos.CENTER_RIGHT);
         Button button1 = new Button();
-        button1.textProperty().bind(observableResourceFactory.getStringBinding(ID + ".button.back"));
+        button1.textProperty().bind(observableResourceFactory.getStringBinding("Button.back"));
         button1.setOnAction(event -> context.send(EmployerPerspective.ID, "show"));
         Button button2 = new Button();
-        button2.textProperty().bind(observableResourceFactory.getStringBinding(ID + ".button.save"));
+        button2.textProperty().bind(observableResourceFactory.getStringBinding("Button.save"));
         button2.setOnAction(event -> {
             context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInfoComponent.ID), "save");
             context.send(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID), "save");

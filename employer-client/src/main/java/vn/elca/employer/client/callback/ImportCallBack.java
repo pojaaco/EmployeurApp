@@ -9,21 +9,24 @@ import org.jacpfx.rcp.component.CallbackComponent;
 import org.jacpfx.rcp.context.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.component.EmployeeImportComponent;
 import vn.elca.employer.client.component.importer.EmployeeImporter;
 import vn.elca.employer.client.component.importer.EmployeeImporterFactory;
+import vn.elca.employer.client.exception.ImporterCreationException;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.model.view.EmployeeView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 
 import java.util.List;
 
-@Component(id = ImportCallBack.ID,
-        name = ImportCallBack.ID,
-        resourceBundleLocation = ObservableResourceFactory.RESOURCE_BUNDLE_NAME)
+@Component(id = ImportCallBack.ID, name = ImportCallBack.ID)
 public class ImportCallBack implements CallbackComponent {
     public static final String ID = "ImportCallBack";
     private static final Logger LOGGER = LoggerFactory.getLogger(ImportCallBack.class);
+
+    @Autowired
+    ObservableResourceFactory observableResourceFactory;
 
     @Resource
     Context context;
@@ -32,12 +35,12 @@ public class ImportCallBack implements CallbackComponent {
     public Object handle(Message<Event, Object> message) throws Exception {
         context.setReturnTarget(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID));
         String filePath = message.getTypedMessageBody(String.class);
-        EmployeeImporter importer = EmployeeImporterFactory.getImporter(filePath);
-        if (importer != null) {
-            LOGGER.debug("Importer not null");
+        try {
+            EmployeeImporter importer = EmployeeImporterFactory.getImporter(filePath, observableResourceFactory);
             List<EmployeeView> results = importer.extractEmployeesFromFile(filePath);
-            LOGGER.debug(String.valueOf(results.size()));
             return FXCollections.observableArrayList(results);
+        } catch (ImporterCreationException e) {
+            LOGGER.debug(e.getMessage());
         }
         return null;
     }

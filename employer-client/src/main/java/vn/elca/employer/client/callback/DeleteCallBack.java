@@ -11,16 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.component.EmployerResultComponent;
-import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.model.stub.EmployerServiceGrpcStub;
 import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployerPerspective;
-import vn.elca.employer.common.EmployerDelRequest;
-import vn.elca.employer.common.EmployerDelResponse;
+import vn.elca.employer.common.EmployerDeleteRequest;
+import vn.elca.employer.common.EmployerDeleteResponse;
 
-@Component(id = DeleteCallBack.ID,
-        name = DeleteCallBack.ID,
-        resourceBundleLocation = ObservableResourceFactory.RESOURCE_BUNDLE_NAME)
+@Component(id = DeleteCallBack.ID, name = DeleteCallBack.ID)
 public class DeleteCallBack implements CallbackComponent {
     public static final String ID = "DeleteCallBack";
     private static final Logger LOGGER = LoggerFactory.getLogger(DeleteCallBack.class);
@@ -34,17 +31,15 @@ public class DeleteCallBack implements CallbackComponent {
     @Override
     public Object handle(Message<Event, Object> message) throws Exception {
         if (!message.messageBodyEquals(FXUtil.MessageUtil.INIT)) {
-            // TODO below may be redundant
-            context.setReturnTarget(EmployerPerspective.ID.concat(".").concat(EmployerResultComponent.ID));
-            EmployerDelRequest request = EmployerDelRequest.newBuilder()
-                    .setId(message.getTypedMessageBody(EmployerView.class).getId())
+            EmployerView object = message.getTypedMessageBody(EmployerView.class);
+            EmployerDeleteRequest request = EmployerDeleteRequest.newBuilder()
+                    .setId(object.getId())
                     .build();
-            EmployerDelResponse response = stub.delEmployer(request);
+            EmployerDeleteResponse response = stub.deleteEmployer(request);
             if (response.getIsOK()) {
-                context.send(EmployerPerspective.ID.concat(".").concat(EmployerResultComponent.ID),
-                        message.getTypedMessageBody(EmployerView.class));
+                context.send(EmployerPerspective.ID.concat(".").concat(EmployerResultComponent.ID), object);
             } else {
-                LOGGER.debug(response.getMessage(), message.getTypedMessageBody(EmployerView.class));
+                LOGGER.debug(response.getMessage(), object);
             }
         }
         return null;

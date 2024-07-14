@@ -14,17 +14,12 @@ import org.jacpfx.api.message.Message;
 import org.jacpfx.rcp.component.FXComponent;
 import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
-import vn.elca.employer.client.callback.SearchCallBack;
-import vn.elca.employer.client.converter.EnumStringConverter;
+import vn.elca.employer.client.callback.GetCallBack;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.client.perspective.EmployerPerspective;
-import vn.elca.employer.common.Caisse;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @View(id = EmployerInfoComponent.ID,
         name = EmployerInfoComponent.ID,
@@ -32,13 +27,12 @@ import java.util.stream.Collectors;
         initialTargetLayoutId = EmployerJacpfxConfig.TARGET_TOP_CONTAINER)
 public class EmployerInfoComponent implements FXComponent {
     public static final String ID = "EmployerInfoComponent";
-    public static final String RESOURCE_ROOT = "EmployerPerspective.EmployerInfoComponent";
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
 
     @Autowired
-    private EnumStringConverter<Caisse> caisseConverter;
+    private Helper helper;
 
     @Resource
     private Context context;
@@ -61,13 +55,13 @@ public class EmployerInfoComponent implements FXComponent {
         vBox.setSpacing(5);
 
         BorderPane borderPane = new BorderPane();
-        borderPane.setStyle("-fx-border-color: black; -fx-border-width: 1px;");
+//        borderPane.setStyle("-fx-border-color: black; -fx-border-width: 1px;");
         borderPane.setCenter(createInfoFields());
         vBox.getChildren().add(borderPane);
 
         StackPane stackPane = new StackPane();
         Button button = new Button();
-        button.textProperty().bind(observableResourceFactory.getStringBinding(RESOURCE_ROOT + ".button.add"));
+        button.textProperty().bind(observableResourceFactory.getStringBinding("Button.add"));
         button.setOnAction(event -> {
             context.send(EmployeePerspective.ID, "show");
             context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInfoComponent.ID), new EmployerView());
@@ -84,12 +78,12 @@ public class EmployerInfoComponent implements FXComponent {
         configureGridPane(gridPane);
 
         // TODO: Add Date Picker
-        VBox column1Row1 = createColumn("label.caisse", createCaisseComboBox());
-        VBox column2Row1 = createColumn("label.number", new TextField());
-        VBox column3Row1 = createColumn("label.startingDate", new TextField());
-        VBox column1Row2 = createColumn("label.name", new TextField());
-        VBox column2Row2 = createColumn("label.numberIDE", new TextField());
-        VBox column3Row2 = createColumn("label.endDate", new TextField());
+        VBox column1Row1 = createColumn("fund", helper.createFundComboBox());
+        VBox column2Row1 = createColumn("number", new TextField());
+        VBox column3Row1 = createColumn("startDate", new TextField());
+        VBox column1Row2 = createColumn("name", new TextField());
+        VBox column2Row2 = createColumn("numberIde", new TextField());
+        VBox column3Row2 = createColumn("endDate", new TextField());
 
         addColumnsToGrid(gridPane, column1Row1, column2Row1, column3Row1, 0);
         addColumnsToGrid(gridPane, column1Row2, column2Row2, column3Row2, 1);
@@ -107,33 +101,20 @@ public class EmployerInfoComponent implements FXComponent {
 
         for (int i = 0; i < 3; i++) {
             ColumnConstraints col = new ColumnConstraints();
-            col.setPercentWidth(33);
+            col.setPercentWidth(100./3.);
             gridPane.getColumnConstraints().add(col);
 
             RowConstraints row = new RowConstraints();
-            row.setPercentHeight(33);
+            row.setPercentHeight(100./3.);
             gridPane.getRowConstraints().add(row);
         }
-    }
-
-    private ComboBox<String> createCaisseComboBox() {
-        ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.setMaxWidth(Double.MAX_VALUE);
-        comboBox.getItems().addAll(
-                Arrays.stream(Caisse.values())
-                        .filter(e -> e != Caisse.UNRECOGNIZED)
-                        .map(caisseConverter::toString)
-                        .collect(Collectors.toList())
-        );
-        comboBox.setValue(caisseConverter.toString(Caisse.CAISSE_CANTONALE));
-        return comboBox;
     }
 
     private VBox createColumn(String labelKey, Control control) {
         VBox column = new VBox(10);
         Label label = new Label();
-        label.textProperty().bind(observableResourceFactory.getStringBinding(RESOURCE_ROOT + "." + labelKey));
-        control.setId(labelKey.substring(6));
+        label.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer." + labelKey));
+        control.setId(labelKey);
         column.getChildren().addAll(label, control);
         return column;
     }
@@ -145,28 +126,28 @@ public class EmployerInfoComponent implements FXComponent {
     }
 
     private HBox createButtonBox() {
-        HBox hboxForButton = new HBox();
+        HBox hBoxForButton = new HBox();
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         Button button1 = new Button();
-        button1.textProperty().bind(observableResourceFactory.getStringBinding(RESOURCE_ROOT + ".button.search"));
+        button1.textProperty().bind(observableResourceFactory.getStringBinding("Button.search"));
         Button button2 = new Button();
-        button2.textProperty().bind(observableResourceFactory.getStringBinding(RESOURCE_ROOT + ".button.reset"));
+        button2.textProperty().bind(observableResourceFactory.getStringBinding("Button.reset"));
 
         button1.setOnAction(this::handleSearchButton);
         button2.setOnAction(this::handleResetButton);
 
-        hboxForButton.getChildren().addAll(button1, spacer, button2);
-        hboxForButton.setAlignment(Pos.BOTTOM_CENTER);
-        return hboxForButton;
+        hBoxForButton.getChildren().addAll(button1, spacer, button2);
+        hBoxForButton.setAlignment(Pos.BOTTOM_CENTER);
+        return hBoxForButton;
     }
 
     private void handleSearchButton(ActionEvent event) {
         EmployerView employerView = new EmployerView();
 
-        ComboBox<String> caisse = (ComboBox<String>) pane.lookup("#caisse");
-        if (!caisse.getSelectionModel().isEmpty()) {
-            employerView.setCaisse(caisse.getValue());
+        ComboBox<String> fund = (ComboBox<String>) pane.lookup("#fund");
+        if (!fund.getSelectionModel().isEmpty()) {
+            employerView.setFund(fund.getValue());
         }
 
         TextField number = (TextField) pane.lookup("#number");
@@ -179,14 +160,14 @@ public class EmployerInfoComponent implements FXComponent {
             employerView.setName(name.getText());
         }
 
-        TextField numberIde = (TextField) pane.lookup("#numberIDE");
+        TextField numberIde = (TextField) pane.lookup("#numberIde");
         if (!numberIde.getText().isEmpty()) {
-            employerView.setNumberIDE(numberIde.getText());
+            employerView.setNumberIde(numberIde.getText());
         }
 
-        TextField startingDate = (TextField) pane.lookup("#startingDate");
+        TextField startingDate = (TextField) pane.lookup("#startDate");
         if (!startingDate.getText().isEmpty()) {
-            employerView.setStartingDate(startingDate.getText());
+            employerView.setStartDate(startingDate.getText());
         }
 
         TextField endDate = (TextField) pane.lookup("#endDate");
@@ -194,15 +175,15 @@ public class EmployerInfoComponent implements FXComponent {
             employerView.setEndDate(endDate.getText());
         }
 
-        context.send(EmployerPerspective.ID.concat(".").concat(SearchCallBack.ID), employerView);
+        context.send(EmployerPerspective.ID.concat(".").concat(GetCallBack.ID), employerView);
     }
 
     private void handleResetButton(ActionEvent event) {
-        ((ComboBox<String>) pane.lookup("#caisse")).getSelectionModel().selectFirst();
+        ((ComboBox<String>) pane.lookup("#fund")).getSelectionModel().selectFirst();
         ((TextField) pane.lookup("#number")).clear();
         ((TextField) pane.lookup("#name")).clear();
-        ((TextField) pane.lookup("#numberIDE")).clear();
-        ((TextField) pane.lookup("#startingDate")).clear();
+        ((TextField) pane.lookup("#numberIde")).clear();
+        ((TextField) pane.lookup("#startDate")).clear();
         ((TextField) pane.lookup("#endDate")).clear();
     }
 }

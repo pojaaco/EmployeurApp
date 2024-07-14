@@ -27,13 +27,10 @@ public class EmployerDetailsFragment {
     @FXML
     private Button btnDetails;
 
-    private EmployerView employer;
-
     public void init(EmployerView employer) {
-        this.employer = employer;
-        btnDetails.textProperty().bind(observableResourceFactory.getStringBinding("EmployerPerspective.EmployerInfoComponent.button.details"));
+        btnDetails.textProperty().bind(observableResourceFactory.getStringBinding("Button.details"));
         btnDetails.setOnAction(event -> {
-            context.send(EmployeePerspective.ID, employer);
+            context.send(EmployeePerspective.ID, "show");
             context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInfoComponent.ID), employer);
         });
     }

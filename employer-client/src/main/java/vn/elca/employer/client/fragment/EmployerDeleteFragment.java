@@ -1,6 +1,5 @@
 package vn.elca.employer.client.fragment;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -32,24 +31,21 @@ public class EmployerDeleteFragment {
     @FXML
     private Button btnDelete;
 
-    private EmployerView employer;
-
     public void init(EmployerView employer) {
-        this.employer = employer;
-        btnDelete.textProperty().bind(observableResourceFactory.getStringBinding("EmployerPerspective.EmployerInfoComponent.button.delete"));
-        btnDelete.setOnAction(this::showConfirmationDialog);
+        btnDelete.textProperty().bind(observableResourceFactory.getStringBinding("Button.delete"));
+        btnDelete.setOnAction(event -> {
+            Optional<ButtonType> option = showConfirmationDialog(employer);
+            if (option.isPresent() && option.get() == ButtonType.OK) {
+                context.send(EmployerPerspective.ID.concat(".").concat(DeleteCallBack.ID), employer);
+            }
+        });
     }
 
-    private void showConfirmationDialog(ActionEvent event) {
+    private Optional<ButtonType> showConfirmationDialog(EmployerView employer) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Employer");
-        alert.setHeaderText("Are you sure want to delete this employer from database?");
+        alert.setTitle("Employer Deletion");
+        alert.setHeaderText("Are you sure to delete this employer from database?");
         alert.setContentText(employer.getNumber() + " " + employer.getName());
-
-        Optional<ButtonType> option = alert.showAndWait();
-
-        if (option.isPresent() && option.get() == ButtonType.OK) {
-            context.send(EmployerPerspective.ID.concat(".").concat(DeleteCallBack.ID), employer);
-        }
+        return alert.showAndWait();
     }
 }
