@@ -12,21 +12,21 @@ import java.lang.reflect.Field;
 public class EmployeeView {
     private Long id;
 
-    private String numberAVS;
+    private String numberAvs;
 
     private String lastName;
 
     private String firstName;
 
-    private String startingDate;
+    private String startDate;
 
     private String endDate;
 
-    private double amountOfAssuranceAVS;
+    private double avsAiApg;
 
-    private double amountOfAssuranceAC;
+    private double ac;
 
-    private double amountOfAssuranceAF;
+    private double af;
 
     private Long employerId;
 
@@ -47,6 +47,7 @@ public class EmployeeView {
 
             field.setAccessible(false);
         } catch (NoSuchFieldException | IllegalAccessException | NumberFormatException ignored) {
+            // Skip field if it can't be assigned
         }
     }
 }

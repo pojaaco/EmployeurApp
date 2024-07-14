@@ -12,11 +12,11 @@ import vn.elca.employer.common.EmployerProto;
         collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
 )
 public abstract class EmployerMapper {
-    @Mapping(source = "employees", target = "employeesList")
-    public abstract EmployerProto toProto(EmployerView view);
-
     @Mapping(source = "employeesList", target = "employees")
     public abstract EmployerView toView(EmployerProto proto);
+
+    @Mapping(source = "employees", target = "employeesList")
+    public abstract EmployerProto toProto(EmployerView view);
 
     public abstract EmployerGetRequest toRequest(EmployerView view);
 }

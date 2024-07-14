@@ -1,9 +1,6 @@
 package vn.elca.employer.client.model.view;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
@@ -11,18 +8,19 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class EmployerView {
     private Long id;
 
-    private String caisse;
+    private String fund;
 
     private String number;
 
     private String name;
 
-    private String numberIDE;
+    private String numberIde;
 
-    private String startingDate;
+    private String startDate;
 
     private String endDate;
 

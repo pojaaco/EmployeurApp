@@ -23,7 +23,7 @@ public class EnumStringConverter<T extends Enum<T>> extends StringConverter<T> {
     public void initializeReverseLookupMap(ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
 
-        String enumKey = "Enum." + StringUtils.capitalize(StringUtils.substringAfterLast(enumType.getName(), "."));
+        String enumKey = "Enum." + StringUtils.substringAfterLast(enumType.getName(), ".");
         reverseLookupMap = resourceBundle.keySet().stream()
                 .filter(key -> key.contains(enumKey))
                 .collect(Collectors.toMap(resourceBundle::getString, key -> key));
@@ -45,7 +45,7 @@ public class EnumStringConverter<T extends Enum<T>> extends StringConverter<T> {
     public T fromString(String string) {
         try {
             String enumKey = reverseLookupMap.get(string)
-                    .substring(5)
+                    .substring(5) // Remove prefix Enum.
                     .toUpperCase()
                     .replace(".", "_");
             return Enum.valueOf(enumType, enumKey);

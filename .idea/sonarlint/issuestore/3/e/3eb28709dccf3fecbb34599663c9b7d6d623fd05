@@ -1,0 +1,14 @@
+
+E
+java:S1066@"/Merge this if statement with the enclosing one.(ÀÆ§¶
+]	java:S1257"<This block of commented-out lines of code should be removed.(È¼ØÑÿÿÿÿÿ8Ú¹Ÿƒ‹2
+Q
+java:S1128"/Remove this unused import 'javafx.stage.Stage'.(æÄ¸²úÿÿÿÿ8­ïœƒ‹2
+n
+java:S1128"LRemove this unused import 'vn.elca.employer.client.callback.DeleteCallBack'.(»“ðåÿÿÿÿÿ8½ïœƒ‹2
+h
+java:S1128"LRemove this unused import 'vn.elca.employer.client.callback.SearchCallBack'.(ïÍ®58¾ïœƒ‹2
+i
+java:S1128"LRemove this unused import 'vn.elca.employer.client.model.view.EmployerView'.(›¦”Š8¾ïœƒ‹2
+v
+java:S1128"TRemove this unused import 'vn.elca.employer.client.perspective.EmployerPerspective'.(²ÌÃ‡øÿÿÿÿ8¿ïœƒ‹2

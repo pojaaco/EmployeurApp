@@ -2,19 +2,31 @@ package vn.elca.employer.client.component.importer.impl;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
-import org.apache.commons.text.CaseUtils;
+import org.apache.commons.lang3.StringUtils;
 import vn.elca.employer.client.component.importer.EmployeeImporter;
+import vn.elca.employer.client.exception.EmployeeExtractionException;
 import vn.elca.employer.client.model.view.EmployeeView;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CSVEmployeeImporter implements EmployeeImporter {
+    private Map<String, String> reverseLookupMap; // value to key
+
     @Override
-    public List<EmployeeView> extractEmployeesFromFile(String filePath) {
+    public void initializeReverseLookupMap(ResourceBundle resourceBundle) {
+        reverseLookupMap = resourceBundle.keySet().stream()
+                .filter(key -> key.contains("Property.Employee"))
+                .collect(Collectors.toMap(resourceBundle::getString, key -> key));
+    }
+
+    @Override
+    public List<EmployeeView> extractEmployeesFromFile(String filePath) throws EmployeeExtractionException {
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
             List<EmployeeView> employees = new ArrayList<>();
             String[] line;
@@ -23,18 +35,7 @@ public class CSVEmployeeImporter implements EmployeeImporter {
                 if (header == null) {
                     header = line;
                     for (int i = 0; i < header.length; i++) {
-                        header[i] = header[i].replaceAll("[-/_.:,]", " ");
-                        header[i] = CaseUtils.toCamelCase(header[i], false, ' ');
-                        // TODO: Avoid Hardcode
-                        if (header[i].equals("numberAvs")) {
-                            header[i] = "numberAVS";
-                        } else if (header[i].equals("avsAiApg")) {
-                            header[i] = "amountOfAssuranceAVS";
-                        } else if (header[i].equals("ac")) {
-                            header[i] = "amountOfAssuranceAC";
-                        } else if (header[i].equals("af")) {
-                            header[i] = "amountOfAssuranceAF";
-                        }
+                        header[i] = StringUtils.substringAfterLast(reverseLookupMap.get(header[i]), ".");
                     }
                 } else {
                     EmployeeView employee = new EmployeeView();
@@ -46,8 +47,7 @@ public class CSVEmployeeImporter implements EmployeeImporter {
             }
             return employees;
         } catch (IOException | CsvValidationException e) {
-//            throw new CompanyExtractionException("Can't find file " + filePath, e);
-            throw new IllegalArgumentException();
+            throw new EmployeeExtractionException("Can't find file " + filePath, e);
         }
     }
 }

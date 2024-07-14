@@ -24,7 +24,7 @@ public class EmployerServiceGrpcStub {
         return blockingStub.setEmployer(request);
     }
 
-    public EmployerDelResponse delEmployer(EmployerDelRequest request) {
-        return blockingStub.delEmployer(request);
+    public EmployerDeleteResponse delEmployer(EmployerDeleteRequest request) {
+        return blockingStub.deleteEmployer(request);
     }
 }

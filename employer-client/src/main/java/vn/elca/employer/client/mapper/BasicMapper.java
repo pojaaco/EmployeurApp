@@ -5,14 +5,14 @@ import com.google.protobuf.StringValue;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.converter.EnumStringConverter;
-import vn.elca.employer.common.Caisse;
+import vn.elca.employer.common.Fund;
 
 @Mapper(
         componentModel = "spring"
 )
 public abstract class BasicMapper {
     @Autowired
-    private EnumStringConverter<Caisse> caisseConverter;
+    private EnumStringConverter<Fund> fundConverter;
 
     public Long toLong(Int64Value value) {
         if (value == null) {
@@ -46,19 +46,19 @@ public abstract class BasicMapper {
         return StringValue.of(value);
     }
 
-    public Caisse toCaisse(String value) {
+    public Fund toFund(String value) {
         if (value == null) {
             return null;
         }
 
-        return caisseConverter.fromString(value);
+        return fundConverter.fromString(value);
     }
 
-    public String toString(Caisse value) {
+    public String toString(Fund value) {
         if (value == null) {
             return null;
         }
 
-        return caisseConverter.toString(value);
+        return fundConverter.toString(value);
     }
 }
