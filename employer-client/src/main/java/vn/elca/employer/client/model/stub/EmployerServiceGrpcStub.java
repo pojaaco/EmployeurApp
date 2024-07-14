@@ -20,6 +20,10 @@ public class EmployerServiceGrpcStub {
         return blockingStub.getEmployer(request);
     }
 
+    public EmployerSetResponse setEmployer(EmployerSetRequest request) {
+        return blockingStub.setEmployer(request);
+    }
+
     public EmployerDelResponse delEmployer(EmployerDelRequest request) {
         return blockingStub.delEmployer(request);
     }

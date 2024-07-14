@@ -13,11 +13,13 @@ import org.jacpfx.rcp.componentLayout.FXComponentLayout;
 import org.jacpfx.rcp.workbench.FXWorkbench;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.client.perspective.EmployerPerspective;
 
 @Workbench(id = EmployerWorkbench.ID, name = EmployerWorkbench.ID,
         perspectives = {
-                EmployerPerspective.ID
+                EmployeePerspective.ID,
+                EmployerPerspective.ID,
         })
 public class EmployerWorkbench implements FXWorkbench {
     public static final String ID = "EmployerWorkbench";

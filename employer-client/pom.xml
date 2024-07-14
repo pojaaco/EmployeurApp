@@ -45,5 +45,10 @@
             <artifactId>grpc-client-spring-boot-starter</artifactId>
             <version>${grpc-spring-boot-starter.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${opencsv.version}</version>
+        </dependency>
     </dependencies>
 </project>

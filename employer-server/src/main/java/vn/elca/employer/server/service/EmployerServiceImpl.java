@@ -33,7 +33,9 @@ public class EmployerServiceImpl implements EmployerService {
     @Override
     public void saveEmployer(EmployerDto employerDto) {
         try {
-            employerDto.setNumber(String.format("%06d", employerRepository.getNextSeqValue()));
+            if (employerDto.getNumber() == null) {
+                employerDto.setNumber(String.format("%06d", employerRepository.getNextSeqValue()));
+            }
             employerRepository.saveEmployer(employerMapper.toEntity(employerDto));
         } catch (Exception e) {
             throw new CrudException(e.getMessage());

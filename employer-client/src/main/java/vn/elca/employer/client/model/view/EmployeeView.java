@@ -1,14 +1,14 @@
 package vn.elca.employer.client.model.view;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.lang.reflect.Field;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class EmployeeView {
     private Long id;
 
@@ -29,4 +29,24 @@ public class EmployeeView {
     private double amountOfAssuranceAF;
 
     private Long employerId;
+
+    public void setMember(String memberName, String memberValue) {
+        Field field;
+        try {
+            field = EmployeeView.class.getDeclaredField(memberName);
+            field.setAccessible(true);
+
+            Class<?> fieldType = field.getType();
+            if (long.class.isAssignableFrom(fieldType)) {
+                field.setLong(this, Long.parseLong(memberValue));
+            } else if (double.class.isAssignableFrom(fieldType)) {
+                field.setDouble(this, Double.parseDouble(memberValue));
+            } else {
+                field.set(this, memberValue);
+            }
+
+            field.setAccessible(false);
+        } catch (NoSuchFieldException | IllegalAccessException | NumberFormatException ignored) {
+        }
+    }
 }

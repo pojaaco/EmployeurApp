@@ -1,0 +1,15 @@
+
+o
+java:S1192@"MDefine a constant instead of duplicating this literal "#tableResult" 3 times.(šÄ¿øÿÿÿÿ8æ‘ªıŠ2
+E
+java:S1066D"/Merge this if statement with the enclosing one.(©“Š
+R
+java:S4973D"<Strings and Boxed types should be compared using "equals()".(©“Š
+\
+java:S1128"?Remove this unused import 'javafx.beans.value.ObservableValue'.(´œ«Å8ÕïÍıŠ2
+S
+java:S1128"1Remove this unused import 'javafx.util.Callback'.(¢œ»²ıÿÿÿÿ8ÕïÍıŠ2
+T
+java:S1128#"2Remove this unused import 'javax.xml.soap.Detail'.(Ü¯³Àşÿÿÿÿ8ÕïÍıŠ2
+Q
+java:S1128$"/Remove this unused import 'java.util.Optional'.(¨˜ëİüÿÿÿÿ8ÕïÍıŠ2

@@ -14,7 +14,7 @@ import vn.elca.employer.common.EmployerProto;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-07-13T16:28:00+0700",
+    date = "2024-07-14T09:49:12+0700",
     comments = "version: 1.6.0.Beta1, compiler: javac, environment: Java 1.8.0_411 (Oracle Corporation)"
 )
 @Component

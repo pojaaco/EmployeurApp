@@ -6,10 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -32,9 +29,11 @@ import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.fragment.EmployerDeleteFragment;
 import vn.elca.employer.client.fragment.EmployerDetailsFragment;
 import vn.elca.employer.client.model.view.EmployerView;
+import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.client.perspective.EmployerPerspective;
 
 import javax.xml.soap.Detail;
+import java.util.Optional;
 
 @View(id = EmployerResultComponent.ID,
         name = EmployerResultComponent.ID,
@@ -65,6 +64,14 @@ public class EmployerResultComponent implements FXComponent {
                 ((TableView<EmployerView>) pane.lookup("#tableResult")).setItems(results);
             } else if (message.getSourceId().equals(EmployerPerspective.ID.concat(".").concat(DeleteCallBack.ID))) {
                 ((TableView<EmployerView>) pane.lookup("#tableResult")).getItems().remove(message.getTypedMessageBody(EmployerView.class));
+            } else if (message.getSourceId().equals(EmployeePerspective.ID.concat(".").concat(EmployeeInfoComponent.ID))) {
+                if (message.getTypedMessageBody(String.class) == "refresh") {
+                    ((TableView<EmployerView>) pane.lookup("#tableResult")).refresh();
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Employer Saved!");
+                    alert.showAndWait();
+                }
             }
         }
         return pane;

@@ -11,7 +11,7 @@ import vn.elca.employer.server.model.entity.Employee;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-07-13T16:27:58+0700",
+    date = "2024-07-14T12:18:52+0700",
     comments = "version: 1.6.0.Beta1, compiler: javac, environment: Java 1.8.0_411 (Oracle Corporation)"
 )
 @Component

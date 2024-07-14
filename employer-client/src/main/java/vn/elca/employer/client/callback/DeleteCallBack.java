@@ -34,6 +34,7 @@ public class DeleteCallBack implements CallbackComponent {
     @Override
     public Object handle(Message<Event, Object> message) throws Exception {
         if (!message.messageBodyEquals(FXUtil.MessageUtil.INIT)) {
+            // TODO below may be redundant
             context.setReturnTarget(EmployerPerspective.ID.concat(".").concat(EmployerResultComponent.ID));
             EmployerDelRequest request = EmployerDelRequest.newBuilder()
                     .setId(message.getTypedMessageBody(EmployerView.class).getId())

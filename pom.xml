@@ -21,7 +21,9 @@
         <apt-maven-plugin.version>1.1.3</apt-maven-plugin.version>
         <lombok.version>1.18.30</lombok.version>
         <mapstruct.version>1.6.0.Beta1</mapstruct.version>
-        <commons-lang3-version>3.12.0</commons-lang3-version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <commons-io.version>2.11.0</commons-io.version>
+        <commons-text.version>1.12.0</commons-text.version>
         <!-- common -->
         <grpc.version>1.57.2</grpc.version>
         <protobuf-java.version>3.24.4</protobuf-java.version>
@@ -32,6 +34,7 @@
         <querydsl.version>4.2.2</querydsl.version>
         <!-- client -->
         <jacpfx.version>2.1</jacpfx.version>
+        <opencsv.version>5.9</opencsv.version>
     </properties>
 
     <dependencyManagement>
@@ -67,7 +70,17 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3-version}</version>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${commons-text.version}</version>
         </dependency>
     </dependencies>
 

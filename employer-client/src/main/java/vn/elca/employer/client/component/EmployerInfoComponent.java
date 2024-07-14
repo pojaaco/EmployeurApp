@@ -18,6 +18,7 @@ import vn.elca.employer.client.callback.SearchCallBack;
 import vn.elca.employer.client.converter.EnumStringConverter;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.model.view.EmployerView;
+import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.client.perspective.EmployerPerspective;
 import vn.elca.employer.common.Caisse;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
@@ -67,6 +68,10 @@ public class EmployerInfoComponent implements FXComponent {
         StackPane stackPane = new StackPane();
         Button button = new Button();
         button.textProperty().bind(observableResourceFactory.getStringBinding(RESOURCE_ROOT + ".button.add"));
+        button.setOnAction(event -> {
+            context.send(EmployeePerspective.ID, "show");
+            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInfoComponent.ID), new EmployerView());
+        });
         StackPane.setAlignment(button, Pos.BOTTOM_RIGHT);
         stackPane.getChildren().add(button);
         vBox.getChildren().add(stackPane);
