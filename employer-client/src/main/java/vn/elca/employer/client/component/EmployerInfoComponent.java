@@ -56,9 +56,20 @@ public class EmployerInfoComponent implements FXComponent {
         vBox.setSpacing(5);
 
         BorderPane borderPane = new BorderPane();
-//        borderPane.setStyle("-fx-border-color: black; -fx-border-width: 1px;");
         borderPane.setCenter(createInfoFields());
         vBox.getChildren().add(borderPane);
+
+        HBox switcher = new HBox();
+        Label lblEn = new Label("EN");
+        lblEn.setOnMouseClicked(event -> {
+            observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN);
+        });
+        Label lblFr = new Label("FR");
+        lblFr.setOnMouseClicked(event -> {
+            observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.FR);
+        });
+        switcher.getChildren().addAll(lblEn, new Label("|"), lblFr);
+        vBox.getChildren().add(switcher);
 
         StackPane stackPane = new StackPane();
         Button button = new Button();

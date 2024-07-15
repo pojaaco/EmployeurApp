@@ -39,8 +39,6 @@ Pemployer-server/src/main/java/vn/elca/employer/server/mapper/EmployeeMapper.jav
 `employer-client/src/main/java/vn/elca/employer/client/exception/EmployeeExtractionException.java,d\3\d331fb0254a0c973a1e15be5611465e80daaf204
 €
 Pemployer-client/src/main/java/vn/elca/employer/client/mapper/EmployeeMapper.java,4\5\45a1079cab97811d9da78c1e2fdcf34d710dedd0
-Œ
-\employer-client/src/main/java/vn/elca/employer/client/factory/ObservableResourceFactory.java,3\0\3082a7158e17d17ce7eab87487c13fab6f1dcaac
 Ž
 ^employer-client/src/main/java/vn/elca/employer/client/exception/ImporterCreationException.java,2\f\2f92bc47c054704994018663b0716002e2ccb808
 †
@@ -61,8 +59,6 @@ Vemployer-client/src/main/java/vn/elca/employer/client/config/EmployerJacpfxConf
 Remployer-client/src/main/java/vn/elca/employer/client/callback/DeleteCallBack.java,c\9\c978e0e47c7821d9dca347d11bb302a87a3ef41e
 ‚
 Remployer-client/src/main/java/vn/elca/employer/client/callback/ImportCallBack.java,b\2\b21789ead112b8a3f532de716436be7ece0ef760
-Š
-Zemployer-client/src/main/java/vn/elca/employer/client/perspective/EmployerPerspective.java,b\9\b96c969bd59da1c4cb0fee6dc9b8976c9809d315
 Œ
 \employer-client/src/main/java/vn/elca/employer/client/component/EmployeeImportComponent.java,3\e\3eb28709dccf3fecbb34599663c9b7d6d623fd05
 ’

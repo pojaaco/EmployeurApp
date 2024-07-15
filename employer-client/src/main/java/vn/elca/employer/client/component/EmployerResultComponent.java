@@ -84,6 +84,8 @@ public class EmployerResultComponent implements FXComponent {
                 createTableColumn("endDate"),
                 createActionTableColumn()
         );
+        // TODO: can degrade performance
+        observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> tableResult.refresh()));
         return tableResult;
     }
 
