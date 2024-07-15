@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -22,11 +23,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.DeleteCallBack;
 import vn.elca.employer.client.callback.GetCallBack;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
+import vn.elca.employer.client.converter.EnumStringConverter;
+import vn.elca.employer.client.converter.EnumStringConverterFactory;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.fragment.EmployerDeleteFragment;
 import vn.elca.employer.client.fragment.EmployerDetailsFragment;
 import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployerPerspective;
+import vn.elca.employer.common.Fund;
 
 @View(id = EmployerResultComponent.ID,
         name = EmployerResultComponent.ID,
@@ -72,7 +76,7 @@ public class EmployerResultComponent implements FXComponent {
         tableResult.setId("employerTable");
         tableResult.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableResult.getColumns().addAll(
-                createTableColumn("fund"),
+                createFundTableColumn("fund"),
                 createTableColumn("number"),
                 createTableColumn("numberIde"),
                 createTableColumn("name"),
@@ -87,6 +91,14 @@ public class EmployerResultComponent implements FXComponent {
         TableColumn<EmployerView, String> column = new TableColumn<>();
         column.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer." + property));
         column.setCellValueFactory(new PropertyValueFactory<>(property));
+        return column;
+    }
+
+    public TableColumn<EmployerView, Fund> createFundTableColumn(String property) {
+        TableColumn<EmployerView, Fund> column = new TableColumn<>();
+        column.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer." + property));
+        column.setCellValueFactory(new PropertyValueFactory<>(property));
+        column.setCellFactory(TextFieldTableCell.forTableColumn(EnumStringConverterFactory.getConverter(Fund.class, observableResourceFactory)));
         return column;
     }
 

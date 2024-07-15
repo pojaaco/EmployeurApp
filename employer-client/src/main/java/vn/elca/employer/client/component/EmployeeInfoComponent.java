@@ -19,8 +19,7 @@ import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.client.perspective.EmployerPerspective;
-
-import java.util.Optional;
+import vn.elca.employer.common.Fund;
 
 @View(id = EmployeeInfoComponent.ID,
         name = EmployeeInfoComponent.ID,
@@ -125,7 +124,7 @@ public class EmployeeInfoComponent implements FXComponent {
             ((Label) pane.lookup("#number")).setText("------");
         }
         if (view.getFund() != null) {
-            ((ComboBox<String>) pane.lookup("#fund")).getSelectionModel().select(view.getFund());
+            ((ComboBox<Fund>) pane.lookup("#fund")).getSelectionModel().select(view.getFund());
         }
         ((TextField) pane.lookup("#name")).setText(view.getName());
         ((TextField) pane.lookup("#numberIde")).setText(view.getNumberIde());
@@ -139,7 +138,7 @@ public class EmployeeInfoComponent implements FXComponent {
         newEmployer.setId(employer.getId());
         newEmployer.setNumber(employer.getNumber());
         newEmployer.setName(((TextField) pane.lookup("#name")).getText());
-        newEmployer.setFund(((ComboBox<String>) pane.lookup("#fund")).getSelectionModel().getSelectedItem());
+        newEmployer.setFund(((ComboBox<Fund>) pane.lookup("#fund")).getSelectionModel().getSelectedItem());
         newEmployer.setNumberIde(((TextField) pane.lookup("#numberIde")).getText());
         newEmployer.setStartDate(((TextField) pane.lookup("#startDate")).getText());
         newEmployer.setEndDate(((TextField) pane.lookup("#endDate")).getText());

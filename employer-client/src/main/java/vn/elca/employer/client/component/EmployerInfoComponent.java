@@ -20,6 +20,7 @@ import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.client.perspective.EmployerPerspective;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
+import vn.elca.employer.common.Fund;
 
 @View(id = EmployerInfoComponent.ID,
         name = EmployerInfoComponent.ID,
@@ -145,7 +146,7 @@ public class EmployerInfoComponent implements FXComponent {
     private void handleSearchButton(ActionEvent event) {
         EmployerView employerView = new EmployerView();
 
-        ComboBox<String> fund = (ComboBox<String>) pane.lookup("#fund");
+        ComboBox<Fund> fund = (ComboBox<Fund>) pane.lookup("#fund");
         if (!fund.getSelectionModel().isEmpty()) {
             employerView.setFund(fund.getValue());
         }

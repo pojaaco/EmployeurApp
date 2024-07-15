@@ -11,8 +11,8 @@ import vn.elca.employer.common.Fund;
         componentModel = "spring"
 )
 public abstract class BasicMapper {
-    @Autowired
-    private EnumStringConverter<Fund> fundConverter;
+//    @Autowired
+//    private EnumStringConverter<Fund> fundConverter;
 
     public Long toLong(Int64Value value) {
         if (value == null) {
@@ -46,19 +46,19 @@ public abstract class BasicMapper {
         return StringValue.of(value);
     }
 
-    public Fund toFund(String value) {
-        if (value == null) {
-            return null;
-        }
-
-        return fundConverter.fromString(value);
-    }
-
-    public String toString(Fund value) {
-        if (value == null) {
-            return null;
-        }
-
-        return fundConverter.toString(value);
-    }
+//    public Fund toFund(String value) {
+//        if (value == null) {
+//            return null;
+//        }
+//
+//        return fundConverter.fromString(value);
+//    }
+//
+//    public String toString(Fund value) {
+//        if (value == null) {
+//            return null;
+//        }
+//
+//        return fundConverter.toString(value);
+//    }
 }

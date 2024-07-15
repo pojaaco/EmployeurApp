@@ -1,6 +1,7 @@
 package vn.elca.employer.client.model.view;
 
 import lombok.*;
+import vn.elca.employer.common.Fund;
 
 import java.util.Set;
 
@@ -12,7 +13,7 @@ import java.util.Set;
 public class EmployerView {
     private Long id;
 
-    private String fund;
+    private Fund fund;
 
     private String number;
 

@@ -21,9 +21,4 @@ public class EmployerApplicationConfig {
         observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN);
         return observableResourceFactory;
     }
-
-    @Bean
-    EnumStringConverter<Fund> fundEnumStringConverter() {
-        return new EnumStringConverter<>(Fund.class, observableResourceFactory());
-    }
 }
