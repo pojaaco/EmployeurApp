@@ -22,10 +22,7 @@ import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.client.perspective.EmployerPerspective;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
-import vn.elca.employer.common.ConstantContainer;
 import vn.elca.employer.common.Fund;
-
-import java.time.format.DateTimeFormatter;
 
 @View(id = EmployerInputComponent.ID,
         name = EmployerInputComponent.ID,
@@ -61,18 +58,15 @@ public class EmployerInputComponent implements FXComponent {
         vBox.setSpacing(5);
 
         BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(createInfoFields());
+        borderPane.setCenter(createInputFields());
         vBox.getChildren().add(borderPane);
 
-        VBox switcher = new VBox();
+        HBox switcher = new HBox();
+        switcher.setSpacing(10);
         Label lblEn = new Label("EN");
-        lblEn.setOnMouseClicked(event -> {
-            observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN);
-        });
+        lblEn.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN));
         Label lblFr = new Label("FR");
-        lblFr.setOnMouseClicked(event -> {
-            observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.FR);
-        });
+        lblFr.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.FR));
         switcher.getChildren().addAll(lblEn, new Label("|"), lblFr);
         vBox.getChildren().add(switcher);
 
@@ -90,15 +84,15 @@ public class EmployerInputComponent implements FXComponent {
         pane = vBox;
     }
 
-    private GridPane createInfoFields() {
+    private GridPane createInputFields() {
         GridPane gridPane = new GridPane();
         configureGridPane(gridPane);
 
         VBox column1Row1 = createColumn("fund", creationHelper.createFundComboBox());
-        VBox column2Row1 = createColumn("number", new TextField());
+        VBox column2Row1 = createColumn("number", creationHelper.createValidatedTextField(Validator::isValidNumber, "Format.number"));
         VBox column3Row1 = createColumn("startDate", creationHelper.createDatePicker());
         VBox column1Row2 = createColumn("name", new TextField());
-        VBox column2Row2 = createColumn("numberIde", new TextField());
+        VBox column2Row2 = createColumn("numberIde", creationHelper.createValidatedTextField(Validator::isValidNumberIde, "Format.numberIde"));
         VBox column3Row2 = createColumn("endDate", creationHelper.createDatePicker());
 
         addColumnsToGrid(gridPane, column1Row1, column2Row1, column3Row1, 0);
@@ -117,11 +111,11 @@ public class EmployerInputComponent implements FXComponent {
 
         for (int i = 0; i < 3; i++) {
             ColumnConstraints col = new ColumnConstraints();
-            col.setPercentWidth(100./3.);
+            col.setPercentWidth(100. / 3.);
             gridPane.getColumnConstraints().add(col);
 
             RowConstraints row = new RowConstraints();
-            row.setPercentHeight(100./3.);
+            row.setPercentHeight(100. / 3.);
             gridPane.getRowConstraints().add(row);
         }
     }
@@ -183,16 +177,12 @@ public class EmployerInputComponent implements FXComponent {
 
         DatePicker startDate = (DatePicker) pane.lookup("#startDate");
         if (startDate.getValue() != null) {
-            DateTimeFormatter dateFormatter =
-                    DateTimeFormatter.ofPattern(ConstantContainer.DATE_FORMAT);
-            employerView.setStartDate(dateFormatter.format(startDate.getValue()));
+            employerView.setStartDate(creationHelper.dateFormatter.format(startDate.getValue()));
         }
 
         DatePicker endDate = (DatePicker) pane.lookup("#endDate");
         if (endDate.getValue() != null) {
-            DateTimeFormatter dateFormatter =
-                    DateTimeFormatter.ofPattern(ConstantContainer.DATE_FORMAT);
-            employerView.setEndDate(dateFormatter.format(endDate.getValue()));
+            employerView.setEndDate(creationHelper.dateFormatter.format(endDate.getValue()));
         }
 
         context.send(EmployerPerspective.ID.concat(".").concat(GetCallBack.ID), employerView);

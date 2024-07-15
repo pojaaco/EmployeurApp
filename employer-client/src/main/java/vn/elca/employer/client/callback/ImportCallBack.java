@@ -26,10 +26,10 @@ public class ImportCallBack implements CallbackComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(ImportCallBack.class);
 
     @Autowired
-    ObservableResourceFactory observableResourceFactory;
+    private ObservableResourceFactory observableResourceFactory;
 
     @Resource
-    Context context;
+    private Context context;
 
     @Override
     public Object handle(Message<Event, Object> message) throws Exception {

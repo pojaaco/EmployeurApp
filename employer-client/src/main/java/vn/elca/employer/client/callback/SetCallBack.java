@@ -6,7 +6,6 @@ import org.jacpfx.api.annotations.component.Component;
 import org.jacpfx.api.message.Message;
 import org.jacpfx.rcp.component.CallbackComponent;
 import org.jacpfx.rcp.context.Context;
-import org.jacpfx.rcp.util.FXUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,35 +41,40 @@ public class SetCallBack implements CallbackComponent {
 
     @Override
     public Object handle(Message<Event, Object> message) throws Exception {
-        if (!message.messageBodyEquals(FXUtil.MessageUtil.INIT)) {
-            String sourceId = message.getSourceId();
-            if (sourceId.equals(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID))) {
-                if (message.isMessageBodyTypeOf(String.class) && message.getTypedMessageBody(String.class) == "not_save") {
-                    employer = null;
-                    employees = null;
-                } else {
-                    employer = message.getTypedMessageBody(EmployerView.class);
-                }
-            } else if (sourceId.equals(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID))) {
-                employees = (List<EmployeeView>) message.getMessageBody();
+        String sourceId = message.getSourceId();
+        if (sourceId.endsWith(EmployeeInputComponent.ID)) {
+            if (message.isMessageBodyTypeOf(String.class) && message.getTypedMessageBody(String.class).compareTo("reset") == 0) {
+                reset();
+            } else {
+                employer = message.getTypedMessageBody(EmployerView.class);
             }
+        } else if (sourceId.endsWith(EmployeeImportComponent.ID)) {
+            employees = (List<EmployeeView>) message.getMessageBody();
+        }
 
-            if (employer != null && employees != null) {
-                employees.forEach(e -> employer.getEmployees().add(e));
-                EmployerSetRequest request = EmployerSetRequest.newBuilder()
-                        .setEmployer(employerMapper.toProto(employer))
-                        .build();
-                EmployerSetResponse response = stub.setEmployer(request);
-                if (response.getIsOK()) {
-                    context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID),
-                            employerMapper.toView(request.getEmployer()));
-                } else {
-                    LOGGER.debug(response.getMessage());
-                }
-                employer = null;
-                employees = null;
-            }
+        if (employer != null && employees != null) {
+            setData();
+            reset();
         }
         return null;
+    }
+
+    private void setData() {
+        employees.forEach(e -> employer.getEmployees().add(e));
+        EmployerSetRequest request = EmployerSetRequest.newBuilder()
+                .setEmployer(employerMapper.toProto(employer))
+                .build();
+        EmployerSetResponse response = stub.setEmployer(request);
+        if (response.getIsOK()) {
+            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID),
+                    employerMapper.toView(request.getEmployer()));
+        } else {
+            LOGGER.debug(response.getMessage());
+        }
+    }
+
+    private void reset() {
+        employer = null;
+        employees = null;
     }
 }

@@ -26,6 +26,8 @@ import vn.elca.employer.client.model.view.EmployeeView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 
 import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @View(id = EmployeeImportComponent.ID,
         name = EmployeeImportComponent.ID,
@@ -52,13 +54,18 @@ public class EmployeeImportComponent implements FXComponent {
                 ((TableView<EmployeeView>) pane.lookup("#employeeTable")).getItems().clear();
                 ((Label) pane.lookup("#importerLabel")).setText(observableResourceFactory.getResources().getString("Label.Importer.chooseFile"));
                 selectedFile[0] = null;
-            } else if (message.getTypedMessageBody(String.class).equals("save")) {
+            }
+        } else if (sourceId.endsWith(EmployeeInputComponent.ID)) {
+            if (message.getTypedMessageBody(String.class).equals("save")) {
                 context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID),
                         ((TableView<EmployeeView>) pane.lookup("#employeeTable")).getItems());
             }
-        } else if (sourceId.contains(ImportCallBack.ID)) {
-            ObservableList<EmployeeView> results = (ObservableList<EmployeeView>) message.getMessageBody();
-            ((TableView<EmployeeView>) pane.lookup("#employeeTable")).setItems(results);
+        } else if (sourceId.endsWith(ImportCallBack.ID)) {
+            List<EmployeeView> results = ((ObservableList<EmployeeView>) message.getMessageBody())
+                    .stream()
+                    .filter(e -> Validator.validateEmployeeView(null, e))
+                    .collect(Collectors.toList());
+            ((TableView<EmployeeView>) pane.lookup("#employeeTable")).getItems().setAll(results);
         }
         return pane;
     }

@@ -14,17 +14,19 @@ service EmployerService {
 }
 
 message EmployerGetRequest {
-  Fund fund = 1;
+  google.protobuf.Int64Value id = 1;
 
-  google.protobuf.StringValue number = 2;
+  Fund fund = 2;
 
-  google.protobuf.StringValue name = 3;
+  google.protobuf.StringValue number = 3;
 
-  google.protobuf.StringValue numberIde = 4;
+  google.protobuf.StringValue name = 4;
 
-  google.protobuf.StringValue startDate = 5;
+  google.protobuf.StringValue numberIde = 5;
 
-  google.protobuf.StringValue endDate = 6;
+  google.protobuf.StringValue startDate = 6;
+
+  google.protobuf.StringValue endDate = 7;
 }
 
 message EmployerGetResponse {

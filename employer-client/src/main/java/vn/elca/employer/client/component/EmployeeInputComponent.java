@@ -47,24 +47,21 @@ public class EmployeeInputComponent implements FXComponent {
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
         String sourceId = message.getSourceId();
         if (sourceId.startsWith(EmployerPerspective.ID)) { // Add or Details
-            updateInfoFields(message.getTypedMessageBody(EmployerView.class));
+            updateInputFields(message.getTypedMessageBody(EmployerView.class));
         } else if (sourceId.endsWith(EmployeePerspective.ID)) { // Save
             if (message.getTypedMessageBody(String.class).equals("save")) {
                 EmployerView newEmployer = extractEmployerView();
-                if (validateEmployerView(newEmployer)) {
+                if (Validator.validateEmployerView(pane, newEmployer)) {
                     context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), newEmployer);
-                } else {
-                    context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), "not_save");
-                    showNotSavedInfoDialog(newEmployer);
+                    context.send(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID), "save");
                 }
             }
-        } else if (sourceId.contains(SetCallBack.ID)) { // Result of Saving
+        } else if (sourceId.endsWith(SetCallBack.ID)) { // Result of saving
             if (message.getMessageBody() != null) {
                 EmployerView newEmployer = message.getTypedMessageBody(EmployerView.class);
-                updateEmployerInfo(newEmployer);
                 showSavedInfoDialog(newEmployer);
             } else {
-                LOGGER.debug("Cannot save the employer.");
+                showNotSavedInfoDialog();
             }
         }
         return pane;
@@ -78,18 +75,18 @@ public class EmployeeInputComponent implements FXComponent {
     @PostConstruct
     public void onPostConstructComponent() {
         VBox vBox = new VBox();
-        vBox.getChildren().add(createInfoFields());
+        vBox.getChildren().add(createInputFields());
         pane = vBox;
     }
 
-    private GridPane createInfoFields() {
+    private GridPane createInputFields() {
         GridPane gridPane = new GridPane();
         configureGridPane(gridPane);
 
         createRowToGrid(gridPane, 0, "number", new Label());
         createRowToGrid(gridPane, 1, "name", new TextField());
         createRowToGrid(gridPane, 2, "fund", creationHelper.createFundComboBox());
-        createRowToGrid(gridPane, 3, "numberIde", new TextField());
+        createRowToGrid(gridPane, 3, "numberIde", creationHelper.createValidatedTextField(Validator::isValidNumberIde, "Format.numberIde"));
         createRowToGrid(gridPane, 4, "startDate", creationHelper.createDatePicker());
         createRowToGrid(gridPane, 5, "endDate", creationHelper.createDatePicker());
 
@@ -135,7 +132,7 @@ public class EmployeeInputComponent implements FXComponent {
         gridPane.add(error, 2, rowIndex);
     }
 
-    private void updateInfoFields(EmployerView view) {
+    private void updateInputFields(EmployerView view) {
         this.employer = view;
         if (view.getNumber() != null) {
             ((Label) pane.lookup("#number")).setText(view.getNumber());
@@ -164,66 +161,25 @@ public class EmployeeInputComponent implements FXComponent {
         newEmployer.setNumberIde(((TextField) pane.lookup("#numberIde")).getText());
         if (((DatePicker) pane.lookup("#startDate")).getValue() != null) {
             newEmployer.setStartDate(creationHelper.dateFormatter.format(((DatePicker) pane.lookup("#startDate")).getValue()));
-        } else {
-            newEmployer.setStartDate(null);
         }
         if (((DatePicker) pane.lookup("#endDate")).getValue() != null) {
             newEmployer.setEndDate(creationHelper.dateFormatter.format(((DatePicker) pane.lookup("#endDate")).getValue()));
-        } else {
-            newEmployer.setEndDate(null);
         }
         newEmployer.setEmployees(employer.getEmployees());
         return newEmployer;
     }
 
-    private boolean validateEmployerView(EmployerView employerView) {
-        boolean isValid = true;
-
-        if (employerView.getName() == null) {
-            pane.lookup("#error_name").setVisible(true);
-            isValid = false;
-        }
-        if (employerView.getNumberIde() == null
-                || !employerView.getNumberIde().matches("(ADM|CHE)-\\d{3}\\.\\d{3}\\.\\d{3}")) {
-            pane.lookup("#error_numberIde").setVisible(true);
-            isValid = false;
-        }
-        if (employerView.getStartDate() == null
-                || !employerView.getStartDate().matches("(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d{2}")) {
-            pane.lookup("#error_startDate").setVisible(true);
-            isValid = false;
-        }
-        if (employerView.getEndDate() != null
-                && !employerView.getEndDate().matches("(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d{2}")) {
-            pane.lookup("#error_endDate").setVisible(true);
-            isValid = false;
-        }
-
-        return isValid;
-    }
-
-    private void updateEmployerInfo(EmployerView newEmployer) {
-        employer.setId(newEmployer.getId());
-        employer.setNumber(newEmployer.getNumber());
-        employer.setName(newEmployer.getName());
-        employer.setFund(newEmployer.getFund());
-        employer.setNumberIde(newEmployer.getNumberIde());
-        employer.setStartDate(newEmployer.getStartDate());
-        employer.setEndDate(newEmployer.getEndDate());
-        employer.setEmployees(newEmployer.getEmployees());
-    }
-
     private void showSavedInfoDialog(EmployerView employer) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Employer Save");
-        alert.setHeaderText("Employer " + employer.getName() + "has been saved.");
+        alert.setHeaderText("Employer " + employer.getNumberIde() + " has been saved.");
         alert.showAndWait();
     }
 
-    private void showNotSavedInfoDialog(EmployerView employer) {
+    private void showNotSavedInfoDialog() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Employer Save");
-        alert.setHeaderText("Employer " + employer.getName() + "cannot be saved.");
+        alert.setHeaderText("The employer cannot be saved.");
         alert.showAndWait();
     }
 }

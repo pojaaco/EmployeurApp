@@ -78,7 +78,6 @@ public class EmployeePerspective implements FXPerspective {
         button2.textProperty().bind(observableResourceFactory.getStringBinding("Button.save"));
         button2.setOnAction(event -> {
             context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), "save");
-            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID), "save");
         });
         buttonContainer.getChildren().addAll(button1, button2);
         buttonContainer.setSpacing(20);

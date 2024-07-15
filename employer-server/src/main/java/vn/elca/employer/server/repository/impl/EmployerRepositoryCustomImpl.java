@@ -22,21 +22,25 @@ public class EmployerRepositoryCustomImpl implements EmployerRepositoryCustom {
         QEmployer qEmployer = QEmployer.employer;
         BooleanExpression predicate = qEmployer.isNotNull();
 
-        predicate = predicate.and(qEmployer.fund.eq(criteria.getFund()));
-        if (criteria.getNumber() != null) {
-            predicate = predicate.and(qEmployer.number.containsIgnoreCase(criteria.getNumber()));
-        }
-        if (criteria.getName() != null) {
-            predicate = predicate.and(qEmployer.name.containsIgnoreCase(criteria.getName()));
-        }
-        if (criteria.getNumberIde() != null) {
-            predicate = predicate.and(qEmployer.numberIde.containsIgnoreCase(criteria.getNumberIde()));
-        }
-        if (criteria.getStartDate() != null) {
-            predicate = predicate.and(qEmployer.startDate.goe(criteria.getStartDate()));
-        }
-        if (criteria.getEndDate() != null) {
-            predicate = predicate.and(qEmployer.endDate.loe(criteria.getEndDate()));
+        if (criteria.getId() != null) {
+            predicate = predicate.and(qEmployer.id.eq(criteria.getId()));
+        } else {
+            predicate = predicate.and(qEmployer.fund.eq(criteria.getFund()));
+            if (criteria.getNumber() != null) {
+                predicate = predicate.and(qEmployer.number.containsIgnoreCase(criteria.getNumber()));
+            }
+            if (criteria.getName() != null) {
+                predicate = predicate.and(qEmployer.name.containsIgnoreCase(criteria.getName()));
+            }
+            if (criteria.getNumberIde() != null) {
+                predicate = predicate.and(qEmployer.numberIde.containsIgnoreCase(criteria.getNumberIde()));
+            }
+            if (criteria.getStartDate() != null) {
+                predicate = predicate.and(qEmployer.startDate.goe(criteria.getStartDate()));
+            }
+            if (criteria.getEndDate() != null) {
+                predicate = predicate.and(qEmployer.endDate.loe(criteria.getEndDate()));
+            }
         }
 
         return queryFactory.selectFrom(qEmployer)

@@ -30,7 +30,6 @@ import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.fragment.EmployerDeleteFragment;
 import vn.elca.employer.client.fragment.EmployerDetailsFragment;
 import vn.elca.employer.client.model.view.EmployerView;
-import vn.elca.employer.client.perspective.EmployerPerspective;
 import vn.elca.employer.common.Fund;
 
 @View(id = EmployerTableComponent.ID,
@@ -41,10 +40,10 @@ public class EmployerTableComponent implements FXComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployerTableComponent.class);
 
     @Autowired
-    ObservableResourceFactory observableResourceFactory;
+    private ObservableResourceFactory observableResourceFactory;
 
     @Resource
-    Context context;
+    private Context context;
 
     private Node pane;
 
@@ -56,12 +55,14 @@ public class EmployerTableComponent implements FXComponent {
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
         String sourceId = message.getSourceId();
-        if (sourceId.equals(EmployerPerspective.ID.concat(".").concat(GetCallBack.ID))) {
+        if (sourceId.endsWith(GetCallBack.ID)) {
             ObservableList<EmployerView> results = (ObservableList<EmployerView>) message.getMessageBody();
             ((TableView<EmployerView>) pane.lookup("#employerTable")).setItems(results);
-        } else if (sourceId.equals(EmployerPerspective.ID.concat(".").concat(DeleteCallBack.ID))) {
-            EmployerView delete = message.getTypedMessageBody(EmployerView.class);
-            ((TableView<EmployerView>) pane.lookup("#employerTable")).getItems().remove(delete);
+        } else if (sourceId.endsWith(DeleteCallBack.ID) || sourceId.endsWith(EmployerTableComponent.ID)) {
+            if (message.isMessageBodyTypeOf(EmployerView.class)) {
+                EmployerView delete = message.getTypedMessageBody(EmployerView.class);
+                ((TableView<EmployerView>) pane.lookup("#employerTable")).getItems().remove(delete);
+            }
         }
         return pane;
     }
@@ -69,11 +70,11 @@ public class EmployerTableComponent implements FXComponent {
     @PostConstruct
     public void onPostConstructComponent() {
         VBox vBox = new VBox();
-        vBox.getChildren().add(createResultTable());
+        vBox.getChildren().add(createEmployerTable());
         pane = vBox;
     }
 
-    private TableView<EmployerView> createResultTable() {
+    private TableView<EmployerView> createEmployerTable() {
         TableView<EmployerView> tableResult = new TableView<>();
         tableResult.setId("employerTable");
         tableResult.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -91,14 +92,7 @@ public class EmployerTableComponent implements FXComponent {
         return tableResult;
     }
 
-    public TableColumn<EmployerView, String> createTableColumn(String property) {
-        TableColumn<EmployerView, String> column = new TableColumn<>();
-        column.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer." + property));
-        column.setCellValueFactory(new PropertyValueFactory<>(property));
-        return column;
-    }
-
-    public TableColumn<EmployerView, Fund> createFundTableColumn(String property) {
+    private TableColumn<EmployerView, Fund> createFundTableColumn(String property) {
         TableColumn<EmployerView, Fund> column = new TableColumn<>();
         column.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer." + property));
         column.setCellValueFactory(new PropertyValueFactory<>(property));
@@ -106,7 +100,14 @@ public class EmployerTableComponent implements FXComponent {
         return column;
     }
 
-    private TableColumn<EmployerView, EmployerView>  createActionTableColumn() {
+    private TableColumn<EmployerView, String> createTableColumn(String property) {
+        TableColumn<EmployerView, String> column = new TableColumn<>();
+        column.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer." + property));
+        column.setCellValueFactory(new PropertyValueFactory<>(property));
+        return column;
+    }
+
+    private TableColumn<EmployerView, EmployerView> createActionTableColumn() {
         TableColumn<EmployerView, EmployerView> column = new TableColumn<>();
 
         column.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue()));

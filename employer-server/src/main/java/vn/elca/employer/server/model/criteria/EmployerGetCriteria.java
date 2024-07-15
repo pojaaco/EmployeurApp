@@ -10,6 +10,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployerGetCriteria {
+    private Long id;
+
     private Fund fund;
 
     private String number;

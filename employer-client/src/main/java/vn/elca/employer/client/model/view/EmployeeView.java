@@ -46,7 +46,7 @@ public class EmployeeView {
             }
 
             field.setAccessible(false);
-        } catch (NoSuchFieldException | IllegalAccessException | NumberFormatException ignored) {
+        } catch (NoSuchFieldException | IllegalAccessException | NumberFormatException | NullPointerException ignored) {
             // Skip field if it can't be assigned
         }
     }

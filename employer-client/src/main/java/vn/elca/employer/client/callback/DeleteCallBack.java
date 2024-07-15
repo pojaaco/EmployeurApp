@@ -26,7 +26,7 @@ public class DeleteCallBack implements CallbackComponent {
     private EmployerServiceGrpcStub stub;
 
     @Resource
-    Context context;
+    private Context context;
 
     @Override
     public Object handle(Message<Event, Object> message) throws Exception {
