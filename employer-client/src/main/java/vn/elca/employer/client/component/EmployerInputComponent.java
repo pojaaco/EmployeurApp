@@ -13,6 +13,8 @@ import org.jacpfx.api.annotations.lifecycle.PostConstruct;
 import org.jacpfx.api.message.Message;
 import org.jacpfx.rcp.component.FXComponent;
 import org.jacpfx.rcp.context.Context;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.GetCallBack;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
@@ -20,20 +22,23 @@ import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.client.perspective.EmployerPerspective;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
+import vn.elca.employer.common.ConstantContainer;
 import vn.elca.employer.common.Fund;
 
-@View(id = EmployerInfoComponent.ID,
-        name = EmployerInfoComponent.ID,
-        resourceBundleLocation = ObservableResourceFactory.RESOURCE_BUNDLE_NAME,
+import java.time.format.DateTimeFormatter;
+
+@View(id = EmployerInputComponent.ID,
+        name = EmployerInputComponent.ID,
         initialTargetLayoutId = EmployerJacpfxConfig.TARGET_TOP_CONTAINER)
-public class EmployerInfoComponent implements FXComponent {
-    public static final String ID = "EmployerInfoComponent";
+public class EmployerInputComponent implements FXComponent {
+    public static final String ID = "EmployerInputComponent";
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployerInputComponent.class);
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
 
     @Autowired
-    private Helper helper;
+    private CreationHelper creationHelper;
 
     @Resource
     private Context context;
@@ -59,7 +64,7 @@ public class EmployerInfoComponent implements FXComponent {
         borderPane.setCenter(createInfoFields());
         vBox.getChildren().add(borderPane);
 
-        HBox switcher = new HBox();
+        VBox switcher = new VBox();
         Label lblEn = new Label("EN");
         lblEn.setOnMouseClicked(event -> {
             observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN);
@@ -76,7 +81,7 @@ public class EmployerInfoComponent implements FXComponent {
         button.textProperty().bind(observableResourceFactory.getStringBinding("Button.add"));
         button.setOnAction(event -> {
             context.send(EmployeePerspective.ID, "show");
-            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInfoComponent.ID), new EmployerView());
+            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), new EmployerView());
         });
         StackPane.setAlignment(button, Pos.BOTTOM_RIGHT);
         stackPane.getChildren().add(button);
@@ -89,13 +94,12 @@ public class EmployerInfoComponent implements FXComponent {
         GridPane gridPane = new GridPane();
         configureGridPane(gridPane);
 
-        // TODO: Add Date Picker
-        VBox column1Row1 = createColumn("fund", helper.createFundComboBox());
+        VBox column1Row1 = createColumn("fund", creationHelper.createFundComboBox());
         VBox column2Row1 = createColumn("number", new TextField());
-        VBox column3Row1 = createColumn("startDate", new TextField());
+        VBox column3Row1 = createColumn("startDate", creationHelper.createDatePicker());
         VBox column1Row2 = createColumn("name", new TextField());
         VBox column2Row2 = createColumn("numberIde", new TextField());
-        VBox column3Row2 = createColumn("endDate", new TextField());
+        VBox column3Row2 = createColumn("endDate", creationHelper.createDatePicker());
 
         addColumnsToGrid(gridPane, column1Row1, column2Row1, column3Row1, 0);
         addColumnsToGrid(gridPane, column1Row2, column2Row2, column3Row2, 1);
@@ -177,14 +181,18 @@ public class EmployerInfoComponent implements FXComponent {
             employerView.setNumberIde(numberIde.getText());
         }
 
-        TextField startingDate = (TextField) pane.lookup("#startDate");
-        if (!startingDate.getText().isEmpty()) {
-            employerView.setStartDate(startingDate.getText());
+        DatePicker startDate = (DatePicker) pane.lookup("#startDate");
+        if (startDate.getValue() != null) {
+            DateTimeFormatter dateFormatter =
+                    DateTimeFormatter.ofPattern(ConstantContainer.DATE_FORMAT);
+            employerView.setStartDate(dateFormatter.format(startDate.getValue()));
         }
 
-        TextField endDate = (TextField) pane.lookup("#endDate");
-        if (!endDate.getText().isEmpty()) {
-            employerView.setEndDate(endDate.getText());
+        DatePicker endDate = (DatePicker) pane.lookup("#endDate");
+        if (endDate.getValue() != null) {
+            DateTimeFormatter dateFormatter =
+                    DateTimeFormatter.ofPattern(ConstantContainer.DATE_FORMAT);
+            employerView.setEndDate(dateFormatter.format(endDate.getValue()));
         }
 
         context.send(EmployerPerspective.ID.concat(".").concat(GetCallBack.ID), employerView);
@@ -195,7 +203,7 @@ public class EmployerInfoComponent implements FXComponent {
         ((TextField) pane.lookup("#number")).clear();
         ((TextField) pane.lookup("#name")).clear();
         ((TextField) pane.lookup("#numberIde")).clear();
-        ((TextField) pane.lookup("#startDate")).clear();
-        ((TextField) pane.lookup("#endDate")).clear();
+        ((DatePicker) pane.lookup("#startDate")).setValue(null);
+        ((DatePicker) pane.lookup("#endDate")).setValue(null);
     }
 }

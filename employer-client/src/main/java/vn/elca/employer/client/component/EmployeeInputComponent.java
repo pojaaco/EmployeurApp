@@ -21,18 +21,20 @@ import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.client.perspective.EmployerPerspective;
 import vn.elca.employer.common.Fund;
 
-@View(id = EmployeeInfoComponent.ID,
-        name = EmployeeInfoComponent.ID,
+import java.time.LocalDate;
+
+@View(id = EmployeeInputComponent.ID,
+        name = EmployeeInputComponent.ID,
         initialTargetLayoutId = EmployerJacpfxConfig.TARGET_TOP_CONTAINER)
-public class EmployeeInfoComponent implements FXComponent {
-    public static final String ID = "EmployeeInfoComponent";
-    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeInfoComponent.class);
+public class EmployeeInputComponent implements FXComponent {
+    public static final String ID = "EmployeeInputComponent";
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeInputComponent.class);
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
 
     @Autowired
-    private Helper helper;
+    private CreationHelper creationHelper;
 
     @Resource
     private Context context;
@@ -49,13 +51,18 @@ public class EmployeeInfoComponent implements FXComponent {
         } else if (sourceId.endsWith(EmployeePerspective.ID)) { // Save
             if (message.getTypedMessageBody(String.class).equals("save")) {
                 EmployerView newEmployer = extractEmployerView();
-                context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), newEmployer);
+                if (validateEmployerView(newEmployer)) {
+                    context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), newEmployer);
+                } else {
+                    context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), "not_save");
+                    showNotSavedInfoDialog(newEmployer);
+                }
             }
         } else if (sourceId.contains(SetCallBack.ID)) { // Result of Saving
             if (message.getMessageBody() != null) {
                 EmployerView newEmployer = message.getTypedMessageBody(EmployerView.class);
                 updateEmployerInfo(newEmployer);
-                showInfoDialog(newEmployer);
+                showSavedInfoDialog(newEmployer);
             } else {
                 LOGGER.debug("Cannot save the employer.");
             }
@@ -70,50 +77,62 @@ public class EmployeeInfoComponent implements FXComponent {
 
     @PostConstruct
     public void onPostConstructComponent() {
-        HBox hBox = new HBox();
-        hBox.getChildren().add(createInfoFields());
-        pane = hBox;
+        VBox vBox = new VBox();
+        vBox.getChildren().add(createInfoFields());
+        pane = vBox;
     }
 
     private GridPane createInfoFields() {
         GridPane gridPane = new GridPane();
         configureGridPane(gridPane);
 
-        // TODO: Add date picker
         createRowToGrid(gridPane, 0, "number", new Label());
         createRowToGrid(gridPane, 1, "name", new TextField());
-        createRowToGrid(gridPane, 2, "fund", helper.createFundComboBox());
+        createRowToGrid(gridPane, 2, "fund", creationHelper.createFundComboBox());
         createRowToGrid(gridPane, 3, "numberIde", new TextField());
-        createRowToGrid(gridPane, 4, "startDate", new TextField());
-        createRowToGrid(gridPane, 5, "endDate", new TextField());
+        createRowToGrid(gridPane, 4, "startDate", creationHelper.createDatePicker());
+        createRowToGrid(gridPane, 5, "endDate", creationHelper.createDatePicker());
 
         return gridPane;
     }
 
     private void configureGridPane(GridPane gridPane) {
         gridPane.setVgap(5);
+        gridPane.setHgap(10);
 
         ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPercentWidth(30);
+        col1.setPercentWidth(10);
         gridPane.getColumnConstraints().add(col1);
 
         ColumnConstraints col2 = new ColumnConstraints();
-        col2.setPercentWidth(40);
+        col2.setPercentWidth(25);
         gridPane.getColumnConstraints().add(col2);
+
+        ColumnConstraints col3 = new ColumnConstraints();
+        col3.setPercentWidth(65);
+        gridPane.getColumnConstraints().add(col3);
 
         for (int i = 0; i < 6; i++) {
             RowConstraints row = new RowConstraints();
-            row.setPercentHeight(100./6.);
+            row.setPercentHeight(80./6.);
             gridPane.getRowConstraints().add(row);
         }
     }
 
     private void createRowToGrid(GridPane gridPane, int rowIndex, String labelKey, Control control) {
-        Label label = new Label();
-        label.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer." + labelKey));
+        Label title = new Label();
+        title.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer." + labelKey));
+        Label error = new Label();
+        error.textProperty().bind(observableResourceFactory.getStringBinding("Label.Error.Employer." + labelKey));
+        error.setId("error_" + labelKey);
+        error.setVisible(false);
         control.setId(labelKey);
-        gridPane.add(label, 0, rowIndex);
+        control.setOnKeyTyped(event -> {
+            error.setVisible(false);
+        });
+        gridPane.add(title, 0, rowIndex);
         gridPane.add(control, 1, rowIndex);
+        gridPane.add(error, 2, rowIndex);
     }
 
     private void updateInfoFields(EmployerView view) {
@@ -128,22 +147,59 @@ public class EmployeeInfoComponent implements FXComponent {
         }
         ((TextField) pane.lookup("#name")).setText(view.getName());
         ((TextField) pane.lookup("#numberIde")).setText(view.getNumberIde());
-        ((TextField) pane.lookup("#startDate")).setText(view.getStartDate());
-        ((TextField) pane.lookup("#endDate")).setText(view.getEndDate());
+        if (view.getStartDate() != null) {
+            ((DatePicker) pane.lookup("#startDate")).setValue(LocalDate.parse(view.getStartDate(), creationHelper.dateFormatter));
+        }
+        if (view.getEndDate() != null) {
+            ((DatePicker) pane.lookup("#endDate")).setValue(LocalDate.parse(view.getEndDate(), creationHelper.dateFormatter));
+        }
     }
 
     private EmployerView extractEmployerView() {
-        // TODO: validate user input in this component
         EmployerView newEmployer = new EmployerView();
         newEmployer.setId(employer.getId());
         newEmployer.setNumber(employer.getNumber());
         newEmployer.setName(((TextField) pane.lookup("#name")).getText());
         newEmployer.setFund(((ComboBox<Fund>) pane.lookup("#fund")).getSelectionModel().getSelectedItem());
         newEmployer.setNumberIde(((TextField) pane.lookup("#numberIde")).getText());
-        newEmployer.setStartDate(((TextField) pane.lookup("#startDate")).getText());
-        newEmployer.setEndDate(((TextField) pane.lookup("#endDate")).getText());
+        if (((DatePicker) pane.lookup("#startDate")).getValue() != null) {
+            newEmployer.setStartDate(creationHelper.dateFormatter.format(((DatePicker) pane.lookup("#startDate")).getValue()));
+        } else {
+            newEmployer.setStartDate(null);
+        }
+        if (((DatePicker) pane.lookup("#endDate")).getValue() != null) {
+            newEmployer.setEndDate(creationHelper.dateFormatter.format(((DatePicker) pane.lookup("#endDate")).getValue()));
+        } else {
+            newEmployer.setEndDate(null);
+        }
         newEmployer.setEmployees(employer.getEmployees());
         return newEmployer;
+    }
+
+    private boolean validateEmployerView(EmployerView employerView) {
+        boolean isValid = true;
+
+        if (employerView.getName() == null) {
+            pane.lookup("#error_name").setVisible(true);
+            isValid = false;
+        }
+        if (employerView.getNumberIde() == null
+                || !employerView.getNumberIde().matches("(ADM|CHE)-\\d{3}\\.\\d{3}\\.\\d{3}")) {
+            pane.lookup("#error_numberIde").setVisible(true);
+            isValid = false;
+        }
+        if (employerView.getStartDate() == null
+                || !employerView.getStartDate().matches("(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d{2}")) {
+            pane.lookup("#error_startDate").setVisible(true);
+            isValid = false;
+        }
+        if (employerView.getEndDate() != null
+                && !employerView.getEndDate().matches("(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d{2}")) {
+            pane.lookup("#error_endDate").setVisible(true);
+            isValid = false;
+        }
+
+        return isValid;
     }
 
     private void updateEmployerInfo(EmployerView newEmployer) {
@@ -157,10 +213,17 @@ public class EmployeeInfoComponent implements FXComponent {
         employer.setEmployees(newEmployer.getEmployees());
     }
 
-    private void showInfoDialog(EmployerView employer) {
+    private void showSavedInfoDialog(EmployerView employer) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Employer Save");
         alert.setHeaderText("Employer " + employer.getName() + "has been saved.");
+        alert.showAndWait();
+    }
+
+    private void showNotSavedInfoDialog(EmployerView employer) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Employer Save");
+        alert.setHeaderText("Employer " + employer.getName() + "cannot be saved.");
         alert.showAndWait();
     }
 }

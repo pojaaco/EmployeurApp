@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.ImportCallBack;
 import vn.elca.employer.client.callback.SetCallBack;
 import vn.elca.employer.client.component.EmployeeImportComponent;
-import vn.elca.employer.client.component.EmployeeInfoComponent;
+import vn.elca.employer.client.component.EmployeeInputComponent;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
 
@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 @Perspective(id = EmployeePerspective.ID,
         name = EmployeePerspective.ID,
         components = {
-                EmployeeInfoComponent.ID,
+                EmployeeInputComponent.ID,
                 EmployeeImportComponent.ID,
                 ImportCallBack.ID,
                 SetCallBack.ID
@@ -63,7 +63,7 @@ public class EmployeePerspective implements FXPerspective {
         mainLayout = createMainLayout();
         mainLayout.setPadding(new Insets(10));
 
-        HBox infoContainer = new HBox();
+        VBox infoContainer = new VBox();
         mainLayout.add(infoContainer, 0, 0);
 
         VBox importContainer = new VBox();
@@ -77,7 +77,7 @@ public class EmployeePerspective implements FXPerspective {
         Button button2 = new Button();
         button2.textProperty().bind(observableResourceFactory.getStringBinding("Button.save"));
         button2.setOnAction(event -> {
-            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInfoComponent.ID), "save");
+            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), "save");
             context.send(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID), "save");
         });
         buttonContainer.getChildren().addAll(button1, button2);

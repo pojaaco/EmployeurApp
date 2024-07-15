@@ -5,9 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import vn.elca.employer.client.converter.EnumStringConverter;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
-import vn.elca.employer.common.Fund;
 
 @Configuration
 @PropertySource("classpath:application.properties")

@@ -7,7 +7,7 @@ import org.jacpfx.api.annotations.fragment.Fragment;
 import org.jacpfx.api.fragment.Scope;
 import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
-import vn.elca.employer.client.component.EmployeeInfoComponent;
+import vn.elca.employer.client.component.EmployeeInputComponent;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
@@ -31,7 +31,7 @@ public class EmployerDetailsFragment {
         btnDetails.textProperty().bind(observableResourceFactory.getStringBinding("Button.details"));
         btnDetails.setOnAction(event -> {
             context.send(EmployeePerspective.ID, "show");
-            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInfoComponent.ID), employer);
+            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), employer);
         });
     }
 }

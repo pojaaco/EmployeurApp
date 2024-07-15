@@ -10,7 +10,7 @@ import org.jacpfx.rcp.util.FXUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import vn.elca.employer.client.component.EmployerResultComponent;
+import vn.elca.employer.client.component.EmployerTableComponent;
 import vn.elca.employer.client.model.stub.EmployerServiceGrpcStub;
 import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployerPerspective;
@@ -37,7 +37,7 @@ public class DeleteCallBack implements CallbackComponent {
                     .build();
             EmployerDeleteResponse response = stub.deleteEmployer(request);
             if (response.getIsOK()) {
-                context.send(EmployerPerspective.ID.concat(".").concat(EmployerResultComponent.ID), object);
+                context.send(EmployerPerspective.ID.concat(".").concat(EmployerTableComponent.ID), object);
             } else {
                 LOGGER.debug(response.getMessage(), object);
             }

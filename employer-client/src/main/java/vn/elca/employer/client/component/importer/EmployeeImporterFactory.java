@@ -20,8 +20,7 @@ public class EmployeeImporterFactory {
                 for (FileType type : FileType.values()) {
                     if (type.extension.compareTo(extension) == 0) {
                         EmployeeImporter importer = type.importerClass.newInstance();
-                        resourceFactory.addImporter(importer);
-                        importer.initializeReverseLookupMap(resourceFactory.getResources());
+                        importer.setResourceBundle(resourceFactory);
                         importerCache.put(extension, importer);
                         return importer;
                     }

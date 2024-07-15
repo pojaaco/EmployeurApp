@@ -1,5 +1,7 @@
 package vn.elca.employer.client.converter;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.util.StringConverter;
 import org.apache.commons.lang3.StringUtils;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
@@ -11,22 +13,20 @@ import java.util.stream.Collectors;
 
 public class EnumStringConverter<T extends Enum<T>> extends StringConverter<T> {
     private final Class<T> enumType;
-    private ResourceBundle resourceBundle;
+    private final ObjectProperty<ResourceBundle> resourceBundle = new SimpleObjectProperty<>();
     private Map<String, String> reverseLookupMap; // value to key
 
     public EnumStringConverter(Class<T> enumType, ObservableResourceFactory resourceFactory) {
         this.enumType = enumType;
-        resourceFactory.addConverter(this);
-        initializeReverseLookupMap(resourceFactory.getResources());
+        this.resourceBundle.bind(resourceFactory.resourcesProperty());
+        this.resourceBundle.addListener(((observable, oldValue, newValue) -> updateReverseLookupMap()));
     }
 
-    public void initializeReverseLookupMap(ResourceBundle resourceBundle) {
-        this.resourceBundle = resourceBundle;
-
+    private void updateReverseLookupMap() {
         String enumKey = "Enum." + StringUtils.substringAfterLast(enumType.getName(), ".");
-        reverseLookupMap = resourceBundle.keySet().stream()
+        reverseLookupMap = resourceBundle.get().keySet().stream()
                 .filter(key -> key.contains(enumKey))
-                .collect(Collectors.toMap(resourceBundle::getString, key -> key));
+                .collect(Collectors.toMap(key -> resourceBundle.get().getString(key), key -> key));
     }
 
     @Override
@@ -38,7 +38,7 @@ public class EnumStringConverter<T extends Enum<T>> extends StringConverter<T> {
         String enumName = Arrays.stream(object.toString().toLowerCase().split("_"))
                 .map(StringUtils::capitalize)
                 .collect(Collectors.joining("."));
-        return resourceBundle.getString("Enum." + enumName);
+        return resourceBundle.get().getString("Enum." + enumName);
     }
 
     @Override

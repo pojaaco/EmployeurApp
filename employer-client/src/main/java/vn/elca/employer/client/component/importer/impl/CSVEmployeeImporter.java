@@ -2,9 +2,12 @@ package vn.elca.employer.client.component.importer.impl;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import org.apache.commons.lang3.StringUtils;
 import vn.elca.employer.client.component.importer.EmployeeImporter;
 import vn.elca.employer.client.exception.EmployeeExtractionException;
+import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.model.view.EmployeeView;
 
 import java.io.FileReader;
@@ -17,12 +20,19 @@ import java.util.stream.Collectors;
 
 public class CSVEmployeeImporter implements EmployeeImporter {
     private Map<String, String> reverseLookupMap; // value to key
+    private final ObjectProperty<ResourceBundle> resourceBundle = new SimpleObjectProperty<>();
+
+    private void updateReverseLookupMap() {
+        reverseLookupMap = resourceBundle.get().keySet().stream()
+                .filter(key -> key.contains("Property.Employee"))
+                .collect(Collectors.toMap(key -> resourceBundle.get().getString(key), key -> key));
+    }
 
     @Override
-    public void initializeReverseLookupMap(ResourceBundle resourceBundle) {
-        reverseLookupMap = resourceBundle.keySet().stream()
-                .filter(key -> key.contains("Property.Employee"))
-                .collect(Collectors.toMap(resourceBundle::getString, key -> key));
+    public void setResourceBundle(ObservableResourceFactory resourceFactory) {
+        resourceBundle.bind(resourceFactory.resourcesProperty());
+        resourceBundle.addListener(((observable, oldValue, newValue) -> updateReverseLookupMap()));
+        updateReverseLookupMap();
     }
 
     @Override

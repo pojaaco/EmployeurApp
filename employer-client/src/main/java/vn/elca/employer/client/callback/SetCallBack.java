@@ -11,8 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.component.EmployeeImportComponent;
-import vn.elca.employer.client.component.EmployeeInfoComponent;
-import vn.elca.employer.client.factory.ObservableResourceFactory;
+import vn.elca.employer.client.component.EmployeeInputComponent;
 import vn.elca.employer.client.mapper.EmployerMapper;
 import vn.elca.employer.client.model.stub.EmployerServiceGrpcStub;
 import vn.elca.employer.client.model.view.EmployeeView;
@@ -45,8 +44,13 @@ public class SetCallBack implements CallbackComponent {
     public Object handle(Message<Event, Object> message) throws Exception {
         if (!message.messageBodyEquals(FXUtil.MessageUtil.INIT)) {
             String sourceId = message.getSourceId();
-            if (sourceId.equals(EmployeePerspective.ID.concat(".").concat(EmployeeInfoComponent.ID))) {
-                employer = message.getTypedMessageBody(EmployerView.class);
+            if (sourceId.equals(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID))) {
+                if (message.isMessageBodyTypeOf(String.class) && message.getTypedMessageBody(String.class) == "not_save") {
+                    employer = null;
+                    employees = null;
+                } else {
+                    employer = message.getTypedMessageBody(EmployerView.class);
+                }
             } else if (sourceId.equals(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID))) {
                 employees = (List<EmployeeView>) message.getMessageBody();
             }
@@ -58,7 +62,7 @@ public class SetCallBack implements CallbackComponent {
                         .build();
                 EmployerSetResponse response = stub.setEmployer(request);
                 if (response.getIsOK()) {
-                    context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInfoComponent.ID),
+                    context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID),
                             employerMapper.toView(request.getEmployer()));
                 } else {
                     LOGGER.debug(response.getMessage());

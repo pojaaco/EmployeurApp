@@ -15,7 +15,8 @@ import org.jacpfx.api.annotations.lifecycle.PostConstruct;
 import org.jacpfx.api.message.Message;
 import org.jacpfx.rcp.component.FXComponent;
 import org.jacpfx.rcp.context.Context;
-import org.jacpfx.rcp.util.FXUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.ImportCallBack;
 import vn.elca.employer.client.callback.SetCallBack;
@@ -23,7 +24,6 @@ import vn.elca.employer.client.config.EmployerJacpfxConfig;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.model.view.EmployeeView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
-import vn.elca.employer.client.workbench.EmployerWorkbench;
 
 import java.io.File;
 
@@ -32,6 +32,7 @@ import java.io.File;
         initialTargetLayoutId = EmployerJacpfxConfig.TARGET_BOTTOM_CONTAINER)
 public class EmployeeImportComponent implements FXComponent {
     public static final String ID = "EmployeeImportComponent";
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeImportComponent.class);
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -49,7 +50,7 @@ public class EmployeeImportComponent implements FXComponent {
         if (sourceId.endsWith(EmployeePerspective.ID)) {
             if (message.getTypedMessageBody(String.class).equals("reset")) {
                 ((TableView<EmployeeView>) pane.lookup("#employeeTable")).getItems().clear();
-                ((Label) pane.lookup("#importerLabel")).setText("Choose File");
+                ((Label) pane.lookup("#importerLabel")).setText(observableResourceFactory.getResources().getString("Label.Importer.chooseFile"));
                 selectedFile[0] = null;
             } else if (message.getTypedMessageBody(String.class).equals("save")) {
                 context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID),

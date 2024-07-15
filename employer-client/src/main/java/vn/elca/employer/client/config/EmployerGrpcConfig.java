@@ -15,7 +15,6 @@ public class EmployerGrpcConfig {
     private int port;
 
     @Bean
-    // TODO Explain why it work
     public EmployerServiceGrpcStub employerServiceGrpcStub() {
         return new EmployerServiceGrpcStub(host, port);
     }

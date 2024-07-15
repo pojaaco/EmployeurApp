@@ -19,11 +19,12 @@ import org.jacpfx.api.message.Message;
 import org.jacpfx.rcp.component.FXComponent;
 import org.jacpfx.rcp.components.managedFragment.ManagedFragmentHandler;
 import org.jacpfx.rcp.context.Context;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.DeleteCallBack;
 import vn.elca.employer.client.callback.GetCallBack;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
-import vn.elca.employer.client.converter.EnumStringConverter;
 import vn.elca.employer.client.converter.EnumStringConverterFactory;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
 import vn.elca.employer.client.fragment.EmployerDeleteFragment;
@@ -32,11 +33,12 @@ import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployerPerspective;
 import vn.elca.employer.common.Fund;
 
-@View(id = EmployerResultComponent.ID,
-        name = EmployerResultComponent.ID,
+@View(id = EmployerTableComponent.ID,
+        name = EmployerTableComponent.ID,
         initialTargetLayoutId = EmployerJacpfxConfig.TARGET_BOTTOM_CONTAINER)
-public class EmployerResultComponent implements FXComponent {
-    public static final String ID = "EmployerResultComponent";
+public class EmployerTableComponent implements FXComponent {
+    public static final String ID = "EmployerTableComponent";
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployerTableComponent.class);
 
     @Autowired
     ObservableResourceFactory observableResourceFactory;
@@ -84,7 +86,7 @@ public class EmployerResultComponent implements FXComponent {
                 createTableColumn("endDate"),
                 createActionTableColumn()
         );
-        // TODO: can degrade performance
+
         observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> tableResult.refresh()));
         return tableResult;
     }

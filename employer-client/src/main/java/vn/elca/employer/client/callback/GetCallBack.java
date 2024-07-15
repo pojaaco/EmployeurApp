@@ -9,8 +9,7 @@ import org.jacpfx.rcp.component.CallbackComponent;
 import org.jacpfx.rcp.context.Context;
 import org.jacpfx.rcp.util.FXUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import vn.elca.employer.client.component.EmployerResultComponent;
-import vn.elca.employer.client.factory.ObservableResourceFactory;
+import vn.elca.employer.client.component.EmployerTableComponent;
 import vn.elca.employer.client.mapper.EmployerMapper;
 import vn.elca.employer.client.model.stub.EmployerServiceGrpcStub;
 import vn.elca.employer.client.model.view.EmployerView;
@@ -36,7 +35,7 @@ public class GetCallBack implements CallbackComponent {
     @Override
     public Object handle(Message<Event, Object> message) throws Exception {
         if (!message.messageBodyEquals(FXUtil.MessageUtil.INIT)) {
-            context.setReturnTarget(EmployerPerspective.ID.concat(".").concat(EmployerResultComponent.ID));
+            context.setReturnTarget(EmployerPerspective.ID.concat(".").concat(EmployerTableComponent.ID));
             EmployerGetRequest request = employerMapper.toRequest(message.getTypedMessageBody(EmployerView.class));
             List<EmployerView> results = stub.getEmployer(request)
                     .getEmployersList()
