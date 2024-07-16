@@ -2,18 +2,25 @@ package vn.elca.employer.client.perspective;
 
 import javafx.event.Event;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import org.jacpfx.api.annotations.lifecycle.PostConstruct;
 import org.jacpfx.api.annotations.perspective.Perspective;
 import org.jacpfx.api.message.Message;
+import org.jacpfx.api.util.ToolbarPosition;
 import org.jacpfx.rcp.componentLayout.FXComponentLayout;
 import org.jacpfx.rcp.componentLayout.PerspectiveLayout;
+import org.jacpfx.rcp.components.toolBar.JACPToolBar;
 import org.jacpfx.rcp.perspective.FXPerspective;
+import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.DeleteCallBack;
 import vn.elca.employer.client.callback.GetCallBack;
+import vn.elca.employer.client.component.CreationHelper;
 import vn.elca.employer.client.component.EmployerInputComponent;
 import vn.elca.employer.client.component.EmployerTableComponent;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
+import vn.elca.employer.client.factory.ObservableResourceFactory;
 
 import java.util.ResourceBundle;
 
@@ -27,6 +34,12 @@ import java.util.ResourceBundle;
         })
 public class EmployerPerspective implements FXPerspective {
     public static final String ID = "EmployerPerspective";
+
+    @Autowired
+    private ObservableResourceFactory observableResourceFactory;
+
+    @Autowired
+    private CreationHelper creationHelper;
 
     private GridPane mainLayout;
 
@@ -43,6 +56,9 @@ public class EmployerPerspective implements FXPerspective {
      */
     public void onStartPerspective(final PerspectiveLayout perspectiveLayout, final FXComponentLayout componentLayout,
                                    final ResourceBundle resourceBundle) {
+        JACPToolBar toolBar = componentLayout.getRegisteredToolBar(ToolbarPosition.NORTH);
+        creationHelper.addLanguageSwitcher(toolBar);
+
         mainLayout = createMainLayout();
         mainLayout.setPadding(new Insets(5));
 

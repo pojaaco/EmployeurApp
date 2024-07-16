@@ -47,6 +47,7 @@ public class EmployeeInputComponent implements FXComponent {
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
         String sourceId = message.getSourceId();
         if (sourceId.startsWith(EmployerPerspective.ID)) { // Add or Details
+            reset();
             updateInputFields(message.getTypedMessageBody(EmployerView.class));
         } else if (sourceId.endsWith(EmployeePerspective.ID)) { // Save
             if (message.getTypedMessageBody(String.class).equals("save")) {
@@ -86,7 +87,7 @@ public class EmployeeInputComponent implements FXComponent {
         createRowToGrid(gridPane, 0, "number", new Label());
         createRowToGrid(gridPane, 1, "name", new TextField());
         createRowToGrid(gridPane, 2, "fund", creationHelper.createFundComboBox());
-        createRowToGrid(gridPane, 3, "numberIde", creationHelper.createValidatedTextField(Validator::isValidNumberIde, "Format.numberIde"));
+        createRowToGrid(gridPane, 3, "numberIde", creationHelper.createValidatedTextField(Validator::isValidTypedNumberIde, "Format.numberIde"));
         createRowToGrid(gridPane, 4, "startDate", creationHelper.createDatePicker());
         createRowToGrid(gridPane, 5, "endDate", creationHelper.createDatePicker());
 
@@ -130,6 +131,13 @@ public class EmployeeInputComponent implements FXComponent {
         gridPane.add(title, 0, rowIndex);
         gridPane.add(control, 1, rowIndex);
         gridPane.add(error, 2, rowIndex);
+    }
+
+    private void reset() {
+        pane.lookup("#error_name").setVisible(false);
+        pane.lookup("#error_numberIde").setVisible(false);
+        pane.lookup("#error_startDate").setVisible(false);
+        pane.lookup("#error_endDate").setVisible(false);
     }
 
     private void updateInputFields(EmployerView view) {

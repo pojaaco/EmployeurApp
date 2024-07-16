@@ -71,7 +71,13 @@ public class EmployerTableComponent implements FXComponent {
     public void onPostConstructComponent() {
         VBox vBox = new VBox();
         vBox.getChildren().add(createEmployerTable());
+//        vBox.getChildren().add(createPagination());
         pane = vBox;
+    }
+
+    private Pagination createPagination() {
+        Pagination pagination = new Pagination(5, 0);
+        return pagination;
     }
 
     private TableView<EmployerView> createEmployerTable() {

@@ -61,15 +61,6 @@ public class EmployerInputComponent implements FXComponent {
         borderPane.setCenter(createInputFields());
         vBox.getChildren().add(borderPane);
 
-        HBox switcher = new HBox();
-        switcher.setSpacing(10);
-        Label lblEn = new Label("EN");
-        lblEn.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN));
-        Label lblFr = new Label("FR");
-        lblFr.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.FR));
-        switcher.getChildren().addAll(lblEn, new Label("|"), lblFr);
-        vBox.getChildren().add(switcher);
-
         StackPane stackPane = new StackPane();
         Button button = new Button();
         button.textProperty().bind(observableResourceFactory.getStringBinding("Button.add"));
@@ -89,10 +80,10 @@ public class EmployerInputComponent implements FXComponent {
         configureGridPane(gridPane);
 
         VBox column1Row1 = createColumn("fund", creationHelper.createFundComboBox());
-        VBox column2Row1 = createColumn("number", creationHelper.createValidatedTextField(Validator::isValidNumber, "Format.number"));
+        VBox column2Row1 = createColumn("number", creationHelper.createValidatedTextField(Validator::isValidTypedNumber, "Format.number"));
         VBox column3Row1 = createColumn("startDate", creationHelper.createDatePicker());
         VBox column1Row2 = createColumn("name", new TextField());
-        VBox column2Row2 = createColumn("numberIde", creationHelper.createValidatedTextField(Validator::isValidNumberIde, "Format.numberIde"));
+        VBox column2Row2 = createColumn("numberIde", creationHelper.createValidatedTextField(Validator::isValidTypedNumberIde, "Format.numberIde"));
         VBox column3Row2 = createColumn("endDate", creationHelper.createDatePicker());
 
         addColumnsToGrid(gridPane, column1Row1, column2Row1, column3Row1, 0);

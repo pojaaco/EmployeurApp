@@ -9,6 +9,7 @@ import javafx.stage.StageStyle;
 import org.jacpfx.api.annotations.workbench.Workbench;
 import org.jacpfx.api.componentLayout.WorkbenchLayout;
 import org.jacpfx.api.message.Message;
+import org.jacpfx.api.util.ToolbarPosition;
 import org.jacpfx.rcp.componentLayout.FXComponentLayout;
 import org.jacpfx.rcp.workbench.FXWorkbench;
 import org.slf4j.Logger;
@@ -35,6 +36,7 @@ public class EmployerWorkbench implements FXWorkbench {
         Resolution resolution = resolutionByPrimaryScreenBounds();
         stage.setMaximized(true);
         workbenchLayout.setWorkbenchXYSize(resolution.width(), resolution.height());
+        workbenchLayout.registerToolBar(ToolbarPosition.NORTH);
         workbenchLayout.setStyle(StageStyle.DECORATED);
         workbenchLayout.setMenuEnabled(false);
     }

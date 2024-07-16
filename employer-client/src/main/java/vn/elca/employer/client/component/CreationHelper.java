@@ -2,8 +2,11 @@ package vn.elca.employer.client.component;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
+import org.jacpfx.rcp.components.toolBar.JACPToolBar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import vn.elca.employer.client.converter.EnumStringConverterFactory;
@@ -107,5 +110,16 @@ public class CreationHelper {
             }));
         }
         return textField;
+    }
+
+    public void addLanguageSwitcher(JACPToolBar toolBar) {
+        HBox switcher = new HBox();
+        switcher.setSpacing(8);
+        Label lblEn = new Label("EN");
+        lblEn.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN));
+        Label lblFr = new Label("FR");
+        lblFr.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.FR));
+        switcher.getChildren().addAll(lblEn, new Label("|"), lblFr);
+        toolBar.addAllOnEnd(switcher);
     }
 }

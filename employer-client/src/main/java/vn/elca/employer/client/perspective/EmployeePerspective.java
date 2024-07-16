@@ -9,15 +9,19 @@ import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.lifecycle.PostConstruct;
 import org.jacpfx.api.annotations.perspective.Perspective;
 import org.jacpfx.api.message.Message;
+import org.jacpfx.api.util.ToolbarPosition;
 import org.jacpfx.rcp.componentLayout.FXComponentLayout;
 import org.jacpfx.rcp.componentLayout.PerspectiveLayout;
+import org.jacpfx.rcp.components.toolBar.JACPToolBar;
 import org.jacpfx.rcp.context.Context;
 import org.jacpfx.rcp.perspective.FXPerspective;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.ImportCallBack;
 import vn.elca.employer.client.callback.SetCallBack;
+import vn.elca.employer.client.component.CreationHelper;
 import vn.elca.employer.client.component.EmployeeImportComponent;
 import vn.elca.employer.client.component.EmployeeInputComponent;
+import vn.elca.employer.client.component.EmployerInputComponent;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
 import vn.elca.employer.client.factory.ObservableResourceFactory;
 
@@ -36,6 +40,9 @@ public class EmployeePerspective implements FXPerspective {
 
     @Autowired
     ObservableResourceFactory observableResourceFactory;
+
+    @Autowired
+    private CreationHelper creationHelper;
 
     @Resource
     Context context;
@@ -60,6 +67,9 @@ public class EmployeePerspective implements FXPerspective {
      */
     public void onStartPerspective(final PerspectiveLayout perspectiveLayout, final FXComponentLayout componentLayout,
                                    final ResourceBundle resourceBundle) {
+        JACPToolBar toolBar = componentLayout.getRegisteredToolBar(ToolbarPosition.NORTH);
+        creationHelper.addLanguageSwitcher(toolBar);
+
         mainLayout = createMainLayout();
         mainLayout.setPadding(new Insets(10));
 

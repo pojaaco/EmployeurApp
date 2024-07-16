@@ -26,6 +26,7 @@ import vn.elca.employer.client.model.view.EmployeeView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,7 +53,7 @@ public class EmployeeImportComponent implements FXComponent {
         if (sourceId.endsWith(EmployeePerspective.ID)) {
             if (message.getTypedMessageBody(String.class).equals("reset")) {
                 ((TableView<EmployeeView>) pane.lookup("#employeeTable")).getItems().clear();
-                ((Label) pane.lookup("#importerLabel")).setText(observableResourceFactory.getResources().getString("Label.Importer.chooseFile"));
+                ((Label) pane.lookup("#importerLabel")).textProperty().bind(observableResourceFactory.getStringBinding("Label.Importer.chooseFile"));
                 selectedFile[0] = null;
             }
         } else if (sourceId.endsWith(EmployeeInputComponent.ID)) {
@@ -61,11 +62,20 @@ public class EmployeeImportComponent implements FXComponent {
                         ((TableView<EmployeeView>) pane.lookup("#employeeTable")).getItems());
             }
         } else if (sourceId.endsWith(ImportCallBack.ID)) {
-            List<EmployeeView> results = ((ObservableList<EmployeeView>) message.getMessageBody())
-                    .stream()
-                    .filter(e -> Validator.validateEmployeeView(null, e))
-                    .collect(Collectors.toList());
-            ((TableView<EmployeeView>) pane.lookup("#employeeTable")).getItems().setAll(results);
+            boolean existInvalidEmployee = false;
+            List<EmployeeView> results = ((ObservableList<EmployeeView>) message.getMessageBody());
+            List<EmployeeView> checkedResults = new ArrayList<>();
+            for (EmployeeView employeeView : results) {
+                if (Validator.validateEmployeeView(null, employeeView)) {
+                    checkedResults.add(employeeView);
+                } else {
+                    existInvalidEmployee = true;
+                }
+            }
+            if (existInvalidEmployee) {
+                showWarningInvalidDateDialog();
+            }
+            ((TableView<EmployeeView>) pane.lookup("#employeeTable")).getItems().setAll(checkedResults);
         }
         return pane;
     }
@@ -104,6 +114,7 @@ public class EmployeeImportComponent implements FXComponent {
             Window stage = ((Node) event.getSource()).getScene().getWindow();
             selectedFile[0] = fileChooser.showOpenDialog(stage);
             if (selectedFile[0] != null) {
+                label.textProperty().unbind();
                 label.setText(selectedFile[0].getAbsolutePath());
             }
         });
@@ -142,5 +153,12 @@ public class EmployeeImportComponent implements FXComponent {
         column.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employee." + property));
         column.setCellValueFactory(new PropertyValueFactory<>(property));
         return column;
+    }
+
+    private void showWarningInvalidDateDialog() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Employee Import");
+        alert.setHeaderText("There are some invalid employees. Only valid data is imported. Please check again.");
+        alert.showAndWait();
     }
 }
