@@ -4,22 +4,28 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<GridPane fx:id="mainLayout" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="mainLayout" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+          styleClass="custom-font">
     <padding>
-        <Insets top="10" right="10" bottom="10" left="10"/>
+        <Insets top="0.0" right="20" bottom="0.0" left="20"/>
     </padding>
     <columnConstraints>
         <ColumnConstraints percentWidth="100"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints percentHeight="50"/>
-        <RowConstraints percentHeight="40"/>
-        <RowConstraints percentHeight="10"/>
+        <RowConstraints percentHeight="39"/>
+        <RowConstraints percentHeight="55"/>
+        <RowConstraints percentHeight="6"/>
     </rowConstraints>
-    <VBox fx:id="vbInputContainer" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-    <VBox fx:id="vbImportContainer" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-    <HBox GridPane.rowIndex="2" GridPane.columnIndex="0" alignment="CENTER_RIGHT" spacing="20">
-        <Button fx:id="btnBack"/>
-        <Button fx:id="btnSave"/>
-    </HBox>
+    <VBox fx:id="vbInputContainer" GridPane.rowIndex="0" GridPane.columnIndex="0"
+          GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
+    <VBox fx:id="vbImportContainer" GridPane.rowIndex="1" GridPane.columnIndex="0"
+          GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
+    <VBox GridPane.rowIndex="2" GridPane.columnIndex="0"
+          GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" >
+        <HBox alignment="TOP_RIGHT" spacing="20">
+            <Button fx:id="btnBack"/>
+            <Button fx:id="btnSave"/>
+        </HBox>
+    </VBox>
 </GridPane>

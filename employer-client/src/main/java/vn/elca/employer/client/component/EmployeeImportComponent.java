@@ -28,6 +28,7 @@ import vn.elca.employer.client.perspective.EmployeePerspective;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @DeclarativeView(id = EmployeeImportComponent.ID,
         name = EmployeeImportComponent.ID,
@@ -66,17 +67,11 @@ public class EmployeeImportComponent implements FXComponent {
                 context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), tableFragment.getController().getData());
             }
         } else if (sourceId.endsWith(ImportCallBack.ID)) {
-            boolean existInvalidEmployee = false;
             List<EmployeeView> uncheckedResults = ((ObservableList<EmployeeView>) message.getMessageBody());
-            List<EmployeeView> checkedResults = new ArrayList<>();
-            for (EmployeeView employeeView : uncheckedResults) {
-                if (tableFragment.getController().validateEmployeeView(employeeView)) {
-                    checkedResults.add(employeeView);
-                } else {
-                    existInvalidEmployee = true;
-                }
-            }
-            if (existInvalidEmployee) {
+            List<EmployeeView> checkedResults = uncheckedResults.stream()
+                    .filter(e -> tableFragment.getController().validateEmployeeView(e))
+                    .collect(Collectors.toList());
+            if (checkedResults.size() != uncheckedResults.size()) {
                 showWarningInvalidDataDialog();
             }
             tableFragment.getController().updateData(checkedResults);

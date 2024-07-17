@@ -228,7 +228,7 @@ public class EmployerTableFragment {
                 int fromIndex = pageIndex * EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE;
                 int toIndex = Math.min(fromIndex + EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE, data.size());
                 employerTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
-                employerTable.setPrefHeight((toIndex - fromIndex + 0.7) * employerTable.getFixedCellSize());
+//                employerTable.setPrefHeight((toIndex - fromIndex + 0.7) * employerTable.getFixedCellSize());
                 return new Pane(); // refresh pagination
             });
         });

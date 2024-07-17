@@ -115,14 +115,12 @@ public class EmployerInputFragment {
         creationHelper.createFundComboBox(cbxFund);
         creationHelper.createValidatedTextField(txfNumber, Validator::isValidTypedNumber, NUMBER_FORMAT);
         creationHelper.createDatePicker(dpkStartDate);
+        creationHelper.createValidatedTextField(txfName, null, null);
         creationHelper.createValidatedTextField(txfNumberIde, Validator::isValidTypedNumberIde, NUMBER_IDE_FORMAT);
         creationHelper.createDatePicker(dpkEndDate);
     }
 
     private void setupAppearance() {
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(5));
     }
 
     private void setupEventHandlers() {

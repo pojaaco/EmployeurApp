@@ -52,7 +52,7 @@ public class Validator {
                 errorLabel.setVisible(true);
             }
             if (inputField != null) {
-                // TODO Empty here
+                inputField.getStyleClass().add("red-border");
             }
             return false;
         }

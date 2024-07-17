@@ -7,8 +7,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
 
-<GridPane fx:id="gridPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<GridPane fx:id="gridPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+          vgap="15" hgap="10" VBox.vgrow="ALWAYS">
+    <padding>
+        <Insets top="10" right="20" bottom="0.0" left="20"/>
+    </padding>
     <columnConstraints>
         <ColumnConstraints percentWidth="10"/>
         <ColumnConstraints percentWidth="25"/>
@@ -24,20 +30,20 @@
     </rowConstraints>
     <Label fx:id="lblNumber" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
     <Label fx:id="fldNumber" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-    <Label fx:id="errNumber" GridPane.rowIndex="0" GridPane.columnIndex="2" visible="false"/>
+    <Label fx:id="errNumber" GridPane.rowIndex="0" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
     <Label fx:id="lblName" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
     <TextField fx:id="txfName" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-    <Label fx:id="errName" GridPane.rowIndex="1" GridPane.columnIndex="2" visible="false"/>
+    <Label fx:id="errName" GridPane.rowIndex="1" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
     <Label fx:id="lblFund" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
     <ComboBox fx:id="cbxFund" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-    <Label fx:id="errFund" GridPane.rowIndex="2" GridPane.columnIndex="2" visible="false"/>
+    <Label fx:id="errFund" GridPane.rowIndex="2" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
     <Label fx:id="lblNumberIde" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
     <TextField fx:id="txfNumberIde" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-    <Label fx:id="errNumberIde" GridPane.rowIndex="3" GridPane.columnIndex="2" visible="false"/>
+    <Label fx:id="errNumberIde" GridPane.rowIndex="3" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
     <Label fx:id="lblStartDate" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
     <DatePicker fx:id="dpkStartDate" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-    <Label fx:id="errStartDate" GridPane.rowIndex="4" GridPane.columnIndex="2" visible="false"/>
+    <Label fx:id="errStartDate" GridPane.rowIndex="4" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
     <Label fx:id="lblEndDate" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
     <DatePicker fx:id="dpkEndDate" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-    <Label fx:id="errEndDate" GridPane.rowIndex="5" GridPane.columnIndex="2" visible="false"/>
+    <Label fx:id="errEndDate" GridPane.rowIndex="5" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
 </GridPane>

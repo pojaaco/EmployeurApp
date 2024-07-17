@@ -4,9 +4,10 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <TableView fx:id="employerTable" fixedCellSize="40.0" prefHeight="40.0">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" VBox.vgrow="ALWAYS">
+    <TableView fx:id="employerTable" fixedCellSize="40.0" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="column1" styleClass="left-aligned-column"/>
             <TableColumn fx:id="column2" styleClass="left-aligned-column"/>
@@ -14,8 +15,11 @@
             <TableColumn fx:id="column4" styleClass="left-aligned-column"/>
             <TableColumn fx:id="column5" styleClass="left-aligned-column"/>
             <TableColumn fx:id="column6" styleClass="left-aligned-column"/>
-            <TableColumn fx:id="column7" styleClass="left-aligned-column"/>
+            <TableColumn fx:id="column7" />
         </columns>
     </TableView>
     <Pagination fx:id="pagination" prefHeight="0" />
+    <VBox.margin>
+        <Insets bottom="0.0" left="20.0" right="20.0" top="0.0" />
+    </VBox.margin>
 </VBox>

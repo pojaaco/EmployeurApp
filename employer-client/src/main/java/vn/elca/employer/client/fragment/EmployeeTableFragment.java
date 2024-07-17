@@ -33,6 +33,7 @@ public class EmployeeTableFragment {
     private static final String DATE_FORMAT = "\\d{0,2}\\.\\d{0,2}\\.\\d{0,4}";
     private static final String EMPTY_TABLE_PROMPT = "Prompt.Table.empty";
     private static final String EMPLOYEE_PROPERTY = "Property.Employee";
+    private static final double STRETCH_TABLE_COEFFICIENT = 1.0;
 
     public static final String ID = "EmployeeTableFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeTableFragment.class);
@@ -153,7 +154,7 @@ public class EmployeeTableFragment {
                 int fromIndex = pageIndex * EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE;
                 int toIndex = Math.min(fromIndex + EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE, data.size());
                 employeeTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
-                employeeTable.setPrefHeight((toIndex - fromIndex + 0.7) * employeeTable.getFixedCellSize());
+//                employeeTable.setPrefHeight((toIndex - fromIndex + STRETCH_TABLE_COEFFICIENT) * employeeTable.getFixedCellSize());
                 return new Pane(); // refresh pagination
             });
         });

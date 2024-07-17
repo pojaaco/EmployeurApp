@@ -2,50 +2,48 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
 
-
-<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="border-pane" VBox.vgrow="ALWAYS" >
     <center>
-        <GridPane fx:id="gridPane">
+        <GridPane fx:id="gridPane" alignment="CENTER" vgap="5.0" hgap="40.0" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints percentWidth="33.33"/>
-                <ColumnConstraints percentWidth="33.33"/>
-                <ColumnConstraints percentWidth="33.33"/>
+                <ColumnConstraints percentWidth="33.33" hgrow="ALWAYS"/>
+                <ColumnConstraints percentWidth="33.33" hgrow="ALWAYS"/>
+                <ColumnConstraints percentWidth="33.33" hgrow="ALWAYS"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints percentHeight="33.33"/>
-                <RowConstraints percentHeight="33.33"/>
-                <RowConstraints percentHeight="33.33"/>
+                <RowConstraints percentHeight="18.0" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="18.0" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="18.0" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="18.0" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="18.0" vgrow="ALWAYS" />
             </rowConstraints>
-            <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                <Label fx:id="lblFund"/>
-                <ComboBox fx:id="cbxFund"/>
-            </VBox>
-            <VBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                <Label fx:id="lblNumber"/>
-                <TextField fx:id="txfNumber"/>
-            </VBox>
-            <VBox spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                <Label fx:id="lblStartDate"/>
-                <DatePicker fx:id="dpkStartDate"/>
-            </VBox>
-            <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                <Label fx:id="lblName"/>
-                <TextField fx:id="txfName"/>
-            </VBox>
-            <VBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <Label fx:id="lblNumberIde"/>
-                <TextField fx:id="txfNumberIde"/>
-            </VBox>
-            <VBox spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                <Label fx:id="lblEndDate"/>
-                <DatePicker fx:id="dpkEndDate"/>
-            </VBox>
-            <HBox alignment="BOTTOM_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <Label fx:id="lblFund" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label fx:id="lblNumber" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Label fx:id="lblStartDate" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <Label fx:id="lblName" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <Label fx:id="lblNumberIde" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lblEndDate" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ComboBox fx:id="cbxFund" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="txfNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="dpkStartDate" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField fx:id="txfName" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="txfNumberIde" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="dpkEndDate" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="5">
                 <Button fx:id="btnSearch"/>
                 <Region HBox.hgrow="ALWAYS"/>
                 <Button fx:id="btnReset"/>
             </HBox>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
         </GridPane>
     </center>
+    <VBox.margin>
+        <Insets bottom="0.0" left="20.0" right="20.0" top="20.0" />
+    </VBox.margin>
 </BorderPane>

@@ -4,21 +4,26 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 
-<GridPane fx:id="mainLayout" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <padding>
-        <Insets top="5" right="5" bottom="5" left="5"/>
-    </padding>
+<GridPane fx:id="mainLayout" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+          styleClass="custom-font">
     <columnConstraints>
-        <ColumnConstraints percentWidth="100"/>
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="100"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints percentHeight="40"/>
-        <RowConstraints percentHeight="10"/>
-        <RowConstraints percentHeight="50"/>
+        <RowConstraints percentHeight="35" />
+        <RowConstraints percentHeight="10" />
+        <RowConstraints percentHeight="55" />
     </rowConstraints>
-    <VBox fx:id="vbInputContainer" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-    <StackPane GridPane.rowIndex="1" GridPane.columnIndex="0">
-        <Button fx:id="btnAdd" StackPane.alignment="BOTTOM_RIGHT"/>
-    </StackPane>
-    <VBox fx:id="vbTableContainer" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <VBox fx:id="vbInputContainer" GridPane.rowIndex="0" GridPane.columnIndex="0"
+          alignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+    <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="0"
+          GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+        <Button fx:id="btnAdd">
+            <HBox.margin>
+                <Insets bottom="0.0" left="20.0" right="20.0" top="0.0"/>
+            </HBox.margin>
+        </Button>
+    </HBox>
+    <VBox fx:id="vbTableContainer" GridPane.rowIndex="2" GridPane.columnIndex="0"
+          alignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
 </GridPane>

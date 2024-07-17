@@ -56,6 +56,7 @@ public class EmployeeInputComponent implements FXComponent {
             inputFragment.getController().updateInputFields(message.getTypedMessageBody(EmployerView.class));
         } else if (sourceId.endsWith(EmployeePerspective.ID)) { // Save
             if (message.getTypedMessageBody(MessageType.class).equals(MessageType.SAVE)) {
+                // TODO Tach ra
                 EmployerView newEmployer = inputFragment.getController().extractEmployerView(true);
                 if (newEmployer != null) {
                     context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), newEmployer);

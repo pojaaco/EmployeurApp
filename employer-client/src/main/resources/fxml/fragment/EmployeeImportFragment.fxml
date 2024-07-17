@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="lblTitle"/>
-    <HBox spacing="10.0">
-        <Label fx:id="lblChooser"/>
+<VBox spacing="15.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <Separator />
+    <Label fx:id="lblTitle" styleClass="bold-text" />
+    <HBox spacing="20.0">
+        <Label fx:id="lblChooser" styleClass="bounded-label" />
         <Button fx:id="btnImport"/>
     </HBox>
 </VBox>

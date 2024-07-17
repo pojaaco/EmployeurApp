@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <TableView fx:id="employeeTable" fixedCellSize="40.0" prefHeight="40.0">
+    <TableView fx:id="employeeTable" fixedCellSize="40.0" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="column1" styleClass="left-aligned-column"/>
             <TableColumn fx:id="column2" styleClass="left-aligned-column"/>

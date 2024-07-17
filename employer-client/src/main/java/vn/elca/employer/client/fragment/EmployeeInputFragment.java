@@ -24,14 +24,14 @@ import java.time.LocalDate;
         viewLocation = "/fxml/fragment/EmployeeInputFragment.fxml",
         scope = Scope.PROTOTYPE)
 public class EmployeeInputFragment {
+    public static final String ID = "EmployeeInputFragment";
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeInputFragment.class);
     private static final String NUMBER_IDE_FORMAT = "Format.numberIde";
     private static final String CORRECT_NUMBER_IDE_FORMAT = "(ADM|CHE)-\\d{3}\\.\\d{3}\\.\\d{3}";
     private static final String CORRECT_DATE_FORMAT = "(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d{2}";
     private static final String EMPLOYER_PROPERTY = "Property.Employer";
     private static final String EMPLOYER_ERROR = "Label.Error.Employer";
-
-    public static final String ID = "EmployeeInputFragment";
-    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeInputFragment.class);
+    private static final String RED_BORDER_STYLE = "red-border";
 
     @Autowired
     ObservableResourceFactory observableResourceFactory;
@@ -111,9 +111,15 @@ public class EmployeeInputFragment {
         errNumberIde.setVisible(false);
         errStartDate.setVisible(false);
         errEndDate.setVisible(false);
+
+        txfName.getStyleClass().remove(RED_BORDER_STYLE);
+        txfNumberIde.getStyleClass().remove(RED_BORDER_STYLE);
+        dpkStartDate.getStyleClass().remove(RED_BORDER_STYLE);
+        dpkEndDate.getStyleClass().remove(RED_BORDER_STYLE);
     }
 
     public void updateInputFields(EmployerView employerView) {
+        // TODO Tach ra
         managedView = employerView;
         if (employerView.getNumber() != null) {
             fldNumber.setText(employerView.getNumber());
@@ -140,6 +146,7 @@ public class EmployeeInputFragment {
     }
 
     public EmployerView extractEmployerView(boolean validated) {
+        // TODO Tach ra
         EmployerView newEmployer = new EmployerView();
         newEmployer.setId(managedView.getId());
         newEmployer.setNumber(managedView.getNumber());
@@ -197,6 +204,7 @@ public class EmployeeInputFragment {
     }
 
     private void setupInputFields() {
+        creationHelper.createValidatedTextField(txfName, null, null);
         creationHelper.createFundComboBox(cbxFund);
         creationHelper.createValidatedTextField(txfNumberIde, Validator::isValidTypedNumberIde, NUMBER_IDE_FORMAT);
         creationHelper.createDatePicker(dpkStartDate);
@@ -204,15 +212,24 @@ public class EmployeeInputFragment {
     }
 
     private void setupAppearance() {
-        gridPane.setVgap(5);
-        gridPane.setHgap(10);
-        gridPane.setPadding(new Insets(5));
     }
 
     private void setupEventHandlers() {
-        txfName.textProperty().addListener((observable, oldValue, newValue) -> errName.setVisible(false));
-        txfNumberIde.textProperty().addListener((observable, oldValue, newValue) -> errNumberIde.setVisible(false));
-        dpkStartDate.getEditor().textProperty().addListener((observable, oldValue, newValue) -> errStartDate.setVisible(false));
-        dpkEndDate.getEditor().textProperty().addListener((observable, oldValue, newValue) -> errEndDate.setVisible(false));
+        txfName.textProperty().addListener((observable, oldValue, newValue) -> {
+            errName.setVisible(false);
+            txfName.getStyleClass().remove(RED_BORDER_STYLE);
+        });
+        txfNumberIde.textProperty().addListener((observable, oldValue, newValue) -> {
+            errNumberIde.setVisible(false);
+            txfNumberIde.getStyleClass().remove(RED_BORDER_STYLE);
+        });
+        dpkStartDate.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            errStartDate.setVisible(false);
+            dpkStartDate.getStyleClass().remove(RED_BORDER_STYLE);
+        });
+        dpkEndDate.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            errEndDate.setVisible(false);
+            dpkEndDate.getStyleClass().remove(RED_BORDER_STYLE);
+        });
     }
 }
