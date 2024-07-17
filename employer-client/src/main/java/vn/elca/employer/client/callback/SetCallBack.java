@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.component.EmployeeImportComponent;
 import vn.elca.employer.client.component.EmployeeInputComponent;
 import vn.elca.employer.client.mapper.EmployerMapper;
+import vn.elca.employer.client.model.message.MessageType;
 import vn.elca.employer.client.model.stub.EmployerServiceGrpcStub;
 import vn.elca.employer.client.model.view.EmployeeView;
 import vn.elca.employer.client.model.view.EmployerView;
@@ -44,7 +45,8 @@ public class SetCallBack implements CallbackComponent {
     public Object handle(Message<Event, Object> message) throws Exception {
         String sourceId = message.getSourceId();
         if (sourceId.endsWith(EmployeeInputComponent.ID)) {
-            if (message.isMessageBodyTypeOf(String.class) && message.getTypedMessageBody(String.class).compareTo("reset") == 0) {
+            if (message.isMessageBodyTypeOf(MessageType.class)
+                    && message.getTypedMessageBody(MessageType.class).compareTo(MessageType.RESET) == 0) {
                 reset();
             } else {
                 employer = message.getTypedMessageBody(EmployerView.class);

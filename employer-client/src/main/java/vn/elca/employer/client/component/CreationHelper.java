@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import vn.elca.employer.client.converter.EnumStringConverterFactory;
 import vn.elca.employer.client.language.ObservableResourceFactory;
-import vn.elca.employer.common.ConstantContainer;
+import vn.elca.employer.common.CommonConstants;
 import vn.elca.employer.common.Fund;
 
 import java.time.LocalDate;
@@ -21,10 +21,15 @@ import java.util.stream.Collectors;
 
 @Component
 public class CreationHelper {
+    private static String PROMPT = "Prompt";
+    private static String PROMPT_FORMAT_DATE = "Prompt.Format.Date";
+    private static String EN_SWITCHER = "Label.Switcher.english";
+    private static String FR_SWITCHER = "Label.Switcher.french";
+
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
 
-    public final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(ConstantContainer.DATE_FORMAT);
+    public final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(CommonConstants.DATE_FORMAT);
 
     public void createFundComboBox(ComboBox<Fund> fundComboBox) {
         List<Fund> fundValue = Arrays.stream(Fund.values())
@@ -61,10 +66,10 @@ public class CreationHelper {
                 }
             }
         });
-        datePicker.setPromptText(observableResourceFactory.getResources().getString("Prompt.Format.Date"));
+        datePicker.setPromptText(observableResourceFactory.getResources().getString(PROMPT_FORMAT_DATE));
 
         datePicker.getEditor().textProperty().addListener(((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d{0,2}(\\.\\d{0,2})?(\\.\\d{0,4})?") || !isValidDate(newValue)) {
+            if (!Validator.isValidTypeDate(newValue)) {
                 datePicker.getEditor().setText(oldValue);
             }
         }));
@@ -72,20 +77,8 @@ public class CreationHelper {
         observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> {
             datePicker.setChronology(null); // Reset Chronology
             datePicker.setChronology(Chronology.ofLocale(observableResourceFactory.getResources().getLocale()));
-            datePicker.setPromptText(observableResourceFactory.getResources().getString("Prompt.Format.Date"));
+            datePicker.setPromptText(observableResourceFactory.getResources().getString(PROMPT_FORMAT_DATE));
         }));
-    }
-
-    private boolean isValidDate(String text) {
-        if (text.matches("\\d{0,2}(\\.\\d{0,2})?(\\.\\d{0,4})?")) {
-            String[] parts = text.split("\\.");
-            if (parts.length > 3) return false;
-            if (parts.length > 0 && parts[0].length() > 2) return false; // Day part
-            if (parts.length > 1 && parts[1].length() > 2) return false; // Month part
-            if (parts.length > 2 && parts[2].length() > 4) return false; // Year part
-            return true;
-        }
-        return false;
     }
 
     public void createValidatedTextField(TextField textField, Predicate<String> predicate, String promptKey) {
@@ -96,9 +89,9 @@ public class CreationHelper {
         });
 
         if (promptKey != null) {
-            textField.setPromptText(observableResourceFactory.getResources().getString("Prompt." + promptKey));
+            textField.setPromptText(observableResourceFactory.getResources().getString(PROMPT + "." + promptKey));
             observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> {
-                textField.setPromptText(observableResourceFactory.getResources().getString("Prompt." + promptKey));
+                textField.setPromptText(observableResourceFactory.getResources().getString(PROMPT + "." + promptKey));
             }));
         }
     }
@@ -106,9 +99,11 @@ public class CreationHelper {
     public void addLanguageSwitcher(JACPToolBar toolBar) { // TODO: Try to find another way to avoid duplicated code
         HBox switcher = new HBox();
         switcher.setSpacing(8);
-        Label lblEn = new Label("EN");
+        Label lblEn = new Label();
+        lblEn.textProperty().bind(observableResourceFactory.getStringBinding(EN_SWITCHER));
         lblEn.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN));
-        Label lblFr = new Label("FR");
+        Label lblFr = new Label();
+        lblFr.textProperty().bind(observableResourceFactory.getStringBinding(FR_SWITCHER));
         lblFr.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.FR));
         switcher.getChildren().addAll(lblEn, new Label("|"), lblFr);
         toolBar.addAllOnEnd(switcher);

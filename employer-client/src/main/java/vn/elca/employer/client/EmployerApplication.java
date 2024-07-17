@@ -9,7 +9,6 @@ import vn.elca.employer.client.config.EmployerApplicationConfig;
 import vn.elca.employer.client.workbench.EmployerWorkbench;
 
 public class EmployerApplication extends AFXSpringJavaConfigLauncher {
-    // TODO: Add Unit Test + Logger
     @Override
     protected Class<?>[] getConfigClasses() {
         return new Class<?>[]{EmployerApplicationConfig.class};

@@ -25,6 +25,7 @@ import vn.elca.employer.client.component.EmployeeImportComponent;
 import vn.elca.employer.client.component.EmployeeInputComponent;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
 import vn.elca.employer.client.language.ObservableResourceFactory;
+import vn.elca.employer.client.model.message.MessageType;
 
 import java.util.ResourceBundle;
 
@@ -38,6 +39,9 @@ import java.util.ResourceBundle;
         },
         viewLocation = "/fxml/perspective/EmployeePerspective.fxml")
 public class EmployeePerspective implements FXPerspective {
+    private static final String BUTTON_BACK = "Button.back";
+    private static final String BUTTON_SAVE = "Button.save";
+
     public static final String ID = "EmployeePerspective";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeePerspective.class);
 
@@ -67,9 +71,9 @@ public class EmployeePerspective implements FXPerspective {
 
     @Override
     public void handlePerspective(Message<Event, Object> message, PerspectiveLayout perspectiveLayout) {
-        if (message.isMessageBodyTypeOf(String.class)) {
-            if (message.getTypedMessageBody(String.class).equals("show")) {
-                context.send(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID), "reset");
+        if (message.isMessageBodyTypeOf(MessageType.class)) {
+            if (message.getTypedMessageBody(MessageType.class).equals(MessageType.SHOW)) {
+                context.send(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID), MessageType.RESET);
             }
         }
     }
@@ -91,8 +95,8 @@ public class EmployeePerspective implements FXPerspective {
     }
 
     private void bindLanguage() {
-        btnBack.textProperty().bind(observableResourceFactory.getStringBinding("Button.back"));
-        btnSave.textProperty().bind(observableResourceFactory.getStringBinding("Button.save"));
+        btnBack.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_BACK));
+        btnSave.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_SAVE));
     }
 
     private void setupEventHandlers() {
@@ -101,10 +105,10 @@ public class EmployeePerspective implements FXPerspective {
     }
 
     private void handleBackButton(ActionEvent event) {
-        context.send(EmployerPerspective.ID, "show");
+        context.send(EmployerPerspective.ID, MessageType.SHOW);
     }
 
     private void handleSaveButton(ActionEvent event) {
-        context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), "save");
+        context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), MessageType.SAVE);
     }
 }

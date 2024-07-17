@@ -29,6 +29,11 @@ import java.util.List;
         viewLocation = "/fxml/fragment/EmployeeTableFragment.fxml",
         scope = Scope.PROTOTYPE)
 public class EmployeeTableFragment {
+    private static final String NUMBER_AVS_FORMAT = "756\\.\\d{4}\\.\\d{4}\\.\\d{2}";
+    private static final String DATE_FORMAT = "\\d{0,2}\\.\\d{0,2}\\.\\d{0,4}";
+    private static final String EMPTY_TABLE_PROMPT = "Prompt.Table.empty";
+    private static final String EMPLOYEE_PROPERTY = "Property.Employee";
+
     public static final String ID = "EmployeeTableFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeTableFragment.class);
 
@@ -93,34 +98,35 @@ public class EmployeeTableFragment {
     public boolean validateEmployeeView(EmployeeView employeeView) {
         boolean isValid;
         isValid = Validator.checkCondition(employeeView.getNumberAvs() != null
-                && employeeView.getNumberAvs().matches("756\\.\\d{4}\\.\\d{4}\\.\\d{2}"), null, null);
-        isValid &= Validator.checkCondition(employeeView.getLastName() != null, null, null);
-        isValid &= Validator.checkCondition(employeeView.getFirstName() != null, null, null);
-        isValid &= Validator.checkCondition(employeeView.getStartDate() != null, null, null);
-        isValid &= Validator.checkCondition(employeeView.getEndDate() != null, null, null);
-        isValid &= Validator.checkCondition(LocalDate.parse(employeeView.getEndDate(), creationHelper.dateFormatter)
-                .isAfter(LocalDate.parse(employeeView.getStartDate(), creationHelper.dateFormatter)), null, null);
+                && employeeView.getNumberAvs().matches(NUMBER_AVS_FORMAT), null, null);
+        isValid &= Validator.checkCondition(isValid && employeeView.getLastName() != null, null, null);
+        isValid &= Validator.checkCondition(isValid && employeeView.getFirstName() != null, null, null);
+        isValid &= Validator.checkCondition(isValid && employeeView.getStartDate() != null
+                && employeeView.getStartDate().matches(DATE_FORMAT), null, null);
+        isValid &= Validator.checkCondition(isValid && employeeView.getEndDate() != null
+                && employeeView.getEndDate().matches(DATE_FORMAT), null, null);
+        isValid &= Validator.checkCondition(isValid && LocalDate.parse(employeeView.getEndDate(), creationHelper.dateFormatter)
+                    .isAfter(LocalDate.parse(employeeView.getStartDate(), creationHelper.dateFormatter)), null, null);
         return isValid;
     }
 
     private void bindLanguage() {
-        column1.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employee.numberAvs"));
-        column2.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employee.lastName"));
-        column3.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employee.firstName"));
-        column4.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employee.startDate"));
-        column5.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employee.endDate"));
-        column6.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employee.avsAiApg"));
-        column7.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employee.ac"));
-        column8.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employee.af"));
+        // TODO Add Property Constants
+        column1.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "numberAvs"));
+        column2.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "lastName"));
+        column3.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "firstName"));
+        column4.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "startDate"));
+        column5.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "endDate"));
+        column6.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "avsAiApg"));
+        column7.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "ac"));
+        column8.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "af"));
     }
 
     private void setupTableFormat() {
         Label placeholderLabel = new Label();
-        placeholderLabel.textProperty().bind(observableResourceFactory.getStringBinding("Prompt.Table.empty"));
-        employeeTable.setFixedCellSize(40.0); // TODO: Place in CSS file
+        placeholderLabel.textProperty().bind(observableResourceFactory.getStringBinding(EMPTY_TABLE_PROMPT));
         employeeTable.setPlaceholder(placeholderLabel);
         employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        employeeTable.setPrefHeight(employeeTable.getFixedCellSize()); // TODO: Place in CSS file
     }
 
     private void setupColumnFormat() {

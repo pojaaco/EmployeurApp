@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class EmployerAdapterImpl implements EmployerAdapter {
+public class EmployerServiceAdapterImpl implements EmployerServiceAdapter {
     @Autowired
     EmployerMapper employerMapper;
 

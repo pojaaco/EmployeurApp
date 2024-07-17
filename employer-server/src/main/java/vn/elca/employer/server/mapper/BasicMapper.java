@@ -2,7 +2,7 @@ package vn.elca.employer.server.mapper;
 
 import com.google.protobuf.*;
 import org.mapstruct.Mapper;
-import vn.elca.employer.common.ConstantContainer;
+import vn.elca.employer.common.CommonConstants;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +32,7 @@ public abstract class BasicMapper {
             return null;
         }
 
-        return LocalDate.parse(value.getValue(), DateTimeFormatter.ofPattern(ConstantContainer.DATE_FORMAT));
+        return LocalDate.parse(value.getValue(), DateTimeFormatter.ofPattern(CommonConstants.DATE_FORMAT));
     }
 
     public Long toLong(Int64Value value) {

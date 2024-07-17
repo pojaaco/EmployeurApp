@@ -25,6 +25,12 @@ import vn.elca.employer.common.Fund;
         viewLocation = "/fxml/fragment/EmployerInputFragment.fxml",
         scope = Scope.PROTOTYPE)
 public class EmployerInputFragment {
+    private static final String EMPLOYER_PROPERTY = "Property.Employer";
+    private static final String BUTTON_SEARCH = "Button.search";
+    private static final String BUTTON_RESET = "Button.reset";
+    private static final String NUMBER_FORMAT = "Format.number";
+    private static final String NUMBER_IDE_FORMAT = "Format.numberIde";
+
     public static final String ID = "EmployerInputFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployerInputFragment.class);
 
@@ -94,22 +100,22 @@ public class EmployerInputFragment {
     }
 
     private void bindLanguage() {
-        lblFund.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.fund"));
-        lblNumber.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.number"));
-        lblStartDate.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.startDate"));
-        lblName.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.name"));
-        lblNumberIde.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.numberIde"));
-        lblEndDate.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.endDate"));
+        lblFund.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "fund"));
+        lblNumber.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "number"));
+        lblStartDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "startDate"));
+        lblName.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "name"));
+        lblNumberIde.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "numberIde"));
+        lblEndDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "endDate"));
 
-        btnSearch.textProperty().bind(observableResourceFactory.getStringBinding("Button.search"));
-        btnReset.textProperty().bind(observableResourceFactory.getStringBinding("Button.reset"));
+        btnSearch.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_SEARCH));
+        btnReset.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_RESET));
     }
 
     private void setupInputFields() {
         creationHelper.createFundComboBox(cbxFund);
-        creationHelper.createValidatedTextField(txfNumber, Validator::isValidTypedNumber, "Format.number");
+        creationHelper.createValidatedTextField(txfNumber, Validator::isValidTypedNumber, NUMBER_FORMAT);
         creationHelper.createDatePicker(dpkStartDate);
-        creationHelper.createValidatedTextField(txfNumberIde, Validator::isValidTypedNumberIde, "Format.numberIde");
+        creationHelper.createValidatedTextField(txfNumberIde, Validator::isValidTypedNumberIde, NUMBER_IDE_FORMAT);
         creationHelper.createDatePicker(dpkEndDate);
     }
 

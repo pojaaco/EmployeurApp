@@ -12,6 +12,8 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class EnumStringConverter<T extends Enum<T>> extends StringConverter<T> {
+    private static final String ENUM = "Enum";
+
     private final Class<T> enumType;
     private final ObjectProperty<ResourceBundle> resourceBundle = new SimpleObjectProperty<>();
     private Map<String, String> reverseLookupMap; // value to key
@@ -23,7 +25,7 @@ public class EnumStringConverter<T extends Enum<T>> extends StringConverter<T> {
     }
 
     private void updateReverseLookupMap() {
-        String enumKey = "Enum." + StringUtils.substringAfterLast(enumType.getName(), ".");
+        String enumKey = ENUM + "." + StringUtils.substringAfterLast(enumType.getName(), ".");
         reverseLookupMap = resourceBundle.get().keySet().stream()
                 .filter(key -> key.contains(enumKey))
                 .collect(Collectors.toMap(key -> resourceBundle.get().getString(key), key -> key));
@@ -38,7 +40,7 @@ public class EnumStringConverter<T extends Enum<T>> extends StringConverter<T> {
         String enumName = Arrays.stream(object.toString().toLowerCase().split("_"))
                 .map(StringUtils::capitalize)
                 .collect(Collectors.joining("."));
-        return resourceBundle.get().getString("Enum." + enumName);
+        return resourceBundle.get().getString(ENUM + "." + enumName);
     }
 
     @Override

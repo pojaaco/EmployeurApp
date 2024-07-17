@@ -14,9 +14,12 @@ import org.jacpfx.rcp.components.managedFragment.ManagedFragmentHandler;
 import org.jacpfx.rcp.context.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.SetCallBack;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
 import vn.elca.employer.client.fragment.EmployeeInputFragment;
+import vn.elca.employer.client.language.ObservableResourceFactory;
+import vn.elca.employer.client.model.message.MessageType;
 import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.client.perspective.EmployerPerspective;
@@ -26,8 +29,16 @@ import vn.elca.employer.client.perspective.EmployerPerspective;
         initialTargetLayoutId = EmployerJacpfxConfig.TARGET_TOP_CONTAINER,
         viewLocation = "/fxml/component/EmployeeInputComponent.fxml")
 public class EmployeeInputComponent implements FXComponent {
+    private static String DIALOG_NOT_SAVE_TITLE = "Dialog.Warning.Employer.NotSave.title";
+    private static String DIALOG_NOT_SAVE_HEADER = "Dialog.Warning.Employer.NotSave.header";
+    private static String DIALOG_SAVE_TITLE = "Dialog.Information.Employer.Save.title";
+    private static String DIALOG_SAVE_HEADER = "Dialog.Information.Employer.Save.header";
+
     public static final String ID = "EmployeeInputComponent";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeInputComponent.class);
+
+    @Autowired
+    private ObservableResourceFactory observableResourceFactory;
 
     @Resource
     private Context context;
@@ -44,11 +55,11 @@ public class EmployeeInputComponent implements FXComponent {
             inputFragment.getController().resetError();
             inputFragment.getController().updateInputFields(message.getTypedMessageBody(EmployerView.class));
         } else if (sourceId.endsWith(EmployeePerspective.ID)) { // Save
-            if (message.getTypedMessageBody(String.class).equals("save")) {
+            if (message.getTypedMessageBody(MessageType.class).equals(MessageType.SAVE)) {
                 EmployerView newEmployer = inputFragment.getController().extractEmployerView(true);
                 if (newEmployer != null) {
                     context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), newEmployer);
-                    context.send(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID), "save");
+                    context.send(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID), MessageType.SAVE);
                 }
             }
         } else if (sourceId.endsWith(SetCallBack.ID)) { // Result of saving
@@ -78,15 +89,15 @@ public class EmployeeInputComponent implements FXComponent {
 
     private void showSavedInfoDialog(EmployerView employer) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Employer Save");
-        alert.setHeaderText("Employer " + employer.getNumberIde() + " has been saved.");
+        alert.setTitle(observableResourceFactory.getResources().getString(DIALOG_SAVE_TITLE));
+        alert.setHeaderText(String.format(observableResourceFactory.getResources().getString(DIALOG_SAVE_HEADER), employer.getNumberIde()));
         alert.showAndWait();
     }
 
     private void showNotSavedInfoDialog() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Employer Save");
-        alert.setHeaderText("The employer cannot be saved.");
+        alert.setTitle(observableResourceFactory.getResources().getString(DIALOG_NOT_SAVE_TITLE));
+        alert.setHeaderText(observableResourceFactory.getResources().getString(DIALOG_NOT_SAVE_HEADER));
         alert.showAndWait();
     }
 }

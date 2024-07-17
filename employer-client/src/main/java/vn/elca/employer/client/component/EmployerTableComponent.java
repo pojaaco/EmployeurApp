@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.component.DeclarativeView;
-import org.jacpfx.api.annotations.component.View;
 import org.jacpfx.api.annotations.lifecycle.PostConstruct;
 import org.jacpfx.api.message.Message;
 import org.jacpfx.rcp.component.FXComponent;

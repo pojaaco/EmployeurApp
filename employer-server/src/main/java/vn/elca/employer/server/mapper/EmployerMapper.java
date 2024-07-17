@@ -22,12 +22,12 @@ public abstract class EmployerMapper {
     @Autowired
     EmployerRepository employerRepository;
 
-    @Mapping(source = "startDate", target = "startDate", dateFormat = ConstantContainer.DATE_FORMAT)
-    @Mapping(source = "endDate", target = "endDate", dateFormat = ConstantContainer.DATE_FORMAT)
+    @Mapping(source = "startDate", target = "startDate", dateFormat = CommonConstants.DATE_FORMAT)
+    @Mapping(source = "endDate", target = "endDate", dateFormat = CommonConstants.DATE_FORMAT)
     public abstract Employer toEntity(EmployerDto dto);
 
-    @Mapping(source = "startDate", target = "startDate", dateFormat = ConstantContainer.DATE_FORMAT)
-    @Mapping(source = "endDate", target = "endDate", dateFormat = ConstantContainer.DATE_FORMAT)
+    @Mapping(source = "startDate", target = "startDate", dateFormat = CommonConstants.DATE_FORMAT)
+    @Mapping(source = "endDate", target = "endDate", dateFormat = CommonConstants.DATE_FORMAT)
     public abstract EmployerDto toDto(Employer entity);
 
     @Mapping(source = "employeesList", target = "employees")

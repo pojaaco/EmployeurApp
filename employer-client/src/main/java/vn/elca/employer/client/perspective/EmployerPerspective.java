@@ -26,6 +26,7 @@ import vn.elca.employer.client.component.EmployerInputComponent;
 import vn.elca.employer.client.component.EmployerTableComponent;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
 import vn.elca.employer.client.language.ObservableResourceFactory;
+import vn.elca.employer.client.model.message.MessageType;
 import vn.elca.employer.client.model.view.EmployerView;
 
 @Perspective(id = EmployerPerspective.ID,
@@ -38,6 +39,8 @@ import vn.elca.employer.client.model.view.EmployerView;
         },
         viewLocation = "/fxml/perspective/EmployerPerspective.fxml")
 public class EmployerPerspective implements FXPerspective {
+    private static final String BUTTON_ADD = "Button.add";
+
     public static final String ID = "EmployerPerspective";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployerPerspective.class);
 
@@ -82,7 +85,7 @@ public class EmployerPerspective implements FXPerspective {
     }
 
     private void bindLanguage() {
-        btnAdd.textProperty().bind(observableResourceFactory.getStringBinding("Button.add"));
+        btnAdd.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_ADD));
     }
 
     private void setupEventHandlers() {
@@ -90,7 +93,7 @@ public class EmployerPerspective implements FXPerspective {
     }
 
     private void handleAddButton(ActionEvent actionEvent) {
-        context.send(EmployeePerspective.ID, "show");
+        context.send(EmployeePerspective.ID, MessageType.SHOW);
         context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), new EmployerView());
     }
 }

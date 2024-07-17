@@ -24,6 +24,12 @@ import java.time.LocalDate;
         viewLocation = "/fxml/fragment/EmployeeInputFragment.fxml",
         scope = Scope.PROTOTYPE)
 public class EmployeeInputFragment {
+    private static final String NUMBER_IDE_FORMAT = "Format.numberIde";
+    private static final String CORRECT_NUMBER_IDE_FORMAT = "(ADM|CHE)-\\d{3}\\.\\d{3}\\.\\d{3}";
+    private static final String CORRECT_DATE_FORMAT = "(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d{2}";
+    private static final String EMPLOYER_PROPERTY = "Property.Employer";
+    private static final String EMPLOYER_ERROR = "Label.Error.Employer";
+
     public static final String ID = "EmployeeInputFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeInputFragment.class);
 
@@ -116,14 +122,20 @@ public class EmployeeInputFragment {
         }
         if (employerView.getFund() != null) {
             cbxFund.getSelectionModel().select(employerView.getFund());
+        } else {
+            cbxFund.getSelectionModel().selectFirst();
         }
         txfName.setText(employerView.getName());
         txfNumberIde.setText(employerView.getNumberIde());
         if (employerView.getStartDate() != null) {
             dpkStartDate.setValue(LocalDate.parse(employerView.getStartDate(), creationHelper.dateFormatter));
+        } else {
+            dpkStartDate.setValue(null);
         }
         if (employerView.getEndDate() != null) {
             dpkEndDate.setValue(LocalDate.parse(employerView.getEndDate(), creationHelper.dateFormatter));
+        } else {
+            dpkEndDate.setValue(null);
         }
     }
 
@@ -156,35 +168,37 @@ public class EmployeeInputFragment {
         boolean isValid;
         isValid = Validator.checkCondition(employerView.getName() != null && !employerView.getName().isEmpty(), errName, txfName);
         isValid &= Validator.checkCondition(employerView.getNumberIde() != null
-                && employerView.getNumberIde().matches("(ADM|CHE)-\\d{3}\\.\\d{3}\\.\\d{3}"), errNumberIde, txfNumberIde);
+                && employerView.getNumberIde().matches(CORRECT_NUMBER_IDE_FORMAT), errNumberIde, txfNumberIde);
         isValid &= Validator.checkCondition(employerView.getStartDate() != null
-                && employerView.getStartDate().matches("(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d{2}"), errStartDate, dpkStartDate);
+                && employerView.getStartDate().matches(CORRECT_DATE_FORMAT), errStartDate, dpkStartDate);
         isValid &= Validator.checkCondition(employerView.getEndDate() == null
-                || employerView.getEndDate().matches("(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d{2}"), errEndDate, dpkEndDate);
+                || employerView.getEndDate().matches(CORRECT_DATE_FORMAT), errEndDate, dpkEndDate);
         isValid &= Validator.checkCondition(employerView.getStartDate() == null
                 || employerView.getEndDate() == null
-                || !LocalDate.parse(employerView.getEndDate(), creationHelper.dateFormatter).isBefore(LocalDate.parse(employerView.getStartDate(), creationHelper.dateFormatter)), errEndDate, dpkEndDate);
+                || LocalDate.parse(employerView.getEndDate(), creationHelper.dateFormatter).isAfter(LocalDate.parse(employerView.getStartDate(), creationHelper.dateFormatter)), errEndDate, dpkEndDate);
         return isValid;
     }
 
     private void bindLanguage() {
-        lblNumber.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.number"));
-        errNumber.textProperty().bind(observableResourceFactory.getStringBinding("Label.Error.Employer.number"));
-        lblName.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.name"));
-        errName.textProperty().bind(observableResourceFactory.getStringBinding("Label.Error.Employer.name"));
-        lblFund.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.fund"));
-        errFund.textProperty().bind(observableResourceFactory.getStringBinding("Label.Error.Employer.fund"));
-        lblNumberIde.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.numberIde"));
-        errNumberIde.textProperty().bind(observableResourceFactory.getStringBinding("Label.Error.Employer.numberIde"));
-        lblStartDate.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.startDate"));
-        errStartDate.textProperty().bind(observableResourceFactory.getStringBinding("Label.Error.Employer.startDate"));
-        lblEndDate.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.endDate"));
-        errEndDate.textProperty().bind(observableResourceFactory.getStringBinding("Label.Error.Employer.endDate"));
+        // TODO Add Property Constants
+        lblNumber.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "number"));
+        lblName.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "name"));
+        lblFund.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "fund"));
+        lblNumberIde.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "numberIde"));
+        lblStartDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "startDate"));
+        lblEndDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "endDate"));
+
+        errNumber.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "number"));
+        errName.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "name"));
+        errFund.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "fund"));
+        errNumberIde.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "numberIde"));
+        errStartDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "startDate"));
+        errEndDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "endDate"));
     }
 
     private void setupInputFields() {
         creationHelper.createFundComboBox(cbxFund);
-        creationHelper.createValidatedTextField(txfNumberIde, Validator::isValidTypedNumberIde, "Format.numberIde");
+        creationHelper.createValidatedTextField(txfNumberIde, Validator::isValidTypedNumberIde, NUMBER_IDE_FORMAT);
         creationHelper.createDatePicker(dpkStartDate);
         creationHelper.createDatePicker(dpkEndDate);
     }

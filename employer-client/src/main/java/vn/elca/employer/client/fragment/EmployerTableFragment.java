@@ -25,6 +25,7 @@ import vn.elca.employer.client.component.EmployerTableComponent;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
 import vn.elca.employer.client.converter.EnumStringConverterFactory;
 import vn.elca.employer.client.language.ObservableResourceFactory;
+import vn.elca.employer.client.model.message.MessageType;
 import vn.elca.employer.client.model.stub.EmployerServiceGrpcStub;
 import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
@@ -41,6 +42,15 @@ import java.util.Optional;
         viewLocation = "/fxml/fragment/EmployerTableFragment.fxml",
         scope = Scope.PROTOTYPE)
 public class EmployerTableFragment {
+    private static final String EMPLOYER_PROPERTY = "Property.Employer";
+    private static final String EMPTY_TABLE_PROMPT = "Prompt.Table.empty";
+    private static final String BUTTON_DETAILS = "Button.details";
+    private static final String BUTTON_DELETE = "Button.delete";
+    private static final String DIALOG_NOT_DELETE_TITLE = "Dialog.Information.Employer.NotDelete.title";
+    private static final String DIALOG_NOT_DELETE_HEADER = "Dialog.Information.Employer.NotDelete.header";
+    private static final String DIALOG_DELETE_TITLE = "Dialog.Confirmation.Employer.Delete.title";
+    private static final String DIALOG_DELETE_HEADER = "Dialog.Confirmation.Employer.Delete.header";
+
     public static final String ID = "EmployerTableFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployerTableFragment.class);
 
@@ -99,21 +109,19 @@ public class EmployerTableFragment {
     }
 
     private void bindLanguage() {
-        column1.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.fund"));
-        column2.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.number"));
-        column3.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.numberIde"));
-        column4.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.name"));
-        column5.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.startDate"));
-        column6.textProperty().bind(observableResourceFactory.getStringBinding("Property.Employer.endDate"));
+        column1.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "fund"));
+        column2.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "number"));
+        column3.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "numberIde"));
+        column4.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "name"));
+        column5.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "startDate"));
+        column6.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "endDate"));
     }
 
     private void setupTableFormat() {
         Label placeholderLabel = new Label();
-        placeholderLabel.textProperty().bind(observableResourceFactory.getStringBinding("Prompt.Table.empty"));
-        employerTable.setFixedCellSize(40.0); // TODO: Place in CSS file
+        placeholderLabel.textProperty().bind(observableResourceFactory.getStringBinding(EMPTY_TABLE_PROMPT));
         employerTable.setPlaceholder(placeholderLabel);
         employerTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        employerTable.setPrefHeight(employerTable.getFixedCellSize()); // TODO: Place in CSS file
         observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> employerTable.refresh()));
     }
 
@@ -164,9 +172,9 @@ public class EmployerTableFragment {
 
     private Button createDetailsButton(EmployerView employerView) {
         Button btnDetails = new Button();
-        btnDetails.textProperty().bind(observableResourceFactory.getStringBinding("Button.details"));
+        btnDetails.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_DETAILS));
         btnDetails.setOnAction(event -> {
-            context.send(EmployeePerspective.ID, "show");
+            context.send(EmployeePerspective.ID, MessageType.SHOW);
             context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), employerView);
         });
         return btnDetails;
@@ -174,9 +182,9 @@ public class EmployerTableFragment {
 
     private Button createDeleteButton(EmployerView employerView) {
         Button btnDelete = new Button();
-        btnDelete.textProperty().bind(observableResourceFactory.getStringBinding("Button.delete"));
+        btnDelete.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_DELETE));
         btnDelete.setOnAction(event -> {
-            if (verifyBeforeDeletion(employerView)) {
+            if (verifyBeforeDelete(employerView)) {
                 Optional<ButtonType> option = showConfirmationDialog();
                 if (option.isPresent() && option.get() == ButtonType.OK) {
                     context.send(EmployerPerspective.ID.concat(".").concat(DeleteCallBack.ID), employerView);
@@ -189,7 +197,7 @@ public class EmployerTableFragment {
         return btnDelete;
     }
 
-    private boolean verifyBeforeDeletion(EmployerView employer) {
+    private boolean verifyBeforeDelete(EmployerView employer) {
         EmployerGetRequest request = EmployerGetRequest.newBuilder()
                 .setId(Int64Value.of(employer.getId()))
                 .build();
@@ -199,15 +207,15 @@ public class EmployerTableFragment {
 
     private Optional<ButtonType> showConfirmationDialog() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Employer Deletion");
-        alert.setHeaderText("Are you sure to delete this employer from database?");
+        alert.setTitle(observableResourceFactory.getResources().getString(DIALOG_DELETE_TITLE));
+        alert.setHeaderText(observableResourceFactory.getResources().getString(DIALOG_DELETE_HEADER));
         return alert.showAndWait();
     }
 
     private void showInformationDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Employer Deletion");
-        alert.setHeaderText("This employer is not in database!");
+        alert.setTitle(observableResourceFactory.getResources().getString(DIALOG_NOT_DELETE_TITLE));
+        alert.setHeaderText(observableResourceFactory.getResources().getString(DIALOG_NOT_DELETE_HEADER));
         alert.showAndWait();
     }
 

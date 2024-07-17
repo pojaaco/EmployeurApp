@@ -6,15 +6,15 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <TableView fx:id="employerTable">
+    <TableView fx:id="employerTable" fixedCellSize="40.0" prefHeight="40.0">
         <columns>
-            <TableColumn fx:id="column1" />
-            <TableColumn fx:id="column2" />
-            <TableColumn fx:id="column3" />
-            <TableColumn fx:id="column4" />
-            <TableColumn fx:id="column5" />
-            <TableColumn fx:id="column6" />
-            <TableColumn fx:id="column7" />
+            <TableColumn fx:id="column1" styleClass="left-aligned-column"/>
+            <TableColumn fx:id="column2" styleClass="left-aligned-column"/>
+            <TableColumn fx:id="column3" styleClass="left-aligned-column"/>
+            <TableColumn fx:id="column4" styleClass="left-aligned-column"/>
+            <TableColumn fx:id="column5" styleClass="left-aligned-column"/>
+            <TableColumn fx:id="column6" styleClass="left-aligned-column"/>
+            <TableColumn fx:id="column7" styleClass="left-aligned-column"/>
         </columns>
     </TableView>
     <Pagination fx:id="pagination" prefHeight="0" />

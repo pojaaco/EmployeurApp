@@ -22,9 +22,11 @@ public class CSVEmployeeImporter implements EmployeeImporter {
     private Map<String, String> reverseLookupMap; // value to key
     private final ObjectProperty<ResourceBundle> resourceBundle = new SimpleObjectProperty<>();
 
+    public static String PROPERTY_EMPLOYEE = "Property.Employee";
+
     private void updateReverseLookupMap() {
         reverseLookupMap = resourceBundle.get().keySet().stream()
-                .filter(key -> key.contains("Property.Employee"))
+                .filter(key -> key.contains(PROPERTY_EMPLOYEE))
                 .collect(Collectors.toMap(key -> resourceBundle.get().getString(key), key -> key));
     }
 

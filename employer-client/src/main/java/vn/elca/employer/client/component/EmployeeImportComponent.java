@@ -15,11 +15,14 @@ import org.jacpfx.rcp.components.managedFragment.ManagedFragmentHandler;
 import org.jacpfx.rcp.context.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.ImportCallBack;
 import vn.elca.employer.client.callback.SetCallBack;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
 import vn.elca.employer.client.fragment.EmployeeImportFragment;
 import vn.elca.employer.client.fragment.EmployeeTableFragment;
+import vn.elca.employer.client.language.ObservableResourceFactory;
+import vn.elca.employer.client.model.message.MessageType;
 import vn.elca.employer.client.model.view.EmployeeView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 
@@ -31,8 +34,14 @@ import java.util.List;
         initialTargetLayoutId = EmployerJacpfxConfig.TARGET_BOTTOM_CONTAINER,
         viewLocation = "/fxml/component/EmployeeImportComponent.fxml")
 public class EmployeeImportComponent implements FXComponent {
+    private static final String DIALOG_INVALID_DATA_TITLE = "Dialog.Warning.Employee.InvalidData.title";
+    private static final String DIALOG_INVALID_DATA_HEADER = "Dialog.Warning.Employee.InvalidData.header";
+
     public static final String ID = "EmployeeImportComponent";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeImportComponent.class);
+
+    @Autowired
+    ObservableResourceFactory observableResourceFactory;
 
     @Resource
     private Context context;
@@ -48,12 +57,12 @@ public class EmployeeImportComponent implements FXComponent {
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
         String sourceId = message.getSourceId();
         if (sourceId.endsWith(EmployeePerspective.ID)) {
-            if (message.getTypedMessageBody(String.class).equals("reset")) {
+            if (message.getTypedMessageBody(MessageType.class).equals(MessageType.RESET)) {
                 importFragment.getController().reset();
                 tableFragment.getController().resetData();
             }
         } else if (sourceId.endsWith(EmployeeInputComponent.ID)) {
-            if (message.getTypedMessageBody(String.class).equals("save")) {
+            if (message.getTypedMessageBody(MessageType.class).equals(MessageType.SAVE)) {
                 context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), tableFragment.getController().getData());
             }
         } else if (sourceId.endsWith(ImportCallBack.ID)) {
@@ -68,7 +77,7 @@ public class EmployeeImportComponent implements FXComponent {
                 }
             }
             if (existInvalidEmployee) {
-                showWarningInvalidDateDialog();
+                showWarningInvalidDataDialog();
             }
             tableFragment.getController().updateData(checkedResults);
         }
@@ -93,10 +102,10 @@ public class EmployeeImportComponent implements FXComponent {
         vBox.getChildren().addAll(importFragment.getFragmentNode(), tableFragment.getFragmentNode());
     }
 
-    private void showWarningInvalidDateDialog() {
+    private void showWarningInvalidDataDialog() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Employee Import");
-        alert.setHeaderText("There are some invalid employees. Only valid data is imported. Please check again.");
+        alert.setTitle(observableResourceFactory.getResources().getString(DIALOG_INVALID_DATA_TITLE));
+        alert.setHeaderText(observableResourceFactory.getResources().getString(DIALOG_INVALID_DATA_HEADER));
         alert.showAndWait();
     }
 }

@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class EmployerServiceImpl implements EmployerService {
+    private static final String NUMBER_FORMAT = "%06d";
+
     @Autowired
     private EmployerMapper employerMapper;
 
@@ -34,8 +36,7 @@ public class EmployerServiceImpl implements EmployerService {
     public EmployerDto saveEmployer(EmployerDto employerDto) {
         try {
             if (employerDto.getNumber() == null) {
-                //TODO constant
-                employerDto.setNumber(String.format("%06d", employerRepository.getNextSeqValue()));
+                employerDto.setNumber(String.format(NUMBER_FORMAT, employerRepository.getNextSeqValue()));
             }
             return employerMapper.toDto(employerRepository.save(employerMapper.toEntity(employerDto)));
         } catch (Exception e) {

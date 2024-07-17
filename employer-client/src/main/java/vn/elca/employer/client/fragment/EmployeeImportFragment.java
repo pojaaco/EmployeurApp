@@ -25,6 +25,10 @@ import java.io.File;
         viewLocation = "/fxml/fragment/EmployeeImportFragment.fxml",
         scope = Scope.PROTOTYPE)
 public class EmployeeImportFragment {
+    private static String IMPORTER_TITLE = "Label.Importer.title";
+    private static String IMPORTER_CHOOSE_FILE = "Label.Importer.chooseFile";
+    private static String IMPORTER_BUTTON = "Button.import";
+
     public static final String ID = "EmployeeImportFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeImportFragment.class);
 
@@ -48,17 +52,18 @@ public class EmployeeImportFragment {
     public void init() {
         bindLanguage();
         setupEventHandlers();
+        LOGGER.debug("init");
     }
 
     public void reset() {
-        lblChooser.textProperty().bind(observableResourceFactory.getStringBinding("Label.Importer.chooseFile"));
+        lblChooser.textProperty().bind(observableResourceFactory.getStringBinding(IMPORTER_CHOOSE_FILE));
         selectedFile[0] = null;
     }
 
     private void bindLanguage() {
-        lblTitle.textProperty().bind(observableResourceFactory.getStringBinding("Label.Importer.title"));
-        lblChooser.textProperty().bind(observableResourceFactory.getStringBinding("Label.Importer.chooseFile"));
-        btnImport.textProperty().bind(observableResourceFactory.getStringBinding("Button.import"));
+        lblTitle.textProperty().bind(observableResourceFactory.getStringBinding(IMPORTER_TITLE));
+        lblChooser.textProperty().bind(observableResourceFactory.getStringBinding(IMPORTER_CHOOSE_FILE));
+        btnImport.textProperty().bind(observableResourceFactory.getStringBinding(IMPORTER_BUTTON));
     }
 
     private void setupEventHandlers() {
