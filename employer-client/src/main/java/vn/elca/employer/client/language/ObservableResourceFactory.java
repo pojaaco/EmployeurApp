@@ -1,4 +1,4 @@
-package vn.elca.employer.client.factory;
+package vn.elca.employer.client.language;
 
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;

@@ -4,7 +4,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.util.StringConverter;
 import org.apache.commons.lang3.StringUtils;
-import vn.elca.employer.client.factory.ObservableResourceFactory;
+import vn.elca.employer.client.language.ObservableResourceFactory;
 
 import java.util.Arrays;
 import java.util.Map;

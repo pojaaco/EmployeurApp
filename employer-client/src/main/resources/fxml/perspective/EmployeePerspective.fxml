@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<GridPane fx:id="mainLayout" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="50"/>
+        <RowConstraints percentHeight="40"/>
+        <RowConstraints percentHeight="10"/>
+    </rowConstraints>
+    <VBox fx:id="vbInputContainer" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <VBox fx:id="vbImportContainer" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <HBox GridPane.rowIndex="2" GridPane.columnIndex="0" alignment="CENTER_RIGHT" spacing="20">
+        <Button fx:id="btnBack"/>
+        <Button fx:id="btnSave"/>
+    </HBox>
+</GridPane>

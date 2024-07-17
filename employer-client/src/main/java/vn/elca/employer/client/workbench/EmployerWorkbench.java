@@ -34,11 +34,11 @@ public class EmployerWorkbench implements FXWorkbench {
     @Override
     public void handleInitialLayout(Message<Event, Object> message, WorkbenchLayout<Node> workbenchLayout, Stage stage) {
         Resolution resolution = resolutionByPrimaryScreenBounds();
-        stage.setMaximized(true);
         workbenchLayout.setWorkbenchXYSize(resolution.width(), resolution.height());
         workbenchLayout.registerToolBar(ToolbarPosition.NORTH);
         workbenchLayout.setStyle(StageStyle.DECORATED);
         workbenchLayout.setMenuEnabled(false);
+        stage.setMaximized(true);
     }
 
     private Resolution resolutionByPrimaryScreenBounds() {

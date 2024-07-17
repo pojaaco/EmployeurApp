@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <GridPane fx:id="gridPane">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="33.33"/>
+                <ColumnConstraints percentWidth="33.33"/>
+                <ColumnConstraints percentWidth="33.33"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="33.33"/>
+                <RowConstraints percentHeight="33.33"/>
+                <RowConstraints percentHeight="33.33"/>
+            </rowConstraints>
+            <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Label fx:id="lblFund"/>
+                <ComboBox fx:id="cbxFund"/>
+            </VBox>
+            <VBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <Label fx:id="lblNumber"/>
+                <TextField fx:id="txfNumber"/>
+            </VBox>
+            <VBox spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                <Label fx:id="lblStartDate"/>
+                <DatePicker fx:id="dpkStartDate"/>
+            </VBox>
+            <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <Label fx:id="lblName"/>
+                <TextField fx:id="txfName"/>
+            </VBox>
+            <VBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Label fx:id="lblNumberIde"/>
+                <TextField fx:id="txfNumberIde"/>
+            </VBox>
+            <VBox spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Label fx:id="lblEndDate"/>
+                <DatePicker fx:id="dpkEndDate"/>
+            </VBox>
+            <HBox alignment="BOTTOM_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                <Button fx:id="btnSearch"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnReset"/>
+            </HBox>
+        </GridPane>
+    </center>
+</BorderPane>

@@ -19,6 +19,7 @@ import vn.elca.employer.client.perspective.EmployeePerspective;
 import vn.elca.employer.common.EmployerSetRequest;
 import vn.elca.employer.common.EmployerSetResponse;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Component(id = SetCallBack.ID, name = SetCallBack.ID)
@@ -60,6 +61,9 @@ public class SetCallBack implements CallbackComponent {
     }
 
     private void setData() {
+        if (employer.getEmployees() == null) {
+            employer.setEmployees(new HashSet<>());
+        }
         employees.forEach(e -> employer.getEmployees().add(e));
         EmployerSetRequest request = EmployerSetRequest.newBuilder()
                 .setEmployer(employerMapper.toProto(employer))

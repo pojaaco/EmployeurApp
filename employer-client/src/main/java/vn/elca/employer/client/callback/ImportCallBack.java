@@ -11,10 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.component.EmployeeImportComponent;
-import vn.elca.employer.client.component.importer.EmployeeImporter;
-import vn.elca.employer.client.component.importer.EmployeeImporterFactory;
+import vn.elca.employer.client.callback.importer.EmployeeImporter;
+import vn.elca.employer.client.callback.importer.EmployeeImporterFactory;
 import vn.elca.employer.client.exception.ImporterCreationException;
-import vn.elca.employer.client.factory.ObservableResourceFactory;
+import vn.elca.employer.client.language.ObservableResourceFactory;
 import vn.elca.employer.client.model.view.EmployeeView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 

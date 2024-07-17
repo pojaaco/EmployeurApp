@@ -1,6 +1,6 @@
 package vn.elca.employer.client.converter;
 
-import vn.elca.employer.client.factory.ObservableResourceFactory;
+import vn.elca.employer.client.language.ObservableResourceFactory;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -34,9 +34,10 @@ public class EmployerServiceImpl implements EmployerService {
     public EmployerDto saveEmployer(EmployerDto employerDto) {
         try {
             if (employerDto.getNumber() == null) {
+                //TODO constant
                 employerDto.setNumber(String.format("%06d", employerRepository.getNextSeqValue()));
             }
-            return employerMapper.toDto(employerRepository.saveEmployer(employerMapper.toEntity(employerDto)));
+            return employerMapper.toDto(employerRepository.save(employerMapper.toEntity(employerDto)));
         } catch (Exception e) {
             throw new CrudException(e.getMessage());
         }

@@ -1,6 +1,6 @@
-package vn.elca.employer.client.component.importer;
+package vn.elca.employer.client.callback.importer;
 
-import vn.elca.employer.client.component.importer.impl.CSVEmployeeImporter;
+import vn.elca.employer.client.callback.importer.impl.CSVEmployeeImporter;
 
 public enum FileType {
     CSV("csv", CSVEmployeeImporter.class);

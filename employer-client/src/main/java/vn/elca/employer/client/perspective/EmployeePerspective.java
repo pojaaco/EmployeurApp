@@ -1,8 +1,8 @@
 package vn.elca.employer.client.perspective;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import org.jacpfx.api.annotations.Resource;
@@ -15,15 +15,16 @@ import org.jacpfx.rcp.componentLayout.PerspectiveLayout;
 import org.jacpfx.rcp.components.toolBar.JACPToolBar;
 import org.jacpfx.rcp.context.Context;
 import org.jacpfx.rcp.perspective.FXPerspective;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.ImportCallBack;
 import vn.elca.employer.client.callback.SetCallBack;
 import vn.elca.employer.client.component.CreationHelper;
 import vn.elca.employer.client.component.EmployeeImportComponent;
 import vn.elca.employer.client.component.EmployeeInputComponent;
-import vn.elca.employer.client.component.EmployerInputComponent;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
-import vn.elca.employer.client.factory.ObservableResourceFactory;
+import vn.elca.employer.client.language.ObservableResourceFactory;
 
 import java.util.ResourceBundle;
 
@@ -34,20 +35,35 @@ import java.util.ResourceBundle;
                 EmployeeImportComponent.ID,
                 ImportCallBack.ID,
                 SetCallBack.ID
-        })
+        },
+        viewLocation = "/fxml/perspective/EmployeePerspective.fxml")
 public class EmployeePerspective implements FXPerspective {
     public static final String ID = "EmployeePerspective";
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeePerspective.class);
 
     @Autowired
-    ObservableResourceFactory observableResourceFactory;
+    private ObservableResourceFactory observableResourceFactory;
 
     @Autowired
     private CreationHelper creationHelper;
 
     @Resource
-    Context context;
+    private Context context;
 
+    @FXML
     private GridPane mainLayout;
+
+    @FXML
+    private VBox vbInputContainer;
+
+    @FXML
+    private VBox vbImportContainer;
+
+    @FXML
+    private Button btnBack;
+
+    @FXML
+    private Button btnSave;
 
     @Override
     public void handlePerspective(Message<Event, Object> message, PerspectiveLayout perspectiveLayout) {
@@ -59,63 +75,36 @@ public class EmployeePerspective implements FXPerspective {
     }
 
     @PostConstruct
-    /**
-     * @PostConstruct annotated method will be executed when component is activated.
-     * @param perspectiveLayout , the perspective layout let you register target layouts
-     * @param layout, the component layout contains references to the toolbar and the menu
-     * @param resourceBundle
-     */
     public void onStartPerspective(final PerspectiveLayout perspectiveLayout, final FXComponentLayout componentLayout,
                                    final ResourceBundle resourceBundle) {
         JACPToolBar toolBar = componentLayout.getRegisteredToolBar(ToolbarPosition.NORTH);
         creationHelper.addLanguageSwitcher(toolBar);
 
-        mainLayout = createMainLayout();
-        mainLayout.setPadding(new Insets(10));
-
-        VBox infoContainer = new VBox();
-        mainLayout.add(infoContainer, 0, 0);
-
-        VBox importContainer = new VBox();
-        mainLayout.add(importContainer, 0, 1);
-
-        HBox buttonContainer = new HBox();
-        buttonContainer.setAlignment(Pos.CENTER_RIGHT);
-        Button button1 = new Button();
-        button1.textProperty().bind(observableResourceFactory.getStringBinding("Button.back"));
-        button1.setOnAction(event -> context.send(EmployerPerspective.ID, "show"));
-        Button button2 = new Button();
-        button2.textProperty().bind(observableResourceFactory.getStringBinding("Button.save"));
-        button2.setOnAction(event -> {
-            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), "save");
-        });
-        buttonContainer.getChildren().addAll(button1, button2);
-        buttonContainer.setSpacing(20);
-        mainLayout.add(buttonContainer, 0, 2);
+        bindLanguage();
+        setupEventHandlers();
 
         perspectiveLayout.registerRootComponent(mainLayout);
-        perspectiveLayout.registerTargetLayoutComponent(EmployerJacpfxConfig.TARGET_TOP_CONTAINER, infoContainer);
-        perspectiveLayout.registerTargetLayoutComponent(EmployerJacpfxConfig.TARGET_BOTTOM_CONTAINER, importContainer);
+        perspectiveLayout.registerTargetLayoutComponent(EmployerJacpfxConfig.TARGET_TOP_CONTAINER, vbInputContainer);
+        perspectiveLayout.registerTargetLayoutComponent(EmployerJacpfxConfig.TARGET_BOTTOM_CONTAINER, vbImportContainer);
+
+        LOGGER.debug("Init");
     }
 
-    private GridPane createMainLayout() {
-        GridPane gridPane = new GridPane();
+    private void bindLanguage() {
+        btnBack.textProperty().bind(observableResourceFactory.getStringBinding("Button.back"));
+        btnSave.textProperty().bind(observableResourceFactory.getStringBinding("Button.save"));
+    }
 
-        ColumnConstraints colConstraints = new ColumnConstraints();
-        colConstraints.setPercentWidth(100);
-        gridPane.getColumnConstraints().add(colConstraints);
+    private void setupEventHandlers() {
+        btnBack.setOnAction(this::handleBackButton);
+        btnSave.setOnAction(this::handleSaveButton);
+    }
 
-        RowConstraints row1Constraints = new RowConstraints();
-        row1Constraints.setPercentHeight(50);
+    private void handleBackButton(ActionEvent event) {
+        context.send(EmployerPerspective.ID, "show");
+    }
 
-        RowConstraints row2Constraints = new RowConstraints();
-        row2Constraints.setPercentHeight(40);
-
-        RowConstraints row3Constraints = new RowConstraints();
-        row3Constraints.setPercentHeight(10);
-
-        gridPane.getRowConstraints().addAll(row1Constraints, row2Constraints, row3Constraints);
-
-        return gridPane;
+    private void handleSaveButton(ActionEvent event) {
+        context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), "save");
     }
 }

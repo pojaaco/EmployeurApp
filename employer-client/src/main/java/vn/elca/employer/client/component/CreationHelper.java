@@ -1,16 +1,13 @@
 package vn.elca.employer.client.component;
 
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
 import org.jacpfx.rcp.components.toolBar.JACPToolBar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import vn.elca.employer.client.converter.EnumStringConverterFactory;
-import vn.elca.employer.client.factory.ObservableResourceFactory;
+import vn.elca.employer.client.language.ObservableResourceFactory;
 import vn.elca.employer.common.ConstantContainer;
 import vn.elca.employer.common.Fund;
 
@@ -29,8 +26,7 @@ public class CreationHelper {
 
     public final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(ConstantContainer.DATE_FORMAT);
 
-    public ComboBox<Fund> createFundComboBox() {
-        ComboBox<Fund> fundComboBox = new ComboBox<>();
+    public void createFundComboBox(ComboBox<Fund> fundComboBox) {
         List<Fund> fundValue = Arrays.stream(Fund.values())
                 .filter(e -> e != Fund.UNRECOGNIZED)
                 .collect(Collectors.toList());
@@ -42,11 +38,9 @@ public class CreationHelper {
         observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> {
             fundComboBox.getItems().setAll(fundValue); // Refresh Combo Box
         }));
-        return fundComboBox;
     }
 
-    public DatePicker createDatePicker() {
-        DatePicker datePicker = new DatePicker();
+    public void createDatePicker(DatePicker datePicker) {
         datePicker.setMaxWidth(Double.MAX_VALUE);
         datePicker.setConverter(new StringConverter<LocalDate>() {
             @Override
@@ -57,6 +51,7 @@ public class CreationHelper {
                     return "";
                 }
             }
+
             @Override
             public LocalDate fromString(String string) {
                 if (string != null && !string.isEmpty()) {
@@ -79,7 +74,6 @@ public class CreationHelper {
             datePicker.setChronology(Chronology.ofLocale(observableResourceFactory.getResources().getLocale()));
             datePicker.setPromptText(observableResourceFactory.getResources().getString("Prompt.Format.Date"));
         }));
-        return datePicker;
     }
 
     private boolean isValidDate(String text) {
@@ -94,9 +88,7 @@ public class CreationHelper {
         return false;
     }
 
-    public TextField createValidatedTextField(Predicate<String> predicate, String promptKey) {
-        TextField textField = new TextField();
-
+    public void createValidatedTextField(TextField textField, Predicate<String> predicate, String promptKey) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!predicate.test(newValue)) {
                 textField.setText(oldValue);
@@ -109,10 +101,9 @@ public class CreationHelper {
                 textField.setPromptText(observableResourceFactory.getResources().getString("Prompt." + promptKey));
             }));
         }
-        return textField;
     }
 
-    public void addLanguageSwitcher(JACPToolBar toolBar) {
+    public void addLanguageSwitcher(JACPToolBar toolBar) { // TODO: Try to find another way to avoid duplicated code
         HBox switcher = new HBox();
         switcher.setSpacing(8);
         Label lblEn = new Label("EN");

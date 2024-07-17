@@ -1,8 +1,8 @@
-package vn.elca.employer.client.component.importer;
+package vn.elca.employer.client.callback.importer;
 
 import org.apache.commons.io.FilenameUtils;
 import vn.elca.employer.client.exception.ImporterCreationException;
-import vn.elca.employer.client.factory.ObservableResourceFactory;
+import vn.elca.employer.client.language.ObservableResourceFactory;
 
 import java.util.HashMap;
 import java.util.Map;
