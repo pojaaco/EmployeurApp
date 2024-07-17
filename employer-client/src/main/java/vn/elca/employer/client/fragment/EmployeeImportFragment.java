@@ -16,14 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.ImportCallBack;
-import vn.elca.employer.client.component.Validator;
 import vn.elca.employer.client.language.ObservableResourceFactory;
-import vn.elca.employer.client.model.view.EmployeeView;
-import vn.elca.employer.client.model.view.EmployerView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 
 import java.io.File;
-import java.time.LocalDate;
 
 @Fragment(id = EmployeeImportFragment.ID,
         viewLocation = "/fxml/fragment/EmployeeImportFragment.fxml",

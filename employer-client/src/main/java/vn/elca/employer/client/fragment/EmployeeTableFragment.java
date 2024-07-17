@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -114,7 +115,12 @@ public class EmployeeTableFragment {
     }
 
     private void setupTableFormat() {
+        Label placeholderLabel = new Label();
+        placeholderLabel.textProperty().bind(observableResourceFactory.getStringBinding("Prompt.Table.empty"));
+        employeeTable.setFixedCellSize(40.0); // TODO: Place in CSS file
+        employeeTable.setPlaceholder(placeholderLabel);
         employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        employeeTable.setPrefHeight(employeeTable.getFixedCellSize()); // TODO: Place in CSS file
     }
 
     private void setupColumnFormat() {
@@ -131,12 +137,17 @@ public class EmployeeTableFragment {
     private void setupPagination() {
         pagination.setPageCount(1);
         data.addListener((ListChangeListener<? super EmployeeView>) c -> {
-            pagination.setPageCount((int) Math.ceil(data.size() / (double) EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE)); // Math.ceil
+            if (data.isEmpty()) {
+                pagination.setPageCount(1);
+            } else {
+                pagination.setPageCount((int) Math.ceil(data.size() / (double) EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE)); // Math.ceil
+            }
             pagination.setCurrentPageIndex(0);
             pagination.setPageFactory(pageIndex -> {
                 int fromIndex = pageIndex * EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE;
                 int toIndex = Math.min(fromIndex + EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE, data.size());
                 employeeTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
+                employeeTable.setPrefHeight((toIndex - fromIndex + 0.7) * employeeTable.getFixedCellSize());
                 return new Pane(); // refresh pagination
             });
         });

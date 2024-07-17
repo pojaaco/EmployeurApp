@@ -66,8 +66,6 @@ Qemployer-server/src/main/java/vn/elca/employer/server/EmployerServerLauncher.ja
 ]employer-server/src/main/java/vn/elca/employer/server/controller/EmployerGrpcServiceImpl.java,6\b\6becedc3175fb7739b3382db4dd35c9eae7bf31e
 †
 Vemployer-server/src/main/java/vn/elca/employer/server/adapter/EmployerAdapterImpl.java,c\2\c2303c87930d5f6e587f29505dc02220d0272afc
-d
-4employer-common/src/main/proto/EmployerService.proto,0\c\0cb162b83adc206002379a78031360caf4c71a06
 —
 gemployer-server/src/main/java/vn/elca/employer/server/repository/impl/EmployerRepositoryCustomImpl.java,9\c\9cad5729cb73305d69ced39914529f1f3a736e7a
 ˆ
@@ -91,10 +89,6 @@ Temployer-client/src/main/java/vn/elca/employer/client/config/EmployerGrpcConfig
 |
 Lemployer-common/src/main/java/vn/elca/employer/common/ConstantContainer.java,9\e\9ea2bc3bdd3db5c1b5731621a37b322599f20aeb
 ‚
-Remployer-client/src/main/java/vn/elca/employer/client/callback/DeleteCallBack.java,c\9\c978e0e47c7821d9dca347d11bb302a87a3ef41e
-
-Oemployer-client/src/main/java/vn/elca/employer/client/callback/GetCallBack.java,a\6\a630391f63f36114437ad22799893feb3a16a267
-‚
 Remployer-client/src/main/java/vn/elca/employer/client/callback/ImportCallBack.java,b\2\b21789ead112b8a3f532de716436be7ece0ef760
 
 Oemployer-client/src/main/java/vn/elca/employer/client/callback/SetCallBack.java,f\5\f573284ba77ab32e06142635563c46347c5c8d64
@@ -108,3 +102,15 @@ Zemployer-client/src/main/java/vn/elca/employer/client/perspective/EmployerPersp
 Vemployer-server/src/main/java/vn/elca/employer/server/service/EmployerServiceImpl.java,3\2\32779e00c444a328144bbd9213e72e0137e1c5e6
 ~
 Nemployer-client/src/main/java/vn/elca/employer/client/EmployerApplication.java,a\3\a33398d02a527903c74708f02dcbec3a786debc4
+‰
+Yemployer-client/src/main/java/vn/elca/employer/client/fragment/EmployerInputFragment.java,5\8\581203841eaa02716c085d58d2b9b253147cf7e5
+‹
+[employer-client/src/main/java/vn/elca/employer/client/component/EmployeeInputComponent.java,2\0\20bfcbf8bf205fc9499960430536a4dcf948cb90
+‹
+[employer-client/src/main/java/vn/elca/employer/client/component/EmployerTableComponent.java,e\8\e8f6fdffa998fd20ee3c2538a341f9b42101512c
+‚
+Remployer-client/src/main/java/vn/elca/employer/client/model/view/EmployeeView.java,8\6\86dc5069d153069df8a0cbe73b0f4810d41e9756
+~
+Nemployer-client/src/main/java/vn/elca/employer/client/component/Validator.java,f\b\fb2179eb24fbeec322e2ee64444e048564971ebc
+‰
+Yemployer-client/src/main/java/vn/elca/employer/client/fragment/EmployeeInputFragment.java,b\9\b9ddaf10da20f87ca61664f0c9c060a19494b85c

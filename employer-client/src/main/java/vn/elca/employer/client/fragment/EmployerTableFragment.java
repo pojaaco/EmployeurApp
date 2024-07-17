@@ -108,7 +108,12 @@ public class EmployerTableFragment {
     }
 
     private void setupTableFormat() {
+        Label placeholderLabel = new Label();
+        placeholderLabel.textProperty().bind(observableResourceFactory.getStringBinding("Prompt.Table.empty"));
+        employerTable.setFixedCellSize(40.0); // TODO: Place in CSS file
+        employerTable.setPlaceholder(placeholderLabel);
         employerTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        employerTable.setPrefHeight(employerTable.getFixedCellSize()); // TODO: Place in CSS file
         observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> employerTable.refresh()));
     }
 
@@ -215,6 +220,7 @@ public class EmployerTableFragment {
                 int fromIndex = pageIndex * EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE;
                 int toIndex = Math.min(fromIndex + EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE, data.size());
                 employerTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
+                employerTable.setPrefHeight((toIndex - fromIndex + 0.7) * employerTable.getFixedCellSize());
                 return new Pane(); // refresh pagination
             });
         });
