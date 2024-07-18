@@ -21,10 +21,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class CreationHelper {
-    private static final String PROMPT = "Prompt";
-    private static final String PROMPT_FORMAT_DATE = "Prompt.Format.Date";
-    private static final String EN_SWITCHER = "Label.Switcher.english";
-    private static final String FR_SWITCHER = "Label.Switcher.french";
+    private static final String BUNDLE_PROMPT = "Prompt";
+    private static final String BUNDLE_PROMPT_FORMAT_DATE = "Prompt.Format.Date";
+    private static final String BUNDLE_EN_SWITCHER = "Label.Switcher.english";
+    private static final String BUNDLE_FR_SWITCHER = "Label.Switcher.french";
     private static final String CSS_CUSTOM_FONT = "custom-font";
     private static final String CSS_BLUE_TEXT = "blue-text";
 
@@ -70,7 +70,7 @@ public class CreationHelper {
                 }
             }
         });
-        datePicker.setPromptText(observableResourceFactory.getResources().getString(PROMPT_FORMAT_DATE));
+        datePicker.setPromptText(observableResourceFactory.getResources().getString(BUNDLE_PROMPT_FORMAT_DATE));
 
         datePicker.getEditor().textProperty().addListener(((observable, oldValue, newValue) -> {
             if (!Validator.isValidTypeDate(newValue)) {
@@ -81,7 +81,7 @@ public class CreationHelper {
         observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> {
             datePicker.setChronology(null); // Reset Chronology
             datePicker.setChronology(Chronology.ofLocale(observableResourceFactory.getResources().getLocale()));
-            datePicker.setPromptText(observableResourceFactory.getResources().getString(PROMPT_FORMAT_DATE));
+            datePicker.setPromptText(observableResourceFactory.getResources().getString(BUNDLE_PROMPT_FORMAT_DATE));
         }));
     }
 
@@ -98,24 +98,23 @@ public class CreationHelper {
         }
 
         if (promptKey != null) {
-            textField.setPromptText(observableResourceFactory.getResources().getString(PROMPT + "." + promptKey));
+            textField.setPromptText(observableResourceFactory.getResources().getString(BUNDLE_PROMPT + "." + promptKey));
             observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> {
-                textField.setPromptText(observableResourceFactory.getResources().getString(PROMPT + "." + promptKey));
+                textField.setPromptText(observableResourceFactory.getResources().getString(BUNDLE_PROMPT + "." + promptKey));
             }));
         }
     }
 
-    public void addLanguageSwitcher(JACPToolBar toolBar) { // TODO: Try to find another way to avoid duplicated code
+    public void addLanguageSwitcher(JACPToolBar toolBar) {
         HBox switcher = new HBox();
         switcher.setSpacing(8);
         Label lblEn = new Label();
         lblEn.getStyleClass().add(CSS_CUSTOM_FONT);
-        lblEn.textProperty().bind(observableResourceFactory.getStringBinding(EN_SWITCHER));
+        lblEn.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EN_SWITCHER));
         lblEn.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN));
         Label lblFr = new Label();
-        lblFr.getStyleClass().add(CSS_CUSTOM_FONT);
-        lblFr.getStyleClass().add(CSS_BLUE_TEXT);
-        lblFr.textProperty().bind(observableResourceFactory.getStringBinding(FR_SWITCHER));
+        lblFr.getStyleClass().addAll(CSS_CUSTOM_FONT, CSS_BLUE_TEXT);
+        lblFr.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_FR_SWITCHER));
         lblFr.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.FR));
 
         observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> {

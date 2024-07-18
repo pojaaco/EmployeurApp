@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.component.CreationHelper;
 import vn.elca.employer.client.component.Validator;
-import vn.elca.employer.client.config.EmployerJacpfxConfig;
 import vn.elca.employer.client.language.ObservableResourceFactory;
 import vn.elca.employer.client.model.view.EmployeeView;
 
@@ -29,14 +28,22 @@ import java.util.List;
         viewLocation = "/fxml/fragment/EmployeeTableFragment.fxml",
         scope = Scope.PROTOTYPE)
 public class EmployeeTableFragment {
-    private static final String NUMBER_AVS_FORMAT = "756\\.\\d{4}\\.\\d{4}\\.\\d{2}";
-    private static final String DATE_FORMAT = "\\d{0,2}\\.\\d{0,2}\\.\\d{0,4}";
-    private static final String EMPTY_TABLE_PROMPT = "Prompt.Table.empty";
-    private static final String EMPLOYEE_PROPERTY = "Property.Employee";
-    private static final double STRETCH_TABLE_COEFFICIENT = 1.0;
-
     public static final String ID = "EmployeeTableFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeTableFragment.class);
+    private static final String NUMBER_AVS_FORMAT = "756\\.\\d{4}\\.\\d{4}\\.\\d{2}";
+    private static final String DATE_FORMAT = "\\d{0,2}\\.\\d{0,2}\\.\\d{0,4}";
+    private static final String BUNDLE_PROMPT_EMPTY_TABLE = "Prompt.Table.empty";
+    private static final String BUNDLE_PROPERTY_EMPLOYEE = "Property.Employee";
+    private static final String PROPERTY_NUMBER_AVS = "numberAvs";
+    private static final String PROPERTY_LAST_NAME = "lastName";
+    private static final String PROPERTY_FIRST_NAME = "firstName";
+    private static final String PROPERTY_START_DATE = "startDate";
+    private static final String PROPERTY_END_DATE = "endDate";
+    private static final String PROPERTY_AVS_AI_APG = "avsAiApg";
+    private static final String PROPERTY_AC = "ac";
+    private static final String PROPERTY_AF = "af";
+    private static final double STRETCH_TABLE_COEFFICIENT = 1.0;
+    private static final int PAGINATION_ROW_PER_PAGE = 5;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -84,12 +91,16 @@ public class EmployeeTableFragment {
         LOGGER.debug("init");
     }
 
-    public void updateData(List<EmployeeView> newData) {
-        data.setAll(newData);
+    public void reset() {
+        resetData();
     }
 
-    public void resetData() {
+    private void resetData() {
         data.clear();
+    }
+
+    public void updateData(List<EmployeeView> newData) {
+        data.setAll(newData);
     }
 
     public ObservableList<EmployeeView> getData() {
@@ -112,49 +123,49 @@ public class EmployeeTableFragment {
     }
 
     private void bindLanguage() {
-        // TODO Add Property Constants
-        column1.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "numberAvs"));
-        column2.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "lastName"));
-        column3.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "firstName"));
-        column4.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "startDate"));
-        column5.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "endDate"));
-        column6.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "avsAiApg"));
-        column7.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "ac"));
-        column8.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYEE_PROPERTY + "." + "af"));
+        column1.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYEE + "." + PROPERTY_NUMBER_AVS));
+        column2.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYEE + "." + PROPERTY_LAST_NAME));
+        column3.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYEE + "." + PROPERTY_FIRST_NAME));
+        column4.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYEE + "." + PROPERTY_START_DATE));
+        column5.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYEE + "." + PROPERTY_END_DATE));
+        column6.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYEE + "." + PROPERTY_AVS_AI_APG));
+        column7.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYEE + "." + PROPERTY_AC));
+        column8.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYEE + "." + PROPERTY_AF));
     }
 
     private void setupTableFormat() {
         Label placeholderLabel = new Label();
-        placeholderLabel.textProperty().bind(observableResourceFactory.getStringBinding(EMPTY_TABLE_PROMPT));
+        placeholderLabel.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROMPT_EMPTY_TABLE));
         employeeTable.setPlaceholder(placeholderLabel);
         employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     private void setupColumnFormat() {
-        column1.setCellValueFactory(new PropertyValueFactory<>("numberAvs"));
-        column2.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        column3.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        column4.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        column5.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        column6.setCellValueFactory(new PropertyValueFactory<>("avsAiApg"));
-        column7.setCellValueFactory(new PropertyValueFactory<>("ac"));
-        column8.setCellValueFactory(new PropertyValueFactory<>("af"));
+        column1.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_NUMBER_AVS));
+        column2.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_LAST_NAME));
+        column3.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_FIRST_NAME));
+        column4.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_START_DATE));
+        column5.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_END_DATE));
+        column6.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_AVS_AI_APG));
+        column7.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_AC));
+        column8.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_AF));
     }
 
     private void setupPagination() {
+        // TODO Improve Pagination
         pagination.setPageCount(1);
         data.addListener((ListChangeListener<? super EmployeeView>) c -> {
             if (data.isEmpty()) {
                 pagination.setPageCount(1);
             } else {
-                pagination.setPageCount((int) Math.ceil(data.size() / (double) EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE)); // Math.ceil
+                pagination.setPageCount((int) Math.ceil(data.size() / (double) PAGINATION_ROW_PER_PAGE)); // Math.ceil
             }
             pagination.setCurrentPageIndex(0);
             pagination.setPageFactory(pageIndex -> {
-                int fromIndex = pageIndex * EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE;
-                int toIndex = Math.min(fromIndex + EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE, data.size());
+                int fromIndex = pageIndex * PAGINATION_ROW_PER_PAGE;
+                int toIndex = Math.min(fromIndex + PAGINATION_ROW_PER_PAGE, data.size());
                 employeeTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
-//                employeeTable.setPrefHeight((toIndex - fromIndex + STRETCH_TABLE_COEFFICIENT) * employeeTable.getFixedCellSize());
+                employeeTable.setPrefHeight((toIndex - fromIndex + STRETCH_TABLE_COEFFICIENT) * employeeTable.getFixedCellSize());
                 return new Pane(); // refresh pagination
             });
         });

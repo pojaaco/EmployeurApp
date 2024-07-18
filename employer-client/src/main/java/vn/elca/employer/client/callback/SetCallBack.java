@@ -47,7 +47,7 @@ public class SetCallBack implements CallbackComponent {
         if (sourceId.endsWith(EmployeeInputComponent.ID)) {
             if (message.isMessageBodyTypeOf(MessageType.class)
                     && message.getTypedMessageBody(MessageType.class).compareTo(MessageType.RESET) == 0) {
-                reset();
+                resetData();
             } else {
                 employer = message.getTypedMessageBody(EmployerView.class);
             }
@@ -57,7 +57,7 @@ public class SetCallBack implements CallbackComponent {
 
         if (employer != null && employees != null) {
             setData();
-            reset();
+            resetData();
         }
         return null;
     }
@@ -72,14 +72,14 @@ public class SetCallBack implements CallbackComponent {
                 .build();
         EmployerSetResponse response = stub.setEmployer(request);
         if (response.getIsOK()) {
-            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID),
-                    employerMapper.toView(request.getEmployer()));
+            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), MessageType.SUCCESS);
         } else {
+            context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), MessageType.FAILURE);
             LOGGER.debug(response.getMessage());
         }
     }
 
-    private void reset() {
+    private void resetData() {
         employer = null;
         employees = null;
     }

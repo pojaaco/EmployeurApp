@@ -2,7 +2,6 @@ package vn.elca.employer.client.fragment;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -25,14 +24,19 @@ import vn.elca.employer.common.Fund;
         viewLocation = "/fxml/fragment/EmployerInputFragment.fxml",
         scope = Scope.PROTOTYPE)
 public class EmployerInputFragment {
-    private static final String EMPLOYER_PROPERTY = "Property.Employer";
-    private static final String BUTTON_SEARCH = "Button.search";
-    private static final String BUTTON_RESET = "Button.reset";
-    private static final String NUMBER_FORMAT = "Format.number";
-    private static final String NUMBER_IDE_FORMAT = "Format.numberIde";
-
     public static final String ID = "EmployerInputFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployerInputFragment.class);
+    private static final String BUNDLE_PROPERTY_EMPLOYER = "Property.Employer";
+    private static final String BUNDLE_BUTTON_SEARCH = "Button.search";
+    private static final String BUNDLE_BUTTON_RESET = "Button.reset";
+    private static final String BUNDLE_FORMAT_NUMBER = "Format.number";
+    private static final String BUNDLE_FORMAT_NUMBER_IDE = "Format.numberIde";
+    private static final String PROPERTY_NUMBER = "number";
+    private static final String PROPERTY_NAME = "name";
+    private static final String PROPERTY_FUND = "fund";
+    private static final String PROPERTY_NUMBER_IDE = "numberIde";
+    private static final String PROPERTY_START_DATE = "startDate";
+    private static final String PROPERTY_END_DATE = "endDate";
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -94,33 +98,29 @@ public class EmployerInputFragment {
     public void init() {
         bindLanguage();
         setupInputFields();
-        setupAppearance();
         setupEventHandlers();
         LOGGER.debug("init");
     }
 
     private void bindLanguage() {
-        lblFund.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "fund"));
-        lblNumber.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "number"));
-        lblStartDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "startDate"));
-        lblName.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "name"));
-        lblNumberIde.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "numberIde"));
-        lblEndDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "endDate"));
+        lblFund.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_FUND));
+        lblNumber.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_NUMBER));
+        lblStartDate.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_START_DATE));
+        lblName.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_NAME));
+        lblNumberIde.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_NUMBER_IDE));
+        lblEndDate.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_END_DATE));
 
-        btnSearch.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_SEARCH));
-        btnReset.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_RESET));
+        btnSearch.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_BUTTON_SEARCH));
+        btnReset.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_BUTTON_RESET));
     }
 
     private void setupInputFields() {
         creationHelper.createFundComboBox(cbxFund);
-        creationHelper.createValidatedTextField(txfNumber, Validator::isValidTypedNumber, NUMBER_FORMAT);
+        creationHelper.createValidatedTextField(txfNumber, Validator::isValidTypedNumber, BUNDLE_FORMAT_NUMBER);
         creationHelper.createDatePicker(dpkStartDate);
         creationHelper.createValidatedTextField(txfName, null, null);
-        creationHelper.createValidatedTextField(txfNumberIde, Validator::isValidTypedNumberIde, NUMBER_IDE_FORMAT);
+        creationHelper.createValidatedTextField(txfNumberIde, Validator::isValidTypedNumberIde, BUNDLE_FORMAT_NUMBER_IDE);
         creationHelper.createDatePicker(dpkEndDate);
-    }
-
-    private void setupAppearance() {
     }
 
     private void setupEventHandlers() {

@@ -16,7 +16,6 @@ import vn.elca.employer.client.callback.importer.EmployeeImporterFactory;
 import vn.elca.employer.client.exception.ImporterCreationException;
 import vn.elca.employer.client.language.ObservableResourceFactory;
 import vn.elca.employer.client.model.view.EmployeeView;
-import vn.elca.employer.client.perspective.EmployeePerspective;
 
 import java.util.List;
 
@@ -33,14 +32,15 @@ public class ImportCallBack implements CallbackComponent {
 
     @Override
     public Object handle(Message<Event, Object> message) throws Exception {
-        context.setReturnTarget(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID));
-        String filePath = message.getTypedMessageBody(String.class);
-        try {
-            EmployeeImporter importer = EmployeeImporterFactory.getImporter(filePath, observableResourceFactory);
-            List<EmployeeView> results = importer.extractEmployeesFromFile(filePath);
-            return FXCollections.observableArrayList(results);
-        } catch (ImporterCreationException e) {
-            LOGGER.debug(e.getMessage());
+        if (message.getSourceId().endsWith(EmployeeImportComponent.ID)) {
+            String filePath = message.getTypedMessageBody(String.class);
+            try {
+                EmployeeImporter importer = EmployeeImporterFactory.getImporter(filePath, observableResourceFactory);
+                List<EmployeeView> results = importer.extractEmployeesFromFile(filePath);
+                return FXCollections.observableArrayList(results);
+            } catch (ImporterCreationException e) {
+                LOGGER.debug(e.getMessage());
+            }
         }
         return null;
     }

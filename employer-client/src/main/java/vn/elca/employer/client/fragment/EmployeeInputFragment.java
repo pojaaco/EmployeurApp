@@ -26,12 +26,20 @@ import java.time.LocalDate;
 public class EmployeeInputFragment {
     public static final String ID = "EmployeeInputFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeInputFragment.class);
-    private static final String NUMBER_IDE_FORMAT = "Format.numberIde";
-    private static final String CORRECT_NUMBER_IDE_FORMAT = "(ADM|CHE)-\\d{3}\\.\\d{3}\\.\\d{3}";
+    private static final String CORRECT_BUNDLE_NUMBER_IDE_FORMAT = "(ADM|CHE)-\\d{3}\\.\\d{3}\\.\\d{3}";
+    // TODO Can have the same constant?
     private static final String CORRECT_DATE_FORMAT = "(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d{2}";
-    private static final String EMPLOYER_PROPERTY = "Property.Employer";
-    private static final String EMPLOYER_ERROR = "Label.Error.Employer";
-    private static final String RED_BORDER_STYLE = "red-border";
+    private static final String BUNDLE_NUMBER_IDE_FORMAT = "Format.numberIde";
+    private static final String BUNDLE_EMPLOYER_PROPERTY = "Property.Employer";
+    private static final String BUNDLE_EMPLOYER_ERROR = "Label.Error.Employer";
+    private static final String CSS_RED_BORDER = "red-border";
+    private static final String DISPLAY_UNDEFINED_NUMBER = "XXXXXX";
+    private static final String PROPERTY_NUMBER = "number";
+    private static final String PROPERTY_NAME = "name";
+    private static final String PROPERTY_FUND = "fund";
+    private static final String PROPERTY_NUMBER_IDE = "numberIde";
+    private static final String PROPERTY_START_DATE = "startDate";
+    private static final String PROPERTY_END_DATE = "endDate";
 
     @Autowired
     ObservableResourceFactory observableResourceFactory;
@@ -101,52 +109,55 @@ public class EmployeeInputFragment {
     public void init() {
         bindLanguage();
         setupInputFields();
-        setupAppearance();
         setupEventHandlers();
         LOGGER.debug("init");
     }
 
-    public void resetError() {
+    public void reset() {
+        resetError();
+        resetInputFields();
+    }
+
+    private void resetError() {
         errName.setVisible(false);
         errNumberIde.setVisible(false);
         errStartDate.setVisible(false);
         errEndDate.setVisible(false);
 
-        txfName.getStyleClass().remove(RED_BORDER_STYLE);
-        txfNumberIde.getStyleClass().remove(RED_BORDER_STYLE);
-        dpkStartDate.getStyleClass().remove(RED_BORDER_STYLE);
-        dpkEndDate.getStyleClass().remove(RED_BORDER_STYLE);
+        txfName.getStyleClass().remove(CSS_RED_BORDER);
+        txfNumberIde.getStyleClass().remove(CSS_RED_BORDER);
+        dpkStartDate.getStyleClass().remove(CSS_RED_BORDER);
+        dpkEndDate.getStyleClass().remove(CSS_RED_BORDER);
+    }
+
+    private void resetInputFields() {
+        fldNumber.setText(DISPLAY_UNDEFINED_NUMBER);
+        cbxFund.getSelectionModel().selectFirst();
+        txfName.setText(null);
+        txfNumberIde.setText(null);
+        dpkStartDate.setValue(null);
+        dpkEndDate.setValue(null);
     }
 
     public void updateInputFields(EmployerView employerView) {
-        // TODO Tach ra
         managedView = employerView;
         if (employerView.getNumber() != null) {
             fldNumber.setText(employerView.getNumber());
-        } else {
-            fldNumber.setText("XXXXXX");
         }
         if (employerView.getFund() != null) {
             cbxFund.getSelectionModel().select(employerView.getFund());
-        } else {
-            cbxFund.getSelectionModel().selectFirst();
         }
         txfName.setText(employerView.getName());
         txfNumberIde.setText(employerView.getNumberIde());
         if (employerView.getStartDate() != null) {
             dpkStartDate.setValue(LocalDate.parse(employerView.getStartDate(), creationHelper.dateFormatter));
-        } else {
-            dpkStartDate.setValue(null);
         }
         if (employerView.getEndDate() != null) {
             dpkEndDate.setValue(LocalDate.parse(employerView.getEndDate(), creationHelper.dateFormatter));
-        } else {
-            dpkEndDate.setValue(null);
         }
     }
 
-    public EmployerView extractEmployerView(boolean validated) {
-        // TODO Tach ra
+    public EmployerView extractInputFields() {
         EmployerView newEmployer = new EmployerView();
         newEmployer.setId(managedView.getId());
         newEmployer.setNumber(managedView.getNumber());
@@ -160,76 +171,64 @@ public class EmployeeInputFragment {
             newEmployer.setEndDate(creationHelper.dateFormatter.format(dpkEndDate.getValue()));
         }
         newEmployer.setEmployees(managedView.getEmployees());
-
-        if (validated) {
-            if (validateEmployerView(newEmployer)) {
-                return newEmployer;
-            } else {
-                return null;
-            }
-        }
         return newEmployer;
     }
 
-    private boolean validateEmployerView(EmployerView employerView) {
+    public boolean validateInputFields() {
         boolean isValid;
-        isValid = Validator.checkCondition(employerView.getName() != null && !employerView.getName().isEmpty(), errName, txfName);
-        isValid &= Validator.checkCondition(employerView.getNumberIde() != null
-                && employerView.getNumberIde().matches(CORRECT_NUMBER_IDE_FORMAT), errNumberIde, txfNumberIde);
-        isValid &= Validator.checkCondition(employerView.getStartDate() != null
-                && employerView.getStartDate().matches(CORRECT_DATE_FORMAT), errStartDate, dpkStartDate);
-        isValid &= Validator.checkCondition(employerView.getEndDate() == null
-                || employerView.getEndDate().matches(CORRECT_DATE_FORMAT), errEndDate, dpkEndDate);
-        isValid &= Validator.checkCondition(employerView.getStartDate() == null
-                || employerView.getEndDate() == null
-                || LocalDate.parse(employerView.getEndDate(), creationHelper.dateFormatter).isAfter(LocalDate.parse(employerView.getStartDate(), creationHelper.dateFormatter)), errEndDate, dpkEndDate);
+        isValid = Validator.checkCondition(managedView.getName() != null && !managedView.getName().isEmpty(), errName, txfName);
+        isValid &= Validator.checkCondition(managedView.getNumberIde() != null
+                && managedView.getNumberIde().matches(CORRECT_BUNDLE_NUMBER_IDE_FORMAT), errNumberIde, txfNumberIde);
+        isValid &= Validator.checkCondition(managedView.getStartDate() != null
+                && managedView.getStartDate().matches(CORRECT_DATE_FORMAT), errStartDate, dpkStartDate);
+        isValid &= Validator.checkCondition(managedView.getEndDate() == null
+                || managedView.getEndDate().matches(CORRECT_DATE_FORMAT), errEndDate, dpkEndDate);
+        isValid &= Validator.checkCondition(managedView.getStartDate() == null
+                || managedView.getEndDate() == null
+                || LocalDate.parse(managedView.getEndDate(), creationHelper.dateFormatter).isAfter(LocalDate.parse(managedView.getStartDate(), creationHelper.dateFormatter)), errEndDate, dpkEndDate);
         return isValid;
     }
 
     private void bindLanguage() {
-        // TODO Add Property Constants
-        lblNumber.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "number"));
-        lblName.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "name"));
-        lblFund.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "fund"));
-        lblNumberIde.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "numberIde"));
-        lblStartDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "startDate"));
-        lblEndDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "endDate"));
+        lblNumber.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_NUMBER));
+        lblName.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_NAME));
+        lblFund.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_FUND));
+        lblNumberIde.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_NUMBER_IDE));
+        lblStartDate.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_START_DATE));
+        lblEndDate.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_END_DATE));
 
-        errNumber.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "number"));
-        errName.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "name"));
-        errFund.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "fund"));
-        errNumberIde.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "numberIde"));
-        errStartDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "startDate"));
-        errEndDate.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_ERROR + "." + "endDate"));
+        errNumber.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_NUMBER));
+        errName.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_NAME));
+        errFund.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_FUND));
+        errNumberIde.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_NUMBER_IDE));
+        errStartDate.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_START_DATE));
+        errEndDate.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_END_DATE));
     }
 
     private void setupInputFields() {
         creationHelper.createValidatedTextField(txfName, null, null);
         creationHelper.createFundComboBox(cbxFund);
-        creationHelper.createValidatedTextField(txfNumberIde, Validator::isValidTypedNumberIde, NUMBER_IDE_FORMAT);
+        creationHelper.createValidatedTextField(txfNumberIde, Validator::isValidTypedNumberIde, BUNDLE_NUMBER_IDE_FORMAT);
         creationHelper.createDatePicker(dpkStartDate);
         creationHelper.createDatePicker(dpkEndDate);
-    }
-
-    private void setupAppearance() {
     }
 
     private void setupEventHandlers() {
         txfName.textProperty().addListener((observable, oldValue, newValue) -> {
             errName.setVisible(false);
-            txfName.getStyleClass().remove(RED_BORDER_STYLE);
+            txfName.getStyleClass().remove(CSS_RED_BORDER);
         });
         txfNumberIde.textProperty().addListener((observable, oldValue, newValue) -> {
             errNumberIde.setVisible(false);
-            txfNumberIde.getStyleClass().remove(RED_BORDER_STYLE);
+            txfNumberIde.getStyleClass().remove(CSS_RED_BORDER);
         });
         dpkStartDate.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             errStartDate.setVisible(false);
-            dpkStartDate.getStyleClass().remove(RED_BORDER_STYLE);
+            dpkStartDate.getStyleClass().remove(CSS_RED_BORDER);
         });
         dpkEndDate.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             errEndDate.setVisible(false);
-            dpkEndDate.getStyleClass().remove(RED_BORDER_STYLE);
+            dpkEndDate.getStyleClass().remove(CSS_RED_BORDER);
         });
     }
 }

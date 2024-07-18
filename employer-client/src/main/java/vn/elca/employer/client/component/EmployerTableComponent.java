@@ -47,7 +47,7 @@ public class EmployerTableComponent implements FXComponent {
         String sourceId = message.getSourceId();
         if (sourceId.endsWith(GetCallBack.ID)) {
             tableFragment.getController().updateData((List<EmployerView>) message.getMessageBody());
-        } else if (sourceId.endsWith(DeleteCallBack.ID) || sourceId.endsWith(EmployerTableComponent.ID)) {
+        } else if (sourceId.endsWith(DeleteCallBack.ID)) {
             if (message.isMessageBodyTypeOf(EmployerView.class)) {
                 tableFragment.getController().removeItem(message.getTypedMessageBody(EmployerView.class));
             }

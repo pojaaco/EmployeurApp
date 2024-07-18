@@ -42,17 +42,24 @@ import java.util.Optional;
         viewLocation = "/fxml/fragment/EmployerTableFragment.fxml",
         scope = Scope.PROTOTYPE)
 public class EmployerTableFragment {
-    private static final String EMPLOYER_PROPERTY = "Property.Employer";
-    private static final String EMPTY_TABLE_PROMPT = "Prompt.Table.empty";
-    private static final String BUTTON_DETAILS = "Button.details";
-    private static final String BUTTON_DELETE = "Button.delete";
-    private static final String DIALOG_NOT_DELETE_TITLE = "Dialog.Information.Employer.NotDelete.title";
-    private static final String DIALOG_NOT_DELETE_HEADER = "Dialog.Information.Employer.NotDelete.header";
-    private static final String DIALOG_DELETE_TITLE = "Dialog.Confirmation.Employer.Delete.title";
-    private static final String DIALOG_DELETE_HEADER = "Dialog.Confirmation.Employer.Delete.header";
-
     public static final String ID = "EmployerTableFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployerTableFragment.class);
+    private static final String BUNDLE_PROPERTY_EMPLOYER = "Property.Employer";
+    private static final String BUNDLE_PROMPT_EMPTY_TABLE = "Prompt.Table.empty";
+    private static final String BUNDLE_BUTTON_DETAILS = "Button.details";
+    private static final String BUNDLE_BUTTON_DELETE = "Button.delete";
+    private static final String BUNDLE_DIALOG_NOT_DELETE_TITLE = "Dialog.Information.Employer.NotDelete.title";
+    private static final String BUNDLE_DIALOG_NOT_DELETE_HEADER = "Dialog.Information.Employer.NotDelete.header";
+    private static final String BUNDLE_DIALOG_DELETE_TITLE = "Dialog.Confirmation.Employer.Delete.title";
+    private static final String BUNDLE_DIALOG_DELETE_HEADER = "Dialog.Confirmation.Employer.Delete.header";
+    private static final String PROPERTY_NUMBER = "number";
+    private static final String PROPERTY_NAME = "name";
+    private static final String PROPERTY_FUND = "fund";
+    private static final String PROPERTY_NUMBER_IDE = "numberIde";
+    private static final String PROPERTY_START_DATE = "startDate";
+    private static final String PROPERTY_END_DATE = "endDate";
+    private static final double STRETCH_TABLE_COEFFICIENT = 0.7;
+    private static final int PAGINATION_ROW_PER_PAGE = 7;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -109,17 +116,17 @@ public class EmployerTableFragment {
     }
 
     private void bindLanguage() {
-        column1.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "fund"));
-        column2.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "number"));
-        column3.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "numberIde"));
-        column4.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "name"));
-        column5.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "startDate"));
-        column6.textProperty().bind(observableResourceFactory.getStringBinding(EMPLOYER_PROPERTY + "." + "endDate"));
+        column1.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_FUND));
+        column2.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_NUMBER));
+        column3.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_NUMBER_IDE));
+        column4.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_NAME));
+        column5.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_START_DATE));
+        column6.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROPERTY_EMPLOYER + "." + PROPERTY_END_DATE));
     }
 
     private void setupTableFormat() {
         Label placeholderLabel = new Label();
-        placeholderLabel.textProperty().bind(observableResourceFactory.getStringBinding(EMPTY_TABLE_PROMPT));
+        placeholderLabel.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROMPT_EMPTY_TABLE));
         employerTable.setPlaceholder(placeholderLabel);
         employerTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> employerTable.refresh()));
@@ -132,16 +139,16 @@ public class EmployerTableFragment {
     }
 
     private void setupFundColumn() {
-        column1.setCellValueFactory(new PropertyValueFactory<>("fund"));
+        column1.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_FUND));
         column1.setCellFactory(TextFieldTableCell.forTableColumn(EnumStringConverterFactory.getConverter(Fund.class, observableResourceFactory)));
     }
 
     private void setupNormalColumn() {
-        column2.setCellValueFactory(new PropertyValueFactory<>("number"));
-        column3.setCellValueFactory(new PropertyValueFactory<>("numberIde"));
-        column4.setCellValueFactory(new PropertyValueFactory<>("name"));
-        column5.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        column6.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        column2.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_NUMBER));
+        column3.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_NUMBER_IDE));
+        column4.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_NAME));
+        column5.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_START_DATE));
+        column6.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_END_DATE));
     }
 
     private void setupActionColumn() {
@@ -172,7 +179,7 @@ public class EmployerTableFragment {
 
     private Button createDetailsButton(EmployerView employerView) {
         Button btnDetails = new Button();
-        btnDetails.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_DETAILS));
+        btnDetails.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_BUTTON_DETAILS));
         btnDetails.setOnAction(event -> {
             context.send(EmployeePerspective.ID, MessageType.SHOW);
             context.send(EmployeePerspective.ID.concat(".").concat(EmployeeInputComponent.ID), employerView);
@@ -182,7 +189,7 @@ public class EmployerTableFragment {
 
     private Button createDeleteButton(EmployerView employerView) {
         Button btnDelete = new Button();
-        btnDelete.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_DELETE));
+        btnDelete.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_BUTTON_DELETE));
         btnDelete.setOnAction(event -> {
             if (verifyBeforeDelete(employerView)) {
                 Optional<ButtonType> option = showConfirmationDialog();
@@ -191,7 +198,7 @@ public class EmployerTableFragment {
                 }
             } else {
                 showInformationDialog();
-                context.send(EmployerPerspective.ID.concat(".").concat(EmployerTableComponent.ID), employerView);
+                removeItem(employerView);
             }
         });
         return btnDelete;
@@ -207,28 +214,28 @@ public class EmployerTableFragment {
 
     private Optional<ButtonType> showConfirmationDialog() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(observableResourceFactory.getResources().getString(DIALOG_DELETE_TITLE));
-        alert.setHeaderText(observableResourceFactory.getResources().getString(DIALOG_DELETE_HEADER));
+        alert.setTitle(observableResourceFactory.getResources().getString(BUNDLE_DIALOG_DELETE_TITLE));
+        alert.setHeaderText(observableResourceFactory.getResources().getString(BUNDLE_DIALOG_DELETE_HEADER));
         return alert.showAndWait();
     }
 
     private void showInformationDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(observableResourceFactory.getResources().getString(DIALOG_NOT_DELETE_TITLE));
-        alert.setHeaderText(observableResourceFactory.getResources().getString(DIALOG_NOT_DELETE_HEADER));
+        alert.setTitle(observableResourceFactory.getResources().getString(BUNDLE_DIALOG_NOT_DELETE_TITLE));
+        alert.setHeaderText(observableResourceFactory.getResources().getString(BUNDLE_DIALOG_NOT_DELETE_HEADER));
         alert.showAndWait();
     }
 
     private void setupPagination() {
         pagination.setPageCount(1);
         data.addListener((ListChangeListener<? super EmployerView>) c -> {
-            pagination.setPageCount(data.size() / EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE); // Math.ceil
+            pagination.setPageCount(data.size() / PAGINATION_ROW_PER_PAGE); // Math.ceil
             pagination.setCurrentPageIndex(0);
             pagination.setPageFactory(pageIndex -> {
-                int fromIndex = pageIndex * EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE;
-                int toIndex = Math.min(fromIndex + EmployerJacpfxConfig.PAGINATION_ROW_PER_PAGE, data.size());
+                int fromIndex = pageIndex * PAGINATION_ROW_PER_PAGE;
+                int toIndex = Math.min(fromIndex + PAGINATION_ROW_PER_PAGE, data.size());
                 employerTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
-//                employerTable.setPrefHeight((toIndex - fromIndex + 0.7) * employerTable.getFixedCellSize());
+                employerTable.setPrefHeight((toIndex - fromIndex + STRETCH_TABLE_COEFFICIENT) * employerTable.getFixedCellSize());
                 return new Pane(); // refresh pagination
             });
         });

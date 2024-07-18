@@ -6,7 +6,6 @@ import org.jacpfx.api.annotations.component.Component;
 import org.jacpfx.api.message.Message;
 import org.jacpfx.rcp.component.CallbackComponent;
 import org.jacpfx.rcp.context.Context;
-import org.jacpfx.rcp.util.FXUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class DeleteCallBack implements CallbackComponent {
 
     @Override
     public Object handle(Message<Event, Object> message) throws Exception {
-        if (!message.messageBodyEquals(FXUtil.MessageUtil.INIT)) {
+        if (message.isMessageBodyTypeOf(EmployerView.class)) {
             EmployerView object = message.getTypedMessageBody(EmployerView.class);
             EmployerDeleteRequest request = EmployerDeleteRequest.newBuilder()
                     .setId(object.getId())

@@ -39,10 +39,9 @@ import vn.elca.employer.client.model.view.EmployerView;
         },
         viewLocation = "/fxml/perspective/EmployerPerspective.fxml")
 public class EmployerPerspective implements FXPerspective {
-    private static final String BUTTON_ADD = "Button.add";
-
     public static final String ID = "EmployerPerspective";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployerPerspective.class);
+    private static final String BUNDLE_BUTTON_ADD = "Button.add";
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -85,7 +84,7 @@ public class EmployerPerspective implements FXPerspective {
     }
 
     private void bindLanguage() {
-        btnAdd.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_ADD));
+        btnAdd.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_BUTTON_ADD));
     }
 
     private void setupEventHandlers() {

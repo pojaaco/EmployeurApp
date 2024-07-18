@@ -25,12 +25,11 @@ import java.io.File;
         viewLocation = "/fxml/fragment/EmployeeImportFragment.fxml",
         scope = Scope.PROTOTYPE)
 public class EmployeeImportFragment {
-    private static String IMPORTER_TITLE = "Label.Importer.title";
-    private static String IMPORTER_CHOOSE_FILE = "Label.Importer.chooseFile";
-    private static String IMPORTER_BUTTON = "Button.import";
-
     public static final String ID = "EmployeeImportFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeImportFragment.class);
+    private static final String BUNDLE_IMPORTER_TITLE = "Label.Importer.title";
+    private static final String BUNDLE_IMPORTER_CHOOSE_FILE = "Label.Importer.chooseFile";
+    private static final String BUNDLE_IMPORTER_BUTTON = "Button.import";
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -56,14 +55,14 @@ public class EmployeeImportFragment {
     }
 
     public void reset() {
-        lblChooser.textProperty().bind(observableResourceFactory.getStringBinding(IMPORTER_CHOOSE_FILE));
+        lblChooser.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_IMPORTER_CHOOSE_FILE));
         selectedFile[0] = null;
     }
 
     private void bindLanguage() {
-        lblTitle.textProperty().bind(observableResourceFactory.getStringBinding(IMPORTER_TITLE));
-        lblChooser.textProperty().bind(observableResourceFactory.getStringBinding(IMPORTER_CHOOSE_FILE));
-        btnImport.textProperty().bind(observableResourceFactory.getStringBinding(IMPORTER_BUTTON));
+        lblTitle.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_IMPORTER_TITLE));
+        lblChooser.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_IMPORTER_CHOOSE_FILE));
+        btnImport.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_IMPORTER_BUTTON));
     }
 
     private void setupEventHandlers() {
@@ -74,7 +73,7 @@ public class EmployeeImportFragment {
     private void handleChooserLabel(MouseEvent mouseEvent) {
         Window stage = ((Node) mouseEvent.getSource()).getScene().getWindow();
 
-        FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser(); //TODO how to change locale?
         fileChooser.setTitle("Open File");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Excel Files", "*.csv"),

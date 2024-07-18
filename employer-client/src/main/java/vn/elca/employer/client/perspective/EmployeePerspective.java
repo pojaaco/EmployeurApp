@@ -39,11 +39,10 @@ import java.util.ResourceBundle;
         },
         viewLocation = "/fxml/perspective/EmployeePerspective.fxml")
 public class EmployeePerspective implements FXPerspective {
-    private static final String BUTTON_BACK = "Button.back";
-    private static final String BUTTON_SAVE = "Button.save";
-
     public static final String ID = "EmployeePerspective";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeePerspective.class);
+    private static final String BUNDLE_BUTTON_BACK = "Button.back";
+    private static final String BUNDLE_BUTTON_SAVE = "Button.save";
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -79,8 +78,7 @@ public class EmployeePerspective implements FXPerspective {
     }
 
     @PostConstruct
-    public void onStartPerspective(final PerspectiveLayout perspectiveLayout, final FXComponentLayout componentLayout,
-                                   final ResourceBundle resourceBundle) {
+    public void onStartPerspective(final PerspectiveLayout perspectiveLayout, final FXComponentLayout componentLayout) {
         JACPToolBar toolBar = componentLayout.getRegisteredToolBar(ToolbarPosition.NORTH);
         creationHelper.addLanguageSwitcher(toolBar);
 
@@ -95,8 +93,8 @@ public class EmployeePerspective implements FXPerspective {
     }
 
     private void bindLanguage() {
-        btnBack.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_BACK));
-        btnSave.textProperty().bind(observableResourceFactory.getStringBinding(BUTTON_SAVE));
+        btnBack.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_BUTTON_BACK));
+        btnSave.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_BUTTON_SAVE));
     }
 
     private void setupEventHandlers() {

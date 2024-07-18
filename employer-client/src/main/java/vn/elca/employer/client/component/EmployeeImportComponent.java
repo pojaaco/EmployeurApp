@@ -26,7 +26,6 @@ import vn.elca.employer.client.model.message.MessageType;
 import vn.elca.employer.client.model.view.EmployeeView;
 import vn.elca.employer.client.perspective.EmployeePerspective;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,11 +34,10 @@ import java.util.stream.Collectors;
         initialTargetLayoutId = EmployerJacpfxConfig.TARGET_BOTTOM_CONTAINER,
         viewLocation = "/fxml/component/EmployeeImportComponent.fxml")
 public class EmployeeImportComponent implements FXComponent {
-    private static final String DIALOG_INVALID_DATA_TITLE = "Dialog.Warning.Employee.InvalidData.title";
-    private static final String DIALOG_INVALID_DATA_HEADER = "Dialog.Warning.Employee.InvalidData.header";
-
     public static final String ID = "EmployeeImportComponent";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeImportComponent.class);
+    private static final String DIALOG_INVALID_DATA_TITLE = "Dialog.Warning.Employee.InvalidData.title";
+    private static final String DIALOG_INVALID_DATA_HEADER = "Dialog.Warning.Employee.InvalidData.header";
 
     @Autowired
     ObservableResourceFactory observableResourceFactory;
@@ -58,16 +56,17 @@ public class EmployeeImportComponent implements FXComponent {
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
         String sourceId = message.getSourceId();
         if (sourceId.endsWith(EmployeePerspective.ID)) {
-            if (message.getTypedMessageBody(MessageType.class).equals(MessageType.RESET)) {
+            if (MessageType.RESET.equals(message.getTypedMessageBody(MessageType.class))) {
                 importFragment.getController().reset();
-                tableFragment.getController().resetData();
+                tableFragment.getController().reset();
             }
         } else if (sourceId.endsWith(EmployeeInputComponent.ID)) {
-            if (message.getTypedMessageBody(MessageType.class).equals(MessageType.SAVE)) {
-                context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), tableFragment.getController().getData());
+            if (MessageType.SAVE.equals(message.getTypedMessageBody(MessageType.class))) {
+                List<EmployeeView> employees = tableFragment.getController().getData();
+                context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), employees);
             }
         } else if (sourceId.endsWith(ImportCallBack.ID)) {
-            List<EmployeeView> uncheckedResults = ((ObservableList<EmployeeView>) message.getMessageBody());
+            List<EmployeeView> uncheckedResults = ((List<EmployeeView>) message.getMessageBody());
             List<EmployeeView> checkedResults = uncheckedResults.stream()
                     .filter(e -> tableFragment.getController().validateEmployeeView(e))
                     .collect(Collectors.toList());
@@ -86,6 +85,7 @@ public class EmployeeImportComponent implements FXComponent {
 
     @PostConstruct
     public void onPostConstructComponent() {
+        // TODO create a interface for fragment to create fragment easier
         importFragment = context.getManagedFragmentHandler(EmployeeImportFragment.class);
         final EmployeeImportFragment controllerImport = importFragment.getController();
         controllerImport.init();
