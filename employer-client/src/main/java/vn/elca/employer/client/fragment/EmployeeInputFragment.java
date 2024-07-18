@@ -1,6 +1,7 @@
 package vn.elca.employer.client.fragment;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -40,10 +41,10 @@ public class EmployeeInputFragment implements AbstractFragment {
     private static final String PROPERTY_END_DATE = "endDate";
 
     @Autowired
-    ObservableResourceFactory observableResourceFactory;
+    private ObservableResourceFactory observableResourceFactory;
 
     @Autowired
-    CreationHelper creationHelper;
+    private CreationHelper creationHelper;
 
     @FXML
     private GridPane gridPane;
@@ -112,21 +113,20 @@ public class EmployeeInputFragment implements AbstractFragment {
     }
 
     public void reset() {
-        resetError();
+        resetInputErrors();
         resetInputFields();
     }
 
-    private void resetError() {
-        // TODO Common method
-        errName.setVisible(false);
-        errNumberIde.setVisible(false);
-        errStartDate.setVisible(false);
-        errEndDate.setVisible(false);
+    private void resetInputErrors() {
+        resetError(errName, txfName);
+        resetError(errNumberIde, txfNumberIde);
+        resetError(errStartDate, dpkStartDate);
+        resetError(errEndDate, dpkEndDate);
+    }
 
-        txfName.getStyleClass().remove(CSS_RED_BORDER);
-        txfNumberIde.getStyleClass().remove(CSS_RED_BORDER);
-        dpkStartDate.getStyleClass().remove(CSS_RED_BORDER);
-        dpkEndDate.getStyleClass().remove(CSS_RED_BORDER);
+    private void resetError(Node label, Node field) {
+        label.setVisible(false);
+        field.getStyleClass().remove(CSS_RED_BORDER);
     }
 
     private void resetInputFields() {
@@ -188,20 +188,17 @@ public class EmployeeInputFragment implements AbstractFragment {
     }
 
     private void bindLanguage() {
-        // TODO: Common method
-        lblNumber.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_NUMBER));
-        lblName.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_NAME));
-        lblFund.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_FUND));
-        lblNumberIde.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_NUMBER_IDE));
-        lblStartDate.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_START_DATE));
-        lblEndDate.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_END_DATE));
+        bindLanguagePerInputField(lblNumber, errNumber, PROPERTY_NUMBER);
+        bindLanguagePerInputField(lblName, errName, PROPERTY_NAME);
+        bindLanguagePerInputField(lblFund, errFund, PROPERTY_FUND);
+        bindLanguagePerInputField(lblNumberIde, errNumberIde, PROPERTY_NUMBER_IDE);
+        bindLanguagePerInputField(lblStartDate, errStartDate, PROPERTY_START_DATE);
+        bindLanguagePerInputField(lblEndDate, errEndDate, PROPERTY_END_DATE);
+    }
 
-        errNumber.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_NUMBER));
-        errName.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_NAME));
-        errFund.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_FUND));
-        errNumberIde.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_NUMBER_IDE));
-        errStartDate.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_START_DATE));
-        errEndDate.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + PROPERTY_END_DATE));
+    private void bindLanguagePerInputField(Label label, Label error, String property) {
+        label.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + property));
+        error.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_ERROR + "." + property));
     }
 
     private void setupInputFields() {
@@ -213,22 +210,17 @@ public class EmployeeInputFragment implements AbstractFragment {
     }
 
     private void setupEventHandlers() {
-        // TODO Common method
         txfName.textProperty().addListener((observable, oldValue, newValue) -> {
-            errName.setVisible(false);
-            txfName.getStyleClass().remove(CSS_RED_BORDER);
+            resetError(errName, txfName);
         });
         txfNumberIde.textProperty().addListener((observable, oldValue, newValue) -> {
-            errNumberIde.setVisible(false);
-            txfNumberIde.getStyleClass().remove(CSS_RED_BORDER);
+            resetError(errNumberIde, txfNumberIde);
         });
         dpkStartDate.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            errStartDate.setVisible(false);
-            dpkStartDate.getStyleClass().remove(CSS_RED_BORDER);
+            resetError(errStartDate, dpkStartDate);
         });
         dpkEndDate.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            errEndDate.setVisible(false);
-            dpkEndDate.getStyleClass().remove(CSS_RED_BORDER);
+            resetError(errEndDate, dpkEndDate);
         });
     }
 }
