@@ -24,7 +24,7 @@ import java.io.File;
 @Fragment(id = EmployeeImportFragment.ID,
         viewLocation = "/fxml/fragment/EmployeeImportFragment.fxml",
         scope = Scope.PROTOTYPE)
-public class EmployeeImportFragment implements CustomFragment {
+public class EmployeeImportFragment implements AbstractFragment {
     public static final String ID = "EmployeeImportFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeImportFragment.class);
     private static final String BUNDLE_IMPORTER_TITLE = "Label.Importer.title";

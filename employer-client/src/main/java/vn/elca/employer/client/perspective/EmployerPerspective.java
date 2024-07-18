@@ -80,7 +80,7 @@ public class EmployerPerspective implements FXPerspective {
         perspectiveLayout.registerTargetLayoutComponent(EmployerJacpfxConfig.TARGET_TOP_CONTAINER, vbInputContainer);
         perspectiveLayout.registerTargetLayoutComponent(EmployerJacpfxConfig.TARGET_BOTTOM_CONTAINER, vbTableContainer);
 
-        LOGGER.debug("Init");
+        LOGGER.debug("init");
     }
 
     private void bindLanguage() {

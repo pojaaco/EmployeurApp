@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 
+<?import javafx.scene.layout.HBox?>
 <GridPane fx:id="gridPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
           vgap="15" hgap="10" VBox.vgrow="ALWAYS">
     <padding>
@@ -28,22 +29,37 @@
         <RowConstraints percentHeight="13.33"/>
         <RowConstraints percentHeight="13.33"/>
     </rowConstraints>
-    <Label fx:id="lblNumber" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" alignment="CENTER_LEFT">
+        <Label fx:id="lblNumber"/>
+    </HBox>
     <Label fx:id="fldNumber" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
     <Label fx:id="errNumber" GridPane.rowIndex="0" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
-    <Label fx:id="lblName" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER_LEFT">
+        <Label fx:id="lblName" />
+        <Label text="*" styleClass="red-text" />
+    </HBox>
     <TextField fx:id="txfName" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
     <Label fx:id="errName" GridPane.rowIndex="1" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
-    <Label fx:id="lblFund" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <HBox GridPane.rowIndex="2" GridPane.columnIndex="0" alignment="CENTER_LEFT">
+        <Label fx:id="lblFund"/>
+    </HBox>
     <ComboBox fx:id="cbxFund" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
     <Label fx:id="errFund" GridPane.rowIndex="2" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
-    <Label fx:id="lblNumberIde" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <HBox GridPane.rowIndex="3" GridPane.columnIndex="0" alignment="CENTER_LEFT">
+        <Label fx:id="lblNumberIde" />
+        <Label text="*" styleClass="red-text" />
+    </HBox>
     <TextField fx:id="txfNumberIde" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
     <Label fx:id="errNumberIde" GridPane.rowIndex="3" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
-    <Label fx:id="lblStartDate" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <HBox GridPane.rowIndex="4" GridPane.columnIndex="0" alignment="CENTER_LEFT">
+        <Label fx:id="lblStartDate" />
+        <Label text="*" styleClass="red-text" />
+    </HBox>
     <DatePicker fx:id="dpkStartDate" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
     <Label fx:id="errStartDate" GridPane.rowIndex="4" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
-    <Label fx:id="lblEndDate" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+    <HBox GridPane.rowIndex="5" GridPane.columnIndex="0" alignment="CENTER_LEFT">
+        <Label fx:id="lblEndDate" />
+    </HBox>
     <DatePicker fx:id="dpkEndDate" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
     <Label fx:id="errEndDate" GridPane.rowIndex="5" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
 </GridPane>

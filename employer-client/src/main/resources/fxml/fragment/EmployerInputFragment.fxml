@@ -27,7 +27,7 @@
             <Label fx:id="lblName" GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <Label fx:id="lblNumberIde" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="lblEndDate" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ComboBox fx:id="cbxFund" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <ComboBox fx:id="cbxFund" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="clickable"/>
             <TextField fx:id="txfNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <DatePicker fx:id="dpkStartDate" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <TextField fx:id="txfName" GridPane.columnIndex="0" GridPane.rowIndex="3" />

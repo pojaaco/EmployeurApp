@@ -4,12 +4,11 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
+import javafx.util.Pair;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.component.DeclarativeView;
 import org.jacpfx.api.annotations.lifecycle.PostConstruct;
 import org.jacpfx.api.message.Message;
-import org.jacpfx.rcp.component.FXComponent;
-import org.jacpfx.rcp.components.managedFragment.ManagedFragmentHandler;
 import org.jacpfx.rcp.context.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,7 @@ import vn.elca.employer.client.config.EmployerJacpfxConfig;
         name = EmployerInputComponent.ID,
         initialTargetLayoutId = EmployerJacpfxConfig.TARGET_TOP_CONTAINER,
         viewLocation = "/fxml/component/EmployerInputComponent.fxml")
-public class EmployerInputComponent implements FXComponent {
+public class EmployerInputComponent extends AbstractComponent {
     public static final String ID = "EmployerInputComponent";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployerInputComponent.class);
 
@@ -30,7 +29,7 @@ public class EmployerInputComponent implements FXComponent {
     @FXML
     private VBox vBox;
 
-    private ManagedFragmentHandler<EmployerInputFragment> inputFragment;
+    private EmployerInputFragment inputFragment;
 
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
@@ -44,10 +43,9 @@ public class EmployerInputComponent implements FXComponent {
 
     @PostConstruct
     public void onPostConstructComponent() {
-        inputFragment = context.getManagedFragmentHandler(EmployerInputFragment.class);
-        final EmployerInputFragment controllerInput = inputFragment.getController();
-        controllerInput.init();
+        Pair<EmployerInputFragment, Node> inputPair = registerFragment(context, EmployerInputFragment.class);
+        inputFragment = inputPair.getKey();
 
-        vBox.getChildren().addAll(inputFragment.getFragmentNode());
+        vBox.getChildren().addAll(inputPair.getValue());
     }
 }

@@ -41,7 +41,7 @@ public class EmployerWorkbench implements FXWorkbench {
         workbenchLayout.setMenuEnabled(false);
         stage.setMaximized(true);
         stage.setTitle("Employer Management");
-        stage.getIcons().add(new Image("images/icon.png"));
+        stage.getIcons().add(new Image("images/logo.png"));
     }
 
     private Resolution resolutionByPrimaryScreenBounds() {

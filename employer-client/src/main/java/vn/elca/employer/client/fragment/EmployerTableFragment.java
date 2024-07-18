@@ -39,7 +39,7 @@ import java.util.Optional;
 @Fragment(id = EmployerTableFragment.ID,
         viewLocation = "/fxml/fragment/EmployerTableFragment.fxml",
         scope = Scope.PROTOTYPE)
-public class EmployerTableFragment implements CustomFragment {
+public class EmployerTableFragment implements AbstractFragment {
     public static final String ID = "EmployerTableFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployerTableFragment.class);
     private static final String BUNDLE_PROPERTY_EMPLOYER = "Property.Employer";

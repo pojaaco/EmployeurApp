@@ -1,5 +1,6 @@
 package vn.elca.employer.client.component;
 
+import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
@@ -27,6 +28,9 @@ public class CreationHelper {
     private static final String BUNDLE_FR_SWITCHER = "Label.Switcher.french";
     private static final String CSS_CUSTOM_FONT = "custom-font";
     private static final String CSS_BLUE_TEXT = "blue-text";
+    private static final String CSS_CLICKABLE = "clickable";
+    private static final String CSS_BOLD_TEXT = "bold-text";
+    private static final double SPACE_BETWEEN_SWITCHER = 8.0;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -107,15 +111,15 @@ public class CreationHelper {
 
     public void addLanguageSwitcher(JACPToolBar toolBar) {
         HBox switcher = new HBox();
-        switcher.setSpacing(8);
-        Label lblEn = new Label();
-        lblEn.getStyleClass().add(CSS_CUSTOM_FONT);
-        lblEn.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EN_SWITCHER));
-        lblEn.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN));
+        switcher.setSpacing(SPACE_BETWEEN_SWITCHER);
         Label lblFr = new Label();
-        lblFr.getStyleClass().addAll(CSS_CUSTOM_FONT, CSS_BLUE_TEXT);
+        lblFr.getStyleClass().addAll(CSS_CUSTOM_FONT, CSS_CLICKABLE, CSS_BOLD_TEXT);
         lblFr.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_FR_SWITCHER));
         lblFr.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.FR));
+        Label lblEn = new Label();
+        lblEn.getStyleClass().addAll(CSS_CUSTOM_FONT, CSS_BLUE_TEXT, CSS_CLICKABLE, CSS_BOLD_TEXT);
+        lblEn.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EN_SWITCHER));
+        lblEn.setOnMouseClicked(event -> observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN));
 
         observableResourceFactory.resourcesProperty().addListener(((observable, oldValue, newValue) -> {
             if (newValue.getLocale() == ObservableResourceFactory.Language.EN.getLocale()) {
@@ -127,7 +131,7 @@ public class CreationHelper {
             }
         }));
 
-        switcher.getChildren().addAll(lblEn, new Label("|"), lblFr);
+        switcher.getChildren().addAll(lblFr, new Separator(Orientation.VERTICAL), lblEn);
         toolBar.addAllOnEnd(switcher);
     }
 }

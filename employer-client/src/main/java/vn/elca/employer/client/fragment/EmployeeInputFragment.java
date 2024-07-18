@@ -1,7 +1,6 @@
 package vn.elca.employer.client.fragment;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -23,10 +22,10 @@ import java.time.LocalDate;
 @Fragment(id = EmployeeInputFragment.ID,
         viewLocation = "/fxml/fragment/EmployeeInputFragment.fxml",
         scope = Scope.PROTOTYPE)
-public class EmployeeInputFragment implements CustomFragment {
+public class EmployeeInputFragment implements AbstractFragment {
     public static final String ID = "EmployeeInputFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeInputFragment.class);
-    private static final String CORRECT_NUMBER_IDE_FORMAT = "(ADM|CHE)-\\d{3}\\.\\d{3}\\.\\d{3}";
+    private static final String CORRECT_NUMBER_IDE_FORMAT = "^(ADM|CHE)-\\d{3}\\.\\d{3}\\.\\d{3}";
     private static final String CORRECT_DATE_FORMAT = "(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d{2}";
     private static final String BUNDLE_NUMBER_IDE_FORMAT = "Format.numberIde";
     private static final String BUNDLE_EMPLOYER_PROPERTY = "Property.Employer";
@@ -118,6 +117,7 @@ public class EmployeeInputFragment implements CustomFragment {
     }
 
     private void resetError() {
+        // TODO Common method
         errName.setVisible(false);
         errNumberIde.setVisible(false);
         errStartDate.setVisible(false);
@@ -175,20 +175,20 @@ public class EmployeeInputFragment implements CustomFragment {
 
     public boolean validateInputFields() {
         boolean isValid;
-        isValid = Validator.checkCondition(managedView.getName() != null && !managedView.getName().isEmpty(), errName, txfName);
-        isValid &= Validator.checkCondition(managedView.getNumberIde() != null
-                && managedView.getNumberIde().matches(CORRECT_NUMBER_IDE_FORMAT), errNumberIde, txfNumberIde);
-        isValid &= Validator.checkCondition(managedView.getStartDate() != null
-                && managedView.getStartDate().matches(CORRECT_DATE_FORMAT), errStartDate, dpkStartDate);
-        isValid &= Validator.checkCondition(managedView.getEndDate() == null
-                || managedView.getEndDate().matches(CORRECT_DATE_FORMAT), errEndDate, dpkEndDate);
-        isValid &= Validator.checkCondition(managedView.getStartDate() == null
-                || managedView.getEndDate() == null
-                || LocalDate.parse(managedView.getEndDate(), creationHelper.dateFormatter).isAfter(LocalDate.parse(managedView.getStartDate(), creationHelper.dateFormatter)), errEndDate, dpkEndDate);
+        isValid = Validator.checkCondition(txfName.getText() != null && !txfName.getText().isEmpty(), errName, txfName);
+        isValid &= Validator.checkCondition(txfNumberIde.getText() != null
+                && txfNumberIde.getText().matches(CORRECT_NUMBER_IDE_FORMAT), errNumberIde, txfNumberIde);
+        isValid &= Validator.checkCondition(dpkStartDate.getValue() != null
+                && dpkStartDate.getValue().format(creationHelper.dateFormatter).matches(CORRECT_DATE_FORMAT), errStartDate, dpkStartDate);
+        isValid &= Validator.checkCondition(dpkEndDate.getValue() == null
+                || dpkEndDate.getValue().format(creationHelper.dateFormatter).matches(CORRECT_DATE_FORMAT), errEndDate, dpkEndDate);
+        isValid &= Validator.checkCondition(dpkStartDate.getValue() == null
+                || dpkEndDate.getValue() == null || dpkEndDate.getValue().isAfter(dpkStartDate.getValue()), errEndDate, dpkEndDate);
         return isValid;
     }
 
     private void bindLanguage() {
+        // TODO: Common method
         lblNumber.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_NUMBER));
         lblName.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_NAME));
         lblFund.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_EMPLOYER_PROPERTY + "." + PROPERTY_FUND));
@@ -213,6 +213,7 @@ public class EmployeeInputFragment implements CustomFragment {
     }
 
     private void setupEventHandlers() {
+        // TODO Common method
         txfName.textProperty().addListener((observable, oldValue, newValue) -> {
             errName.setVisible(false);
             txfName.getStyleClass().remove(CSS_RED_BORDER);

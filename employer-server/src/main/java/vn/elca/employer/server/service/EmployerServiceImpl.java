@@ -7,6 +7,7 @@ import vn.elca.employer.server.exception.CrudException;
 import vn.elca.employer.server.model.criteria.EmployerDeleteCriteria;
 import vn.elca.employer.server.model.criteria.EmployerGetCriteria;
 import vn.elca.employer.server.model.dto.EmployerDto;
+import vn.elca.employer.server.model.entity.Employer;
 import vn.elca.employer.server.repository.EmployerRepository;
 import vn.elca.employer.server.mapper.EmployerMapper;
 
@@ -38,7 +39,8 @@ public class EmployerServiceImpl implements EmployerService {
             if (employerDto.getNumber() == null) {
                 employerDto.setNumber(String.format(NUMBER_FORMAT, employerRepository.getNextSeqValue()));
             }
-            return employerMapper.toDto(employerRepository.save(employerMapper.toEntity(employerDto)));
+            Employer savedEmployer = employerRepository.save(employerMapper.toEntity(employerDto));
+            return employerMapper.toDto(savedEmployer);
         } catch (Exception e) {
             throw new CrudException(e.getMessage());
         }

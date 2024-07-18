@@ -27,7 +27,7 @@ import java.util.List;
 @Fragment(id = EmployeeTableFragment.ID,
         viewLocation = "/fxml/fragment/EmployeeTableFragment.fxml",
         scope = Scope.PROTOTYPE)
-public class EmployeeTableFragment implements CustomFragment {
+public class EmployeeTableFragment implements AbstractFragment {
     public static final String ID = "EmployeeTableFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeTableFragment.class);
     private static final String NUMBER_AVS_FORMAT = "756\\.\\d{4}\\.\\d{4}\\.\\d{2}";

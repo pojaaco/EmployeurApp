@@ -5,12 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.component.DeclarativeView;
 import org.jacpfx.api.annotations.lifecycle.PostConstruct;
 import org.jacpfx.api.message.Message;
-import org.jacpfx.rcp.component.FXComponent;
-import org.jacpfx.rcp.components.managedFragment.ManagedFragmentHandler;
 import org.jacpfx.rcp.context.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +30,7 @@ import java.util.stream.Collectors;
         name = EmployeeImportComponent.ID,
         initialTargetLayoutId = EmployerJacpfxConfig.TARGET_BOTTOM_CONTAINER,
         viewLocation = "/fxml/component/EmployeeImportComponent.fxml")
-public class EmployeeImportComponent implements FXComponent {
+public class EmployeeImportComponent extends AbstractComponent {
     public static final String ID = "EmployeeImportComponent";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeImportComponent.class);
     private static final String DIALOG_INVALID_DATA_TITLE = "Dialog.Warning.Employee.InvalidData.title";
@@ -46,32 +45,32 @@ public class EmployeeImportComponent implements FXComponent {
     @FXML
     private VBox vBox;
 
-    private ManagedFragmentHandler<EmployeeImportFragment> importFragment;
+    private EmployeeImportFragment importFragment;
 
-    private ManagedFragmentHandler<EmployeeTableFragment> tableFragment;
+    private EmployeeTableFragment tableFragment;
 
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
         String sourceId = message.getSourceId();
         if (sourceId.endsWith(EmployeePerspective.ID)) {
             if (MessageType.RESET.equals(message.getTypedMessageBody(MessageType.class))) {
-                importFragment.getController().reset();
-                tableFragment.getController().reset();
+                importFragment.reset();
+                tableFragment.reset();
             }
         } else if (sourceId.endsWith(EmployeeInputComponent.ID)) {
             if (MessageType.SAVE.equals(message.getTypedMessageBody(MessageType.class))) {
-                List<EmployeeView> employees = tableFragment.getController().getData();
+                List<EmployeeView> employees = tableFragment.getData();
                 context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), employees);
             }
         } else if (sourceId.endsWith(ImportCallBack.ID)) {
             List<EmployeeView> uncheckedResults = ((List<EmployeeView>) message.getMessageBody());
             List<EmployeeView> checkedResults = uncheckedResults.stream()
-                    .filter(e -> tableFragment.getController().validateEmployeeView(e))
+                    .filter(e -> tableFragment.validateEmployeeView(e))
                     .collect(Collectors.toList());
             if (checkedResults.size() != uncheckedResults.size()) {
                 showWarningInvalidDataDialog();
             }
-            tableFragment.getController().updateData(checkedResults);
+            tableFragment.updateData(checkedResults);
         }
         return null;
     }
@@ -83,15 +82,13 @@ public class EmployeeImportComponent implements FXComponent {
 
     @PostConstruct
     public void onPostConstructComponent() {
-        importFragment = context.getManagedFragmentHandler(EmployeeImportFragment.class);
-        final EmployeeImportFragment controllerImport = importFragment.getController();
-        controllerImport.init();
+        Pair<EmployeeImportFragment, Node> importPair = registerFragment(context, EmployeeImportFragment.class);
+        importFragment = importPair.getKey();
 
-        tableFragment = context.getManagedFragmentHandler(EmployeeTableFragment.class);
-        final EmployeeTableFragment controllerTable = tableFragment.getController();
-        controllerTable.init();
+        Pair<EmployeeTableFragment, Node> tablePair = registerFragment(context, EmployeeTableFragment.class);
+        tableFragment = tablePair.getKey();
 
-        vBox.getChildren().addAll(importFragment.getFragmentNode(), tableFragment.getFragmentNode());
+        vBox.getChildren().addAll(importPair.getValue(), tablePair.getValue());
     }
 
     private void showWarningInvalidDataDialog() {

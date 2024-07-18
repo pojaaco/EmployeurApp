@@ -16,7 +16,7 @@ public class EmployerApplicationConfig {
     @Bean
     public ObservableResourceFactory observableResourceFactory() {
         ObservableResourceFactory observableResourceFactory = new ObservableResourceFactory();
-        observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN);
+        observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.FR);
         return observableResourceFactory;
     }
 }

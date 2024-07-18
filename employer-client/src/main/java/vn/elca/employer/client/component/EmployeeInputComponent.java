@@ -5,12 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.util.Pair;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.component.DeclarativeView;
 import org.jacpfx.api.annotations.lifecycle.PostConstruct;
 import org.jacpfx.api.message.Message;
-import org.jacpfx.rcp.component.FXComponent;
-import org.jacpfx.rcp.components.managedFragment.ManagedFragmentHandler;
 import org.jacpfx.rcp.context.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,7 @@ import vn.elca.employer.client.perspective.EmployerPerspective;
         name = EmployeeInputComponent.ID,
         initialTargetLayoutId = EmployerJacpfxConfig.TARGET_TOP_CONTAINER,
         viewLocation = "/fxml/component/EmployeeInputComponent.fxml")
-public class EmployeeInputComponent implements FXComponent {
+public class EmployeeInputComponent extends AbstractComponent {
     public static final String ID = "EmployeeInputComponent";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeInputComponent.class);
     private static final String BUNDLE_DIALOG_NOT_SAVE_TITLE = "Dialog.Warning.Employer.NotSave.title";
@@ -45,18 +44,18 @@ public class EmployeeInputComponent implements FXComponent {
     @FXML
     private VBox vBox;
 
-    private ManagedFragmentHandler<EmployeeInputFragment> inputFragment;
+    private EmployeeInputFragment inputFragment;
 
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
         String sourceId = message.getSourceId();
         if (sourceId.endsWith(EmployerPerspective.ID) || sourceId.endsWith(EmployerTableComponent.ID)) { // Add or Details
-            inputFragment.getController().reset();
-            inputFragment.getController().updateInputFields(message.getTypedMessageBody(EmployerView.class));
+            inputFragment.reset();
+            inputFragment.updateInputFields(message.getTypedMessageBody(EmployerView.class));
         } else if (sourceId.endsWith(EmployeePerspective.ID)) { // Save
             if (MessageType.SAVE.equals(message.getTypedMessageBody(MessageType.class))) {
-                if (inputFragment.getController().validateInputFields()) {
-                    EmployerView newEmployer = inputFragment.getController().extractInputFields();
+                if (inputFragment.validateInputFields()) {
+                    EmployerView newEmployer = inputFragment.extractInputFields();
                     context.send(EmployeePerspective.ID.concat(".").concat(SetCallBack.ID), newEmployer);
                     context.send(EmployeePerspective.ID.concat(".").concat(EmployeeImportComponent.ID), MessageType.SAVE);
                 }
@@ -78,11 +77,10 @@ public class EmployeeInputComponent implements FXComponent {
 
     @PostConstruct
     public void onPostConstructComponent() {
-        inputFragment = context.getManagedFragmentHandler(EmployeeInputFragment.class);
-        final EmployeeInputFragment controllerInput = inputFragment.getController();
-        controllerInput.init();
+        Pair<EmployeeInputFragment, Node> inputPair = registerFragment(context, EmployeeInputFragment.class);
+        inputFragment = inputPair.getKey();
 
-        vBox.getChildren().add(inputFragment.getFragmentNode());
+        vBox.getChildren().add(inputPair.getValue());
     }
 
     private void showSavedInfoDialog() {
