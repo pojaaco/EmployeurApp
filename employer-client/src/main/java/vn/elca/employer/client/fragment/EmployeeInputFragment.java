@@ -23,11 +23,10 @@ import java.time.LocalDate;
 @Fragment(id = EmployeeInputFragment.ID,
         viewLocation = "/fxml/fragment/EmployeeInputFragment.fxml",
         scope = Scope.PROTOTYPE)
-public class EmployeeInputFragment {
+public class EmployeeInputFragment implements CustomFragment {
     public static final String ID = "EmployeeInputFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeInputFragment.class);
-    private static final String CORRECT_BUNDLE_NUMBER_IDE_FORMAT = "(ADM|CHE)-\\d{3}\\.\\d{3}\\.\\d{3}";
-    // TODO Can have the same constant?
+    private static final String CORRECT_NUMBER_IDE_FORMAT = "(ADM|CHE)-\\d{3}\\.\\d{3}\\.\\d{3}";
     private static final String CORRECT_DATE_FORMAT = "(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d{2}";
     private static final String BUNDLE_NUMBER_IDE_FORMAT = "Format.numberIde";
     private static final String BUNDLE_EMPLOYER_PROPERTY = "Property.Employer";
@@ -178,7 +177,7 @@ public class EmployeeInputFragment {
         boolean isValid;
         isValid = Validator.checkCondition(managedView.getName() != null && !managedView.getName().isEmpty(), errName, txfName);
         isValid &= Validator.checkCondition(managedView.getNumberIde() != null
-                && managedView.getNumberIde().matches(CORRECT_BUNDLE_NUMBER_IDE_FORMAT), errNumberIde, txfNumberIde);
+                && managedView.getNumberIde().matches(CORRECT_NUMBER_IDE_FORMAT), errNumberIde, txfNumberIde);
         isValid &= Validator.checkCondition(managedView.getStartDate() != null
                 && managedView.getStartDate().matches(CORRECT_DATE_FORMAT), errStartDate, dpkStartDate);
         isValid &= Validator.checkCondition(managedView.getEndDate() == null

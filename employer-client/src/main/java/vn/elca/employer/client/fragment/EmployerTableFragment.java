@@ -21,8 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.DeleteCallBack;
 import vn.elca.employer.client.component.EmployeeInputComponent;
-import vn.elca.employer.client.component.EmployerTableComponent;
-import vn.elca.employer.client.config.EmployerJacpfxConfig;
 import vn.elca.employer.client.converter.EnumStringConverterFactory;
 import vn.elca.employer.client.language.ObservableResourceFactory;
 import vn.elca.employer.client.model.message.MessageType;
@@ -41,7 +39,7 @@ import java.util.Optional;
 @Fragment(id = EmployerTableFragment.ID,
         viewLocation = "/fxml/fragment/EmployerTableFragment.fxml",
         scope = Scope.PROTOTYPE)
-public class EmployerTableFragment {
+public class EmployerTableFragment implements CustomFragment {
     public static final String ID = "EmployerTableFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployerTableFragment.class);
     private static final String BUNDLE_PROPERTY_EMPLOYER = "Property.Employer";
@@ -58,8 +56,8 @@ public class EmployerTableFragment {
     private static final String PROPERTY_NUMBER_IDE = "numberIde";
     private static final String PROPERTY_START_DATE = "startDate";
     private static final String PROPERTY_END_DATE = "endDate";
-    private static final double STRETCH_TABLE_COEFFICIENT = 0.7;
-    private static final int PAGINATION_ROW_PER_PAGE = 7;
+    private static final double STRETCH_TABLE_COEFFICIENT = 1.0;
+    private static final int PAGINATION_ROW_PER_PAGE = 10;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -104,7 +102,12 @@ public class EmployerTableFragment {
         setupTableFormat();
         setupColumnFormat();
         setupPagination();
+        reset();
         LOGGER.debug("init");
+    }
+
+    public void reset() {
+        displayTableAndPagination(false);
     }
 
     public void updateData(List<EmployerView> newData) {
@@ -136,6 +139,7 @@ public class EmployerTableFragment {
         setupFundColumn();
         setupNormalColumn();
         setupActionColumn();
+        setupColumnWidth();
     }
 
     private void setupFundColumn() {
@@ -166,6 +170,17 @@ public class EmployerTableFragment {
             });
             return cell;
         });
+    }
+
+    private void setupColumnWidth() {
+        column1.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.12));
+        column2.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.1));
+        column3.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.2));
+        column4.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.2));
+        column5.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.1));
+        column6.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.1));
+        column7.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.18));
+        employerTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     private HBox createActionButtons(EmployerView employerView) {
@@ -229,15 +244,30 @@ public class EmployerTableFragment {
     private void setupPagination() {
         pagination.setPageCount(1);
         data.addListener((ListChangeListener<? super EmployerView>) c -> {
-            pagination.setPageCount(data.size() / PAGINATION_ROW_PER_PAGE); // Math.ceil
-            pagination.setCurrentPageIndex(0);
-            pagination.setPageFactory(pageIndex -> {
-                int fromIndex = pageIndex * PAGINATION_ROW_PER_PAGE;
-                int toIndex = Math.min(fromIndex + PAGINATION_ROW_PER_PAGE, data.size());
-                employerTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
-                employerTable.setPrefHeight((toIndex - fromIndex + STRETCH_TABLE_COEFFICIENT) * employerTable.getFixedCellSize());
-                return new Pane(); // refresh pagination
-            });
+            if (data.isEmpty()) {
+                displayTableAndPagination(false);
+            } else {
+                pagination.setPageCount((int) Math.ceil(data.size() / (double) PAGINATION_ROW_PER_PAGE));
+                pagination.setCurrentPageIndex(0);
+                pagination.setPageFactory(pageIndex -> {
+                    int fromIndex = pageIndex * PAGINATION_ROW_PER_PAGE;
+                    int toIndex = Math.min(fromIndex + PAGINATION_ROW_PER_PAGE, data.size());
+                    employerTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
+                    employerTable.setPrefHeight((toIndex - fromIndex + STRETCH_TABLE_COEFFICIENT) * employerTable.getFixedCellSize());
+                    return new Pane(); // refresh pagination
+                });
+                displayTableAndPagination(true);
+            }
         });
+    }
+
+    private void displayTableAndPagination(boolean visible) {
+        if (visible) {
+            employerTable.setVisible(true);
+            pagination.setVisible(true);
+        } else {
+            employerTable.setVisible(false);
+            pagination.setVisible(false);
+        }
     }
 }

@@ -23,7 +23,7 @@ import vn.elca.employer.common.Fund;
 @Fragment(id = EmployerInputFragment.ID,
         viewLocation = "/fxml/fragment/EmployerInputFragment.fxml",
         scope = Scope.PROTOTYPE)
-public class EmployerInputFragment {
+public class EmployerInputFragment implements CustomFragment {
     public static final String ID = "EmployerInputFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployerInputFragment.class);
     private static final String BUNDLE_PROPERTY_EMPLOYER = "Property.Employer";
@@ -100,6 +100,9 @@ public class EmployerInputFragment {
         setupInputFields();
         setupEventHandlers();
         LOGGER.debug("init");
+    }
+
+    public void reset() {
     }
 
     private void bindLanguage() {

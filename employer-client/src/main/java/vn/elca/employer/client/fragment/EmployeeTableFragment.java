@@ -27,7 +27,7 @@ import java.util.List;
 @Fragment(id = EmployeeTableFragment.ID,
         viewLocation = "/fxml/fragment/EmployeeTableFragment.fxml",
         scope = Scope.PROTOTYPE)
-public class EmployeeTableFragment {
+public class EmployeeTableFragment implements CustomFragment {
     public static final String ID = "EmployeeTableFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeTableFragment.class);
     private static final String NUMBER_AVS_FORMAT = "756\\.\\d{4}\\.\\d{4}\\.\\d{2}";
@@ -43,7 +43,7 @@ public class EmployeeTableFragment {
     private static final String PROPERTY_AC = "ac";
     private static final String PROPERTY_AF = "af";
     private static final double STRETCH_TABLE_COEFFICIENT = 1.0;
-    private static final int PAGINATION_ROW_PER_PAGE = 5;
+    private static final int PAGINATION_ROW_PER_PAGE = 10;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -88,10 +88,12 @@ public class EmployeeTableFragment {
         setupTableFormat();
         setupColumnFormat();
         setupPagination();
+        reset();
         LOGGER.debug("init");
     }
 
     public void reset() {
+        displayTableAndPagination(false);
         resetData();
     }
 
@@ -137,10 +139,14 @@ public class EmployeeTableFragment {
         Label placeholderLabel = new Label();
         placeholderLabel.textProperty().bind(observableResourceFactory.getStringBinding(BUNDLE_PROMPT_EMPTY_TABLE));
         employeeTable.setPlaceholder(placeholderLabel);
-        employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     private void setupColumnFormat() {
+        setupColumnValue();
+        setupColumnWidth();
+    }
+
+    private void setupColumnValue() {
         column1.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_NUMBER_AVS));
         column2.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_LAST_NAME));
         column3.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_FIRST_NAME));
@@ -151,23 +157,45 @@ public class EmployeeTableFragment {
         column8.setCellValueFactory(new PropertyValueFactory<>(PROPERTY_AF));
     }
 
+    private void setupColumnWidth() {
+        column1.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.2));
+        column2.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.15));
+        column3.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.15));
+        column4.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.1));
+        column5.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.1));
+        column6.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.12));
+        column7.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.09));
+        column8.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.09));
+        employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
+
     private void setupPagination() {
-        // TODO Improve Pagination
         pagination.setPageCount(1);
         data.addListener((ListChangeListener<? super EmployeeView>) c -> {
             if (data.isEmpty()) {
-                pagination.setPageCount(1);
+                displayTableAndPagination(false);
             } else {
                 pagination.setPageCount((int) Math.ceil(data.size() / (double) PAGINATION_ROW_PER_PAGE)); // Math.ceil
+                pagination.setCurrentPageIndex(0);
+                pagination.setPageFactory(pageIndex -> {
+                    int fromIndex = pageIndex * PAGINATION_ROW_PER_PAGE;
+                    int toIndex = Math.min(fromIndex + PAGINATION_ROW_PER_PAGE, data.size());
+                    employeeTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
+                    employeeTable.setPrefHeight((toIndex - fromIndex + STRETCH_TABLE_COEFFICIENT) * employeeTable.getFixedCellSize());
+                    return new Pane(); // refresh pagination
+                });
+                displayTableAndPagination(true);
             }
-            pagination.setCurrentPageIndex(0);
-            pagination.setPageFactory(pageIndex -> {
-                int fromIndex = pageIndex * PAGINATION_ROW_PER_PAGE;
-                int toIndex = Math.min(fromIndex + PAGINATION_ROW_PER_PAGE, data.size());
-                employeeTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
-                employeeTable.setPrefHeight((toIndex - fromIndex + STRETCH_TABLE_COEFFICIENT) * employeeTable.getFixedCellSize());
-                return new Pane(); // refresh pagination
-            });
         });
+    }
+
+    private void displayTableAndPagination(boolean visible) {
+        if (visible) {
+            employeeTable.setVisible(true);
+            pagination.setVisible(true);
+        } else {
+            employeeTable.setVisible(false);
+            pagination.setVisible(false);
+        }
     }
 }

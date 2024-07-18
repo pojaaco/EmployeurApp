@@ -1,6 +1,5 @@
 package vn.elca.employer.client.component;
 
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -19,8 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import vn.elca.employer.client.callback.ImportCallBack;
 import vn.elca.employer.client.callback.SetCallBack;
 import vn.elca.employer.client.config.EmployerJacpfxConfig;
-import vn.elca.employer.client.fragment.EmployeeImportFragment;
-import vn.elca.employer.client.fragment.EmployeeTableFragment;
+import vn.elca.employer.client.fragment.*;
 import vn.elca.employer.client.language.ObservableResourceFactory;
 import vn.elca.employer.client.model.message.MessageType;
 import vn.elca.employer.client.model.view.EmployeeView;
@@ -40,7 +38,7 @@ public class EmployeeImportComponent implements FXComponent {
     private static final String DIALOG_INVALID_DATA_HEADER = "Dialog.Warning.Employee.InvalidData.header";
 
     @Autowired
-    ObservableResourceFactory observableResourceFactory;
+    private ObservableResourceFactory observableResourceFactory;
 
     @Resource
     private Context context;
@@ -85,7 +83,6 @@ public class EmployeeImportComponent implements FXComponent {
 
     @PostConstruct
     public void onPostConstructComponent() {
-        // TODO create a interface for fragment to create fragment easier
         importFragment = context.getManagedFragmentHandler(EmployeeImportFragment.class);
         final EmployeeImportFragment controllerImport = importFragment.getController();
         controllerImport.init();

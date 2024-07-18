@@ -24,12 +24,15 @@ import java.io.File;
 @Fragment(id = EmployeeImportFragment.ID,
         viewLocation = "/fxml/fragment/EmployeeImportFragment.fxml",
         scope = Scope.PROTOTYPE)
-public class EmployeeImportFragment {
+public class EmployeeImportFragment implements CustomFragment {
     public static final String ID = "EmployeeImportFragment";
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeImportFragment.class);
     private static final String BUNDLE_IMPORTER_TITLE = "Label.Importer.title";
     private static final String BUNDLE_IMPORTER_CHOOSE_FILE = "Label.Importer.chooseFile";
     private static final String BUNDLE_IMPORTER_BUTTON = "Button.import";
+    private static final String BUNDLE_FILE_CHOOSER_TITLE = "Dialog.FileChooser.title";
+    private static final String BUNDLE_FILE_CHOOSER_CSV_EXT = "Dialog.FileChooser.csvExtension";
+    private static final String BUNDLE_FILE_CHOOSER_ALL_EXT = "Dialog.FileChooser.allExtension";
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -73,11 +76,11 @@ public class EmployeeImportFragment {
     private void handleChooserLabel(MouseEvent mouseEvent) {
         Window stage = ((Node) mouseEvent.getSource()).getScene().getWindow();
 
-        FileChooser fileChooser = new FileChooser(); //TODO how to change locale?
-        fileChooser.setTitle("Open File");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(observableResourceFactory.getResources().getString(BUNDLE_FILE_CHOOSER_TITLE));
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Excel Files", "*.csv"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
+                new FileChooser.ExtensionFilter(observableResourceFactory.getResources().getString(BUNDLE_FILE_CHOOSER_CSV_EXT), "*.csv"),
+                new FileChooser.ExtensionFilter(observableResourceFactory.getResources().getString(BUNDLE_FILE_CHOOSER_ALL_EXT), "*.*")
         );
 
         selectedFile[0] = fileChooser.showOpenDialog(stage);
