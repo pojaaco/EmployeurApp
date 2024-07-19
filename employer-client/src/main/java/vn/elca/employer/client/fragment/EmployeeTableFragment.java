@@ -44,6 +44,14 @@ public class EmployeeTableFragment implements AbstractFragment {
     private static final String PROPERTY_AF = "af";
     private static final double STRETCH_TABLE_COEFFICIENT = 1.0;
     private static final int PAGINATION_ROW_PER_PAGE = 4;
+    private static final double COLUMN_WIDTH_NUMBER_AVS = 0.2;
+    private static final double COLUMN_WIDTH_LAST_NAME = 0.15;
+    private static final double COLUMN_WIDTH_FIRST_NAME = 0.15;
+    private static final double COLUMN_WIDTH_START_DATE = 0.1;
+    private static final double COLUMN_WIDTH_END_DATE = 0.1;
+    private static final double COLUMN_WIDTH_AVS_AI_APG = 0.12;
+    private static final double COLUMN_WIDTH_AC = 0.09;
+    private static final double COLUMN_WIDTH_AF = 0.09;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -158,14 +166,14 @@ public class EmployeeTableFragment implements AbstractFragment {
     }
 
     private void setupColumnWidth() {
-        column1.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.2));
-        column2.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.15));
-        column3.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.15));
-        column4.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.1));
-        column5.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.1));
-        column6.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.12));
-        column7.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.09));
-        column8.maxWidthProperty().bind(employeeTable.widthProperty().multiply(0.09));
+        column1.maxWidthProperty().bind(employeeTable.widthProperty().multiply(COLUMN_WIDTH_NUMBER_AVS));
+        column2.maxWidthProperty().bind(employeeTable.widthProperty().multiply(COLUMN_WIDTH_LAST_NAME));
+        column3.maxWidthProperty().bind(employeeTable.widthProperty().multiply(COLUMN_WIDTH_FIRST_NAME));
+        column4.maxWidthProperty().bind(employeeTable.widthProperty().multiply(COLUMN_WIDTH_START_DATE));
+        column5.maxWidthProperty().bind(employeeTable.widthProperty().multiply(COLUMN_WIDTH_END_DATE));
+        column6.maxWidthProperty().bind(employeeTable.widthProperty().multiply(COLUMN_WIDTH_AVS_AI_APG));
+        column7.maxWidthProperty().bind(employeeTable.widthProperty().multiply(COLUMN_WIDTH_AC));
+        column8.maxWidthProperty().bind(employeeTable.widthProperty().multiply(COLUMN_WIDTH_AF));
         employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 

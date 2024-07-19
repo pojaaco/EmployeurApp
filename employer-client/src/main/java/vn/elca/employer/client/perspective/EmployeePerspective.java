@@ -27,8 +27,6 @@ import vn.elca.employer.client.config.EmployerJacpfxConfig;
 import vn.elca.employer.client.language.ObservableResourceFactory;
 import vn.elca.employer.client.model.message.MessageType;
 
-import java.util.ResourceBundle;
-
 @Perspective(id = EmployeePerspective.ID,
         name = EmployeePerspective.ID,
         components = {

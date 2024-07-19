@@ -33,6 +33,8 @@ public class EmployeeImportFragment implements AbstractFragment {
     private static final String BUNDLE_FILE_CHOOSER_TITLE = "Dialog.FileChooser.title";
     private static final String BUNDLE_FILE_CHOOSER_CSV_EXT = "Dialog.FileChooser.csvExtension";
     private static final String BUNDLE_FILE_CHOOSER_ALL_EXT = "Dialog.FileChooser.allExtension";
+    private static final String CSV_EXT = "*.csv";
+    private static final String ALL_EXT = "*.*";
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -79,8 +81,8 @@ public class EmployeeImportFragment implements AbstractFragment {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(observableResourceFactory.getResources().getString(BUNDLE_FILE_CHOOSER_TITLE));
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter(observableResourceFactory.getResources().getString(BUNDLE_FILE_CHOOSER_CSV_EXT), "*.csv"),
-                new FileChooser.ExtensionFilter(observableResourceFactory.getResources().getString(BUNDLE_FILE_CHOOSER_ALL_EXT), "*.*")
+                new FileChooser.ExtensionFilter(observableResourceFactory.getResources().getString(BUNDLE_FILE_CHOOSER_CSV_EXT), CSV_EXT),
+                new FileChooser.ExtensionFilter(observableResourceFactory.getResources().getString(BUNDLE_FILE_CHOOSER_ALL_EXT), ALL_EXT)
         );
 
         selectedFile[0] = fileChooser.showOpenDialog(stage);

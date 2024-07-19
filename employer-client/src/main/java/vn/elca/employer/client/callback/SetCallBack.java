@@ -45,12 +45,7 @@ public class SetCallBack implements CallbackComponent {
     public Object handle(Message<Event, Object> message) throws Exception {
         String sourceId = message.getSourceId();
         if (sourceId.endsWith(EmployeeInputComponent.ID)) {
-            if (message.isMessageBodyTypeOf(MessageType.class)
-                    && message.getTypedMessageBody(MessageType.class).compareTo(MessageType.RESET) == 0) {
-                resetData();
-            } else {
-                employer = message.getTypedMessageBody(EmployerView.class);
-            }
+            employer = message.getTypedMessageBody(EmployerView.class);
         } else if (sourceId.endsWith(EmployeeImportComponent.ID)) {
             employees = (List<EmployeeView>) message.getMessageBody();
         }

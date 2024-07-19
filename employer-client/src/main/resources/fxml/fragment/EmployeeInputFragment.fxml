@@ -36,7 +36,7 @@
     <Label fx:id="errNumber" GridPane.rowIndex="0" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
     <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER_LEFT">
         <Label fx:id="lblName" />
-        <Label text="*" styleClass="red-text" />
+        <Label text=" *" styleClass="red-text" />
     </HBox>
     <TextField fx:id="txfName" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
     <Label fx:id="errName" GridPane.rowIndex="1" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
@@ -47,13 +47,13 @@
     <Label fx:id="errFund" GridPane.rowIndex="2" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
     <HBox GridPane.rowIndex="3" GridPane.columnIndex="0" alignment="CENTER_LEFT">
         <Label fx:id="lblNumberIde" />
-        <Label text="*" styleClass="red-text" />
+        <Label text=" *" styleClass="red-text" />
     </HBox>
     <TextField fx:id="txfNumberIde" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
     <Label fx:id="errNumberIde" GridPane.rowIndex="3" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>
     <HBox GridPane.rowIndex="4" GridPane.columnIndex="0" alignment="CENTER_LEFT">
         <Label fx:id="lblStartDate" />
-        <Label text="*" styleClass="red-text" />
+        <Label text=" *" styleClass="red-text" />
     </HBox>
     <DatePicker fx:id="dpkStartDate" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
     <Label fx:id="errStartDate" GridPane.rowIndex="4" GridPane.columnIndex="2" visible="false" styleClass="red-text"/>

@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -60,6 +59,13 @@ public class EmployerTableFragment implements AbstractFragment {
     private static final String PROPERTY_END_DATE = "endDate";
     private static final double STRETCH_TABLE_COEFFICIENT = 1.0;
     private static final int PAGINATION_ROW_PER_PAGE = 6;
+    private static final double COLUMN_WIDTH_FUND = 0.12;
+    private static final double COLUMN_WIDTH_NUMBER = 0.1;
+    private static final double COLUMN_WIDTH_NUMBER_IDE = 0.15;
+    private static final double COLUMN_WIDTH_NAME = 0.15;
+    private static final double COLUMN_WIDTH_START_DATE = 0.11;
+    private static final double COLUMN_WIDTH_END_DATE = 0.11;
+    private static final double COLUMN_WIDTH_ACTION = 0.26;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -175,13 +181,13 @@ public class EmployerTableFragment implements AbstractFragment {
     }
 
     private void setupColumnWidth() {
-        column1.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.12));
-        column2.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.1));
-        column3.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.15));
-        column4.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.15));
-        column5.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.11));
-        column6.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.11));
-        column7.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.26));
+        column1.maxWidthProperty().bind(employerTable.widthProperty().multiply(COLUMN_WIDTH_FUND));
+        column2.maxWidthProperty().bind(employerTable.widthProperty().multiply(COLUMN_WIDTH_NUMBER));
+        column3.maxWidthProperty().bind(employerTable.widthProperty().multiply(COLUMN_WIDTH_NUMBER_IDE));
+        column4.maxWidthProperty().bind(employerTable.widthProperty().multiply(COLUMN_WIDTH_NAME));
+        column5.maxWidthProperty().bind(employerTable.widthProperty().multiply(COLUMN_WIDTH_START_DATE));
+        column6.maxWidthProperty().bind(employerTable.widthProperty().multiply(COLUMN_WIDTH_END_DATE));
+        column7.maxWidthProperty().bind(employerTable.widthProperty().multiply(COLUMN_WIDTH_ACTION));
         employerTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
