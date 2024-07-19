@@ -43,7 +43,7 @@ public class EmployeeTableFragment implements AbstractFragment {
     private static final String PROPERTY_AC = "ac";
     private static final String PROPERTY_AF = "af";
     private static final double STRETCH_TABLE_COEFFICIENT = 1.0;
-    private static final int PAGINATION_ROW_PER_PAGE = 10;
+    private static final int PAGINATION_ROW_PER_PAGE = 4;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;

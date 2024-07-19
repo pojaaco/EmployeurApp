@@ -117,11 +117,7 @@ Zemployer-client/src/main/java/vn/elca/employer/client/fragment/EmployeeImportFr
 â
 Yemployer-client/src/main/java/vn/elca/employer/client/fragment/EmployeeInputFragment.java,b\9\b9ddaf10da20f87ca61664f0c9c060a19494b85c
 â
-Yemployer-client/src/main/java/vn/elca/employer/client/fragment/EmployeeTableFragment.java,8\3\83163d9aaf0e23f0a1fd2dc57e69bb80bf410a01
-â
 Yemployer-client/src/main/java/vn/elca/employer/client/fragment/EmployerInputFragment.java,5\8\581203841eaa02716c085d58d2b9b253147cf7e5
-â
-Yemployer-client/src/main/java/vn/elca/employer/client/fragment/EmployerTableFragment.java,f\3\f3abddbb98cb697ec328601cb26353e877693d23
 ç
 ]employer-client/src/main/java/vn/elca/employer/client/language/ObservableResourceFactory.java,7\0\7002ffa90d0a6b6c1dfe48bb822f2ecee0177e3b
 }
@@ -138,3 +134,7 @@ Zemployer-client/src/main/java/vn/elca/employer/client/perspective/EmployeePersp
 Vemployer-client/src/main/java/vn/elca/employer/client/workbench/EmployerWorkbench.java,c\c\cc460d4eb4c1aecf76f9eb8ec0c561b468ac4842
 É
 Semployer-client/src/main/java/vn/elca/employer/client/component/CreationHelper.java,7\1\71f4b39658b437d12f5f2c0766f20012d9dfbb7e
+â
+Yemployer-client/src/main/java/vn/elca/employer/client/fragment/EmployeeTableFragment.java,8\3\83163d9aaf0e23f0a1fd2dc57e69bb80bf410a01
+â
+Yemployer-client/src/main/java/vn/elca/employer/client/fragment/EmployerTableFragment.java,f\3\f3abddbb98cb697ec328601cb26353e877693d23

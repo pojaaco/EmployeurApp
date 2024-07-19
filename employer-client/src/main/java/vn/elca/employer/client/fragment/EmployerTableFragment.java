@@ -7,6 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -57,7 +59,7 @@ public class EmployerTableFragment implements AbstractFragment {
     private static final String PROPERTY_START_DATE = "startDate";
     private static final String PROPERTY_END_DATE = "endDate";
     private static final double STRETCH_TABLE_COEFFICIENT = 1.0;
-    private static final int PAGINATION_ROW_PER_PAGE = 10;
+    private static final int PAGINATION_ROW_PER_PAGE = 6;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -175,19 +177,20 @@ public class EmployerTableFragment implements AbstractFragment {
     private void setupColumnWidth() {
         column1.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.12));
         column2.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.1));
-        column3.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.2));
-        column4.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.2));
-        column5.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.1));
-        column6.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.1));
-        column7.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.18));
+        column3.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.15));
+        column4.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.15));
+        column5.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.11));
+        column6.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.11));
+        column7.maxWidthProperty().bind(employerTable.widthProperty().multiply(0.26));
         employerTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     private HBox createActionButtons(EmployerView employerView) {
         HBox hbox = new HBox();
+        hbox.setAlignment(Pos.CENTER);
         HBox.setHgrow(hbox, Priority.ALWAYS);
         Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
+        spacer.prefWidthProperty().bind(hbox.widthProperty().multiply(0.1));
         hbox.getChildren().addAll(createDetailsButton(employerView), spacer, createDeleteButton(employerView));
         return hbox;
     }

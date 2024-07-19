@@ -3,7 +3,7 @@
 }
 
 .custom-font {
-    -fx-font-size: 16px;
+    -fx-font-size: 15px;
     -fx-font-family: "Roboto Light";
 }
 
@@ -122,6 +122,16 @@
 .table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell .table-cell:selected,
 .tree-table-view:focused > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell .tree-table-cell:selected {
     -fx-background-color: #76ABAE;
+}
+
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
 }
 
 /* Date Picker */
